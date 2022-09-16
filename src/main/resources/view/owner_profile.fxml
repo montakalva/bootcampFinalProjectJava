@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
+
+<Text fx:id="profileTitleText" text="Welcome to your profile!" textAlignment="CENTER" wrappingWidth="192.84765625" GridPane.columnIndex="2" GridPane.rowIndex="0">
+    <font>
+        <Font name="System Bold" size="14.0" />
+    </font></Text>
+
+<Button id="user_info" onAction="#navigateToScene" text="Edit your user info" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+<Button id="owner_view_measurements" onAction="#navigateToScene" text="Water measurements" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+<Button id="user_read_invoices" onAction="#navigateToScene" text="Invoices" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+<Button id="owner_view_messages" onAction="#navigateToScene" text="Discussions" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+<Button id="owner_view_voting" onAction="#navigateToScene" text="Voting" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+<Button id="login" onAction="#navigateToScene" text="Logout" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+<columnConstraints>
+    <ColumnConstraints />
+    <ColumnConstraints />
+    <ColumnConstraints />
+</columnConstraints>
+<rowConstraints>
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+</rowConstraints>
+
+</GridPane>

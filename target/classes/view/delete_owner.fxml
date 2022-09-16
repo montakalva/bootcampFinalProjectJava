@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.housemanagementsystem.users.UserController"
+          prefHeight="400.0" prefWidth="600.0">
+
+    <Text text="Delete apartment owner" />
+    <Label text="Enter owner's first name" GridPane.rowIndex="1" />
+    <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <Label text="Enter owner's last name" GridPane.rowIndex="2" />
+    <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <Label text="Enter owner's apartment number" GridPane.rowIndex="3" />
+    <TextField fx:id="apartmentField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+    <Label text="Enter your password to confirm the updates" GridPane.rowIndex="4"/>
+    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+    <Button onAction="#onDeleteOwnerClick" GridPane.rowIndex="5" GridPane.columnIndex="1" text="Delete the apartment owner"/>
+
+    <Button onAction="#navigateToScene" id="manager_profile" text="Back" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+
+</GridPane>

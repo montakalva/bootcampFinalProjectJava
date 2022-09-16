@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: be.atbash.ee.security:octopus-common-se:0.6">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/be/atbash/ee/security/octopus-common-se/0.6/octopus-common-se-0.6.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/be/atbash/ee/security/octopus-common-se/0.6/octopus-common-se-0.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/be/atbash/ee/security/octopus-common-se/0.6/octopus-common-se-0.6-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

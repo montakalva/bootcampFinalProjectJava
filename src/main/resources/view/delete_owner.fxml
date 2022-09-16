@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.paint.Color?>
+<GridPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
+
+    <Text text="Delete apartment owner" GridPane.columnIndex="1">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font></Text>
+    <Label text="Enter owner's first name" GridPane.rowIndex="1">
+        <font>
+            <Font size="14.0" />
+        </font></Label>
+    <TextField fx:id="firstNameField" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect></TextField>
+
+    <Label text="Enter owner's last name" GridPane.rowIndex="2">
+        <font>
+            <Font size="14.0" />
+        </font></Label>
+    <TextField fx:id="lastNameField" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect></TextField>
+
+    <Label text="Enter owner's apartment number" GridPane.rowIndex="3">
+        <font>
+            <Font size="14.0" />
+        </font></Label>
+    <TextField fx:id="apartmentField" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect></TextField>
+
+    <Label text="Enter your password to confirm the updates" GridPane.rowIndex="4">
+        <font>
+            <Font size="14.0" />
+        </font></Label>
+    <PasswordField fx:id="passwordField" style="-fx-background-color: WHITE;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect></PasswordField>
+
+    <Button onAction="#onDeleteOwnerClick" style="-fx-background-color: SPRINGGREEN;" text="Delete the apartment owner" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect></Button>
+
+    <Button id="manager_profile" onAction="#navigateToScene" style="-fx-background-color: ORANGE;" text="Back" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect></Button>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+    <effect>
+        <InnerShadow />
+    </effect>
+
+</GridPane>

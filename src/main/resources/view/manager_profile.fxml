@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+
+<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" vgap="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
+
+<Text fx:id="profileTitleText" text="Welcome to your profile!" textAlignment="CENTER" wrappingWidth="101.2744140625" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+    <font>
+        <Font name="Berlin Sans FB Bold" size="18.0" />
+    </font></Text>
+
+<Button id="register_new_owner" alignment="CENTER" contentDisplay="CENTER" onAction="#navigateToScene" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: SPRINGGREEN;" text="Register new apartment owner" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+    <font>
+        <Font size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow />
+    </effect>
+    <GridPane.margin>
+        <Insets />
+    </GridPane.margin></Button>
+<Button id="delete_owner" onAction="#navigateToScene" prefHeight="30.0" prefWidth="185.0" style="-fx-background-color: SPRINGGREEN;" text="Delete apartment owner" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+    <font>
+        <Font size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow />
+    </effect></Button>
+<Button id="user_info" onAction="#navigateToScene" prefHeight="30.0" prefWidth="139.0" style="-fx-background-color: SPRINGGREEN;" text="Edit your user info" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+    <font>
+        <Font size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow />
+    </effect></Button>
+<Button id="manager_view_messages" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Discussions" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+    <font>
+        <Font size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow />
+    </effect></Button>
+<Button id="manager_view_voting" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Voting" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+    <font>
+        <Font size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow />
+    </effect></Button>
+<Button id="manager_read_measurements" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Measurements" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+    <font>
+        <Font size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow />
+    </effect></Button>
+<Button id="manager_view_invoices" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Invoices" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+    <font>
+        <Font size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow />
+    </effect></Button>
+<Button id="login" alignment="CENTER" contentDisplay="CENTER" onAction="#navigateToScene" style="-fx-background-color: TOMATO;" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER">
+    <font>
+        <Font name="System Bold" size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow>
+            <color>
+                <Color red="0.09210526198148727" green="0.09210526198148727" blue="0.09210526198148727" />
+            </color></InnerShadow>
+    </effect></Button>
+<ImageView fx:id="image1" fitHeight="56.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+    <image>
+        <Image url="@../images/user.jpg" />
+    </image></ImageView>
+<ImageView fx:id="image2" fitHeight="58.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+    <image>
+        <Image url="@../images/clipboard.jpg" />
+    </image></ImageView>
+<Button id="owners_table" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="View users' list" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+    <font>
+        <Font size="14.0" />
+    </font>
+    <effect>
+        <InnerShadow />
+    </effect>
+</Button>
+
+<columnConstraints>
+    <ColumnConstraints maxWidth="229.0" minWidth="-Infinity" prefWidth="214.0" />
+    <ColumnConstraints maxWidth="200.0" minWidth="53.0" prefWidth="98.0" />
+    <ColumnConstraints maxWidth="253.0" minWidth="127.0" prefWidth="212.0" />
+</columnConstraints>
+<rowConstraints>
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+</rowConstraints>
+<effect>
+    <InnerShadow />
+</effect>
+
+</GridPane>

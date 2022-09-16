@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.housemanagementsystem.invoices.InvoiceController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <Label text="View Invoices" GridPane.rowIndex="1" GridPane.columnIndex="1"  />
+    <Button onAction="#onGoBackClick" GridPane.rowIndex="2" GridPane.columnIndex="1" text="Back to profile"/>
+
+    <children>
+        <TableView fx:id="userReadInvoicesTable" layoutX="35.0" layoutY="28.0" prefHeight="800.0" prefWidth="800.0">
+            <columns>
+                <TableColumn prefWidth="90.0" text="ID" fx:id="invoiceIDCol" />
+                <TableColumn prefWidth="90.0" text="Invoice No" fx:id="invoiceNoCol" />
+                <TableColumn prefWidth="90.0" text="Title" fx:id="invoiceTitleCol" />
+                <TableColumn prefWidth="90.0" text="Company" fx:id="invoiceCompanyCol" />
+                <TableColumn prefWidth="90.0" text="Issue Date" fx:id="invoiceIssueDateCol" />
+                <TableColumn prefWidth="90.0" text="Description" fx:id="invoiceDescriptionCol" />
+                <TableColumn prefWidth="90.0" text="SubTotal" fx:id="invoiceSubTotalCol" />
+                <TableColumn prefWidth="90.0" text="Taxes" fx:id="invoiceTaxCol" />
+                <TableColumn prefWidth="90.0" text="Total Amount" fx:id="invoiceTotalAmountCol" />
+                <TableColumn prefWidth="90.0" text="Status" fx:id="invoiceStatusCol" />
+                <TableColumn prefWidth="90.0" text="Paid on" fx:id="invoicePaidOnCol" />
+
+            </columns>
+        </TableView>
+    </children>
+
+</GridPane>

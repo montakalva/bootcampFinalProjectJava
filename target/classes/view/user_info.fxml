@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.housemanagementsystem.users.UserController"
+          prefHeight="400.0" prefWidth="600.0">
+
+    <Text fx:id="userInfoTitleText" text="Update your user info" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+    <Button onAction="#navigateToScene" id="change_password" text="Change your password" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Button onAction="#navigateToScene" id="change_phone" text="Update your phone number" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <Button onAction="#navigateToScene" id="change_email" text="Update your e-mail address" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+    <Button onAction="#onGoBackClick" GridPane.rowIndex="5" GridPane.columnIndex="1" text="Back"/>
+
+
+</GridPane>

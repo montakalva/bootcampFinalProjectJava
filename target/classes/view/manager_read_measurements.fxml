@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.housemanagementsystem.waterMeasurements.MeasurementController"
+            prefHeight="600.0" prefWidth="600.0">
+    <Label text="View Measurements" GridPane.rowIndex="1" GridPane.columnIndex="1"  />
+    <Button onAction="#onGoBackClick" GridPane.rowIndex="2" GridPane.columnIndex="1" text="Back to profile"/>
+
+    <children>
+        <TableView fx:id="managerReadMeasurementTable" layoutX="35.0" layoutY="28.0" prefHeight="800.0" prefWidth="800.0">
+            <columns>
+                <TableColumn prefWidth="90.0" text="ID" fx:id="measurementIDCol" />
+                <TableColumn prefWidth="90.0" text="Current measurement" fx:id="coldWaterMeasurementCurrentCol" />
+                <TableColumn prefWidth="90.0" text="Consumption" fx:id="coldWaterConsumptionCol"/>
+                <TableColumn prefWidth="90.0" text="Current measurement" fx:id="hotWaterMeasurementCurrentCol" />
+                <TableColumn prefWidth="90.0" text="Consumption" fx:id="hotWaterConsumptionCol" />
+                <TableColumn prefWidth="90.0" text="Submit At" fx:id="submitAtCol" />
+                <TableColumn prefWidth="90.0" text="User ID" fx:id="userIDCol" />
+                <TableColumn prefWidth="90.0" text="Apartment No" fx:id="apartmentNoCol" />
+            </columns>
+        </TableView>
+    </children>
+</GridPane>

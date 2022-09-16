@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.housemanagementsystem.waterMeasurements.MeasurementController"
+          prefHeight="400.0" prefWidth="600.0">
+
+    <Text text="Measurements"/>
+
+    <Label text="Enter cold water current measurement" GridPane.rowIndex="1" />
+    <TextField fx:id="coldWaterMeasurementCurrentField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <Label text="Enter cold water consumption" GridPane.rowIndex="2" />
+    <TextField fx:id="coldWaterConsumptionField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <Label text="Enter hot water current measurement" GridPane.rowIndex="3" />
+    <TextField fx:id="hotWaterMeasurementCurrentField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+    <Label text="Enter hot water consumption" GridPane.rowIndex="4" />
+    <TextField fx:id="hotWaterConsumptionField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+    <Button onAction="#onOwnerMeasurementsSubmitClick" GridPane.rowIndex="5" GridPane.columnIndex="1" text="Submit measurement"/>
+
+    <Button onAction="#navigateToScene" id="owner_profile" text="Back to Profile" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+
+</GridPane>

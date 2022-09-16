@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.housemanagementsystem.votings.VotingController"
+          prefHeight="400.0" prefWidth="600.0">
+
+    <Text text="Voting"/>
+
+    <Label text="Enter voting title" GridPane.rowIndex="1" />
+    <TextField fx:id="votingTitleField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label text="Enter voting status (Active / Passive)" GridPane.rowIndex="2" />
+    <TextField fx:id="votingStatusField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Button onAction="#onManagerVotingCreateClick" GridPane.rowIndex="3" GridPane.columnIndex="1" text="Create"/>
+
+    <Label text="Enter Title of voting to edit" GridPane.rowIndex="5" />
+    <TextField fx:id="votingTitleEditField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <Label text="Enter new voting title" GridPane.rowIndex="7" />
+    <TextField fx:id="votingNewTitleField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+    <Button onAction="#onManagerVotingEditClick" GridPane.rowIndex="9" GridPane.columnIndex="1" text="Edit"/>
+
+    <Label text="Enter ID of voting to edit" GridPane.rowIndex="10" />
+    <TextField fx:id="votingTitleIDField" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+    <Label text="Enter voting status (Active / Passive)" GridPane.rowIndex="11" />
+    <TextField fx:id="votingStatusEditField" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+
+    <Button onAction="#onManagerStatusEditClick" GridPane.rowIndex="12" GridPane.columnIndex="1" text="Edit"/>
+
+    <Label text="Enter ID of voting to delete" GridPane.rowIndex="13" />
+    <TextField fx:id="votingDeleteField" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+    <Button onAction="#onManagerVotingDelete" GridPane.rowIndex="14" GridPane.columnIndex="1" text="Delete"/>
+
+    <Button onAction="#navigateToScene" id="user_read_voting" GridPane.rowIndex="15" GridPane.columnIndex="1" text="view voting"/>
+    <Button onAction="#navigateToScene" id="manager_view_messages" GridPane.rowIndex="16" GridPane.columnIndex="1" text="Back to profile"/>
+    <Button onAction="#navigateToScene" id="manager_profile" GridPane.rowIndex="16" GridPane.columnIndex="1" text="Back to profile"/>
+
+
+</GridPane>

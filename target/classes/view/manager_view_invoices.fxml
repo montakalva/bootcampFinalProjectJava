@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Text?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.housemanagementsystem.invoices.InvoiceController"
+          prefHeight="400.0" prefWidth="600.0">
+
+    <Text text="Invoices"/>
+
+    <Label text="Enter New Invoice No" GridPane.rowIndex="1" />
+    <TextField fx:id="invoiceNoField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <Label text="Enter invoice type (Incomes / Expenses)" GridPane.rowIndex="2" />
+    <TextField fx:id="invoiceTitleField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <Label text="Enter Company Title" GridPane.rowIndex="3" />
+    <TextField fx:id="invoiceCompanyField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+    <Label text="Enter invoice issue date (DD/MM/YYYY)" GridPane.rowIndex="4" />
+    <TextField fx:id="invoiceIssueDateField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+    <Label text="Enter description" GridPane.rowIndex="5" />
+    <TextField fx:id="invoiceDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+    <Label text="Enter invoice subtotal" GridPane.rowIndex="6" />
+    <TextField fx:id="invoiceSubTotalField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+    <Label text="Enter invoice Tax amount" GridPane.rowIndex="7" />
+    <TextField fx:id="invoiceTaxField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
+    <Label text="Enter invoice Total amount" GridPane.rowIndex="8" />
+    <TextField fx:id="invoiceTotalAmountField" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
+
+    <Label text="Enter invoice status (Unpaid / Paid)" GridPane.rowIndex="9" />
+    <TextField fx:id="invoiceStatusField" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+
+    <Label text="Enter invoice payment date" GridPane.rowIndex="10" />
+    <TextField fx:id="invoicePaidOnField" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+
+    <Button onAction="#onManagerInvoiceCreateClick" GridPane.rowIndex="11" GridPane.columnIndex="1" text="Create"/>
+
+    <Label text="Enter ID of invoice to edit status" GridPane.rowIndex="12" />
+    <TextField fx:id="invoiceStatusEditIDField" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
+    <Label text="Enter invoice current status" GridPane.rowIndex="13" />
+    <TextField fx:id="invoiceStatusEditField" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+    <Button onAction="#onManagerInvoiceStatusEdit" GridPane.rowIndex="14" GridPane.columnIndex="1" text="Edit"/>
+
+    <Label text="Enter ID of invoice to delete" GridPane.rowIndex="15" />
+    <TextField fx:id="invoiceIDField" GridPane.columnIndex="1" GridPane.rowIndex="15"/>
+    <Button onAction="#onManagerInvoiceDelete" GridPane.rowIndex="16" GridPane.columnIndex="1" text="Delete"/>
+
+    <Button onAction="#navigateToScene" id="user_read_invoices" GridPane.rowIndex="17" GridPane.columnIndex="1" text="View Invoices"/>
+
+    <Button onAction="#navigateToScene" id="manager_profile" GridPane.rowIndex="18" GridPane.columnIndex="1" text="Back to profile"/>
+</GridPane>
