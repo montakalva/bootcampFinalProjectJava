@@ -9,39 +9,231 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import com.sun.javafx.scene.control.IntegerField?>
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.example.housemanagementsystem.users.UserController"
-          prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.paint.Color?>
+<GridPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
-    <Text text="Register new apartment owner" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <Text text="Register new apartment owner" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <font>
+            <Font name="Berlin Sans FB Demi Bold" size="16.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></Text>
 
-    <Label text="Enter owner's first name" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <TextField fx:id="firstNameField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Label text="Enter owner's first name" GridPane.columnIndex="0" GridPane.rowIndex="4">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
+    <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color></InnerShadow>
+        </effect>
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></TextField>
 
-    <Label text="Enter owner's last name" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-    <TextField fx:id="lastNameField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <Label text="Enter owner's last name" GridPane.columnIndex="0" GridPane.rowIndex="5">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
+    <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect>
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></TextField>
 
-    <Label text="Choose owner's password" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-    <PasswordField fx:id="passwordField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-    <Label text="Password must contain minimum 6 characters" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+    <Label text="Choose owner's password" GridPane.columnIndex="0" GridPane.rowIndex="6">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
+    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect>
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></PasswordField>
+    <Label text="Password must contain min. 6 characters" GridPane.columnIndex="2" GridPane.rowIndex="6">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
 
-    <Label text="Confirm owner's password" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-    <PasswordField fx:id="confirmPasswordField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-    <Label text="Password must contain minimum 6 characters" GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+    <Label text="Confirm owner's password" GridPane.columnIndex="0" GridPane.rowIndex="7">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
+    <PasswordField fx:id="confirmPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="7">
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect>
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></PasswordField>
+    <Label text="Password must contain min. 6 characters" GridPane.columnIndex="2" GridPane.rowIndex="7">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
 
-    <Label text="Enter number of the owner's apartment" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-    <TextField fx:id="apartmentField" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+    <Label text="Enter number of the owner's apartment" GridPane.columnIndex="0" GridPane.rowIndex="8">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
+    <TextField fx:id="apartmentField" GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect>
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></TextField>
 
-    <Label text="Enter owner's e-mail address" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-    <TextField fx:id="emailField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+    <Label text="Enter owner's e-mail address" GridPane.columnIndex="0" GridPane.rowIndex="9">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
+    <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="9">
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect>
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></TextField>
 
-    <Label text="Enter owner's phone number" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-    <TextField fx:id="phoneField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    <Label text="Enter owner's phone number" GridPane.columnIndex="0" GridPane.rowIndex="10">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets left="10.0" />
+        </GridPane.margin></Label>
+    <TextField fx:id="phoneField" GridPane.columnIndex="1" GridPane.rowIndex="10">
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect>
+        <font>
+            <Font size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></TextField>
 
-    <Button onAction="#onRegisterNewOwnerClick" GridPane.rowIndex="9" GridPane.columnIndex="1" text="Register new apartment owner"/>
+    <Button onAction="#onRegisterNewOwnerClick" style="-fx-background-color: SPRINGGREEN;" text="Register new apartment owner" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="13" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></Button>
 
-    <Button onAction="#navigateToScene" id="manager_profile" text="Back" GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+    <Button id="manager_profile" alignment="CENTER" onAction="#navigateToScene" style="-fx-background-color: ORANGE;" text="Back" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect></Button>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="30.0" minHeight="22.0" prefHeight="22.0" />
+        <RowConstraints maxHeight="22.0" minHeight="14.0" prefHeight="22.0" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+    <effect>
+        <InnerShadow />
+    </effect>
 
 
 </GridPane>

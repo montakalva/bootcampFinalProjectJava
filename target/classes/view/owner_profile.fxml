@@ -7,19 +7,35 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.example.housemanagementsystem.users.UserController"
-          prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.text.Font?>
 
-    <Text fx:id="profileTitleText" text="Welcome to your profile!" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
-    <Button onAction="#navigateToScene" id="user_info" text="Change your user info" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="owner_view_measurements" text="Water measurements" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="invoices" text="See invoice info" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="owner_view_messages" text="See chat" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="owner_view_voting" text="Take part in voting" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="login" text="Logout" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="user_read_invoices" text="Invoices" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+<Text fx:id="profileTitleText" text="Welcome to your profile!" textAlignment="CENTER" wrappingWidth="192.84765625" GridPane.columnIndex="2" GridPane.rowIndex="0">
+    <font>
+        <Font name="System Bold" size="14.0" />
+    </font></Text>
+
+<Button id="user_info" onAction="#navigateToScene" text="Edit your user info" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+<Button id="owner_view_measurements" onAction="#navigateToScene" text="Water measurements" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+<Button id="user_read_invoices" onAction="#navigateToScene" text="Invoices" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+<Button id="owner_view_messages" onAction="#navigateToScene" text="Discussions" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+<Button id="owner_view_voting" onAction="#navigateToScene" text="Voting" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+<Button id="login" onAction="#navigateToScene" text="Logout" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+<columnConstraints>
+    <ColumnConstraints />
+    <ColumnConstraints />
+    <ColumnConstraints />
+</columnConstraints>
+<rowConstraints>
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
+</rowConstraints>
 
 </GridPane>

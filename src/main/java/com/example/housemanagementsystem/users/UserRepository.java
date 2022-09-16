@@ -2,6 +2,8 @@ package com.example.housemanagementsystem.users;
 
 import com.example.housemanagementsystem.database.DBConnectionManager;
 import com.example.housemanagementsystem.exceptions.UserNotFoundException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +16,7 @@ public class UserRepository {
     public int verifyLoginData(String firstName, String lastName, String password) throws Exception {
         connection = DBConnectionManager.getConnection();
 
-        String query = "SELECT * FROM users WHERE firstName = ? && lastName = ? && password = ? LIMIT 1";
+        String query = "SELECT * FROM users WHERE firstName = ? && lastName = ? && password = ? LIMIT 1;";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, firstName);
@@ -38,7 +40,7 @@ public class UserRepository {
     public UserType checkUserType(Integer userID) throws Exception {
         connection = DBConnectionManager.getConnection();
 
-        String query = "SELECT userType FROM users WHERE userID = ?";
+        String query = "SELECT userType FROM users WHERE userID = ?;";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, userID);
@@ -61,7 +63,7 @@ public class UserRepository {
         connection = DBConnectionManager.getConnection();
 
         String query = "INSERT INTO users (apartmentNo, userType, firstName, lastName, password, email, phoneNumber)" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+                " VALUES (?, ?, ?, ?, ?, ?, ?);";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, user.getApartmentNo());
@@ -98,7 +100,7 @@ public class UserRepository {
     public String verifyPassword(Integer userID, String password) throws Exception{
         connection = DBConnectionManager.getConnection();
 
-        String query = "SELECT password FROM users WHERE userID = ?";
+        String query = "SELECT password FROM users WHERE userID = ?;";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setInt(1, userID);
@@ -113,7 +115,7 @@ public class UserRepository {
 
     }
 
-    public User getUserByID(Integer userID) throws Exception {
+    public User getUserByID(int userID) throws Exception {
         connection = DBConnectionManager.getConnection();
 
         String query = "SELECT userID, apartmentNo, userType, firstName, lastName, password, email, phoneNumber FROM users WHERE userID = ? LIMIT 1";
@@ -148,7 +150,7 @@ public class UserRepository {
     public void updatePhoneNumber(Integer userID, String phoneNumber) throws Exception {
         connection = DBConnectionManager.getConnection();
 
-        String query = "UPDATE users SET phoneNumber = ? WHERE userID = ?";
+        String query = "UPDATE users SET phoneNumber = ? WHERE userID = ?;";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, phoneNumber);
@@ -165,7 +167,7 @@ public class UserRepository {
     public void updateEmailAddress(Integer userID, String email) throws Exception {
         connection = DBConnectionManager.getConnection();
 
-        String query = "UPDATE users SET email = ? WHERE userID = ?";
+        String query = "UPDATE users SET email = ? WHERE userID = ?;";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, email);
@@ -182,7 +184,7 @@ public class UserRepository {
     public void deleteOwner(String firstName, String lastName, String apartmentNo) throws Exception {
         connection = DBConnectionManager.getConnection();
 
-        String query = "DELETE FROM users WHERE firstName = ? AND lastName = ? AND apartmentNo = ?";
+        String query = "DELETE FROM users WHERE firstName = ? AND lastName = ? AND apartmentNo = ?;";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, firstName);
@@ -193,7 +195,83 @@ public class UserRepository {
 
         if (result != 1) throw new Exception("Error! Provided information is not valid! Apartment owner has not been deleted!");
 
+    }
+
+    public ObservableList<User> getAllOwnersFromDB() throws Exception{
+        connection = DBConnectionManager.getConnection();
+
+        ObservableList<User> users = FXCollections.observableArrayList();
+
+        String query = "SELECT * FROM users;";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while(resultSet.next()){
+
+            users.add(this.createUserFromResultSet(resultSet));
+
+        }
+
+        System.out.println(users);
+
+        return users;
+
+            /*user.setUserID(resultSet.getInt("userID"));
+            user.setApartmentNo(resultSet.getString("apartmentNo"));
+            user.setUserType(UserType.valueOf(resultSet.getString("userType")));
+            user.setFirstName(resultSet.getString("firstName"));
+            user.setLastName(resultSet.getString("lastName"));
+            user.setPassword(resultSet.getString("password"));
+            user.setEmail(resultSet.getString("email"));
+            user.setPhoneNumber(resultSet.getString("phoneNumber"));
+            //owners.add(user);*/
+
+            /*User user = new User(
+                    resultSet.getInt("userID"),
+                    resultSet.getString("apartmentNo"),
+                    UserType.valueOf(resultSet.getString("userType")),
+                    resultSet.getString("firstName"),
+                    resultSet.getString("lastName"),
+                    resultSet.getString("password"),
+                    resultSet.getString("email"),
+                    resultSet.getString("phoneNumber"));
+            owners.add(user);*/
+
+            /*owners.add(new User(resultSet.getInt("userID"),
+                    resultSet.getString("apartmentNo"),
+                    UserType.valueOf(resultSet.getString("userType")),
+                    resultSet.getString("firstName"),
+                    resultSet.getString("lastName"),
+                    resultSet.getString("password"),
+                    resultSet.getString("email"),
+                    resultSet.getString("phoneNumber")));
+            System.out.println(owners);*/
+
+
+        //throw new Exception("Error occurred! Can't return the list!");
 
 
     }
+
+
+
+
+    private User createUserFromResultSet(ResultSet resultSet) throws Exception {
+
+        User user = new User(
+                resultSet.getInt("userID"),
+                resultSet.getString("apartmentNo"),
+                UserType.valueOf(resultSet.getString("userType")),
+                resultSet.getString("firstName"),
+                resultSet.getString("lastName"),
+                resultSet.getString("password"),
+                resultSet.getString("email"),
+                resultSet.getString("phoneNumber")
+        );
+        System.out.println(user);
+
+        return user;
+    }
+
 }

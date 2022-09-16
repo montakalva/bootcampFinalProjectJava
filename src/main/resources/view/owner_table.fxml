@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
+    <children>
+        <TableView prefHeight="200.0" prefWidth="624.0">
+            <columns>
+                <TableColumn prefWidth="75.0" text="Owner's ID" />
+                <TableColumn prefWidth="91.0" text="Apartment no." />
+                <TableColumn prefWidth="71.0" text="First name" />
+                <TableColumn prefWidth="70.0" text="Last name" />
+                <TableColumn prefWidth="95.0" text="E-mail address" />
+                <TableColumn prefWidth="95.0" text="Phone number" />
+            </columns>
+        </TableView>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

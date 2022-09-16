@@ -2,21 +2,30 @@ package com.example.housemanagementsystem.users;
 
 import com.example.housemanagementsystem.SceneController;
 import com.example.housemanagementsystem.database.DataRepository;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import lombok.Getter;
+import lombok.Setter;
 
-public class UserController  {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class UserController implements Initializable {
 
     public Text profileTitleText;
     public Text userInfoTitleText;
     public Text changeEmailTitleText;
     public Text changePasswordTitleText;
     public Text changePhoneNumberTitleText;
+    public ImageView image1;
+    public ImageView image2;
 
     @FXML
     private TextField firstNameField;
@@ -41,7 +50,48 @@ public class UserController  {
     @FXML
     private TextField newEmailField;
 
+    @FXML
+    private TableView<User> usersTable;
+    @FXML
+    private TableColumn<User, Integer> userIDColumn;
+    @FXML
+    private TableColumn<User, String> firstNameColumn;
+    @FXML
+    private TableColumn<User, String> lastNameColumn;
+    @FXML
+    private TableColumn<User, String> apartmentNoColumn;
+    @FXML
+    private TableColumn<User, String> emailColumn;
+    @FXML
+    private TableColumn<User, String> phoneNumberColumn;
+    @FXML
+    @Getter
+    @Setter
+    private ObservableList<User> users;
+
+    @Setter
+    @Getter
+    private IntegerProperty userID;
+    @Getter
+    @Setter
+    private StringProperty apartmentNo;
+    @Getter
+    @Setter
+    private StringProperty firstName;
+    @Getter
+    @Setter
+    private StringProperty lastName;
+    @Getter
+    @Setter
+    private StringProperty email;
+    @Getter
+    @Setter
+    private StringProperty phoneNumber;
+
     UserRepository userRepository = new UserRepository();
+
+    public UserController() {
+    }
 
     @FXML
     protected void onUserLoginClick(ActionEvent actionEvent) {
@@ -52,13 +102,13 @@ public class UserController  {
 
             int userID = this.userRepository.verifyLoginData(firstName, lastName, password);
             User user = this.userRepository.getUserByID(userID);
-            UserType userType =  this.userRepository.checkUserType(userID);
+            UserType userType = this.userRepository.checkUserType(userID);
             DataRepository.getInstance().setLoggedInUserID(userID);
             DataRepository.getInstance().setLoggedInUser(user);
 
-            if(userType == UserType.MANAGER){
+            if (userType == UserType.MANAGER) {
                 SceneController.changeScene(actionEvent, "manager_profile");
-            }else if(userType == UserType.OWNER){
+            } else if (userType == UserType.OWNER) {
                 SceneController.changeScene(actionEvent, "owner_profile");
             }
 
@@ -109,23 +159,25 @@ public class UserController  {
         if (user.getLastName().isEmpty()) throw new Exception("Please provide owner's last name!");
         if (user.getPassword().isEmpty()) throw new Exception("Please choose owner's password!");
         if (user.getEmail().isEmpty()) throw new Exception("Please provide owner's e-mail address!");
-        if(user.getApartmentNo().isEmpty()) throw new Exception("Please choose the number of the apartment!");
-        if(Integer.parseInt( user.getApartmentNo()) < 1 || Integer.parseInt( user.getApartmentNo()) > 15) throw new Exception("Please choose valid apartment number (from 1 to 15)!");
-        if(user.getPhoneNumber().isEmpty()) throw new Exception("Please provide owner's phone number!");
-        if(!user.getApartmentNo().matches("[0-9]*")) throw new Exception("Please provide valid apartment number!");
-        if(!user.getPhoneNumber().matches("[0-9]*")) throw new Exception("Please provide valid phone number!");
-        if(!user.getFirstName().matches("[a-zA-Z]*")) throw new Exception("Please provide valid first name!");
-        if(!user.getLastName().matches("[a-zA-Z]*")) throw new Exception("Please provide valid last name!");
-        if(!user.getEmail().matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) throw new Exception("Please provide valid e-mail address!");
+        if (user.getApartmentNo().isEmpty()) throw new Exception("Please choose the number of the apartment!");
+        if (Integer.parseInt(user.getApartmentNo()) < 1 || Integer.parseInt(user.getApartmentNo()) > 15)
+            throw new Exception("Please choose valid apartment number (from 1 to 15)!");
+        if (user.getPhoneNumber().isEmpty()) throw new Exception("Please provide owner's phone number!");
+        if (user.getPhoneNumber().length() < 8)
+            throw new Exception("Please provide valid phone number! Phone number must consist of at least 8 digits!");
+        if (!user.getApartmentNo().matches("[0-9]*")) throw new Exception("Please provide valid apartment number!");
+        if (!user.getPhoneNumber().matches("[0-9]*")) throw new Exception("Please provide valid phone number!");
+        if (!user.getFirstName().matches("[a-zA-Z]*")) throw new Exception("Please provide valid first name!");
+        if (!user.getLastName().matches("[a-zA-Z]*")) throw new Exception("Please provide valid last name!");
+        if (!user.getEmail().matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"))
+            throw new Exception("Please provide valid e-mail address!");
 
         //if(user.getApartmentNo().contains("\\s*")) throw new Exception("Please provide valid apartment number");
         //if(user.getPhoneNumber().contains("\\s*")) throw new Exception("Please provide valid apartment number");
 
-        //MAYBE USE TO LOWER CASE
-
     }
 
-    private void validatePasswordInfo(User user, String password, String newPassword, String confirmNewPassword) throws Exception{
+    private void validatePasswordInfo(User user, String password, String newPassword, String confirmNewPassword) throws Exception {
 
         if (password.isEmpty()) throw new Exception("Please provide your password!");
         if (!user.getPassword().equals(password)) throw new Exception("Password is incorrect!");
@@ -137,34 +189,38 @@ public class UserController  {
 
     private void validatePhoneNumberChangeInfo(User user, String newPhoneNumber, String password) throws Exception {
 
-        if(newPhoneNumber.isEmpty()) throw new Exception("Please provide updated phone number!");
-        if(!newPhoneNumber.matches("[0-9]*")) throw new Exception("Please provide valid phone number!");
-        if(password.isEmpty()) throw new Exception("Please provide your password!");
-        if(!user.getPassword().equals(password)) throw new Exception("Password is not correct!");
+        if (newPhoneNumber.isEmpty()) throw new Exception("Please provide updated phone number!");
+        if (!newPhoneNumber.matches("[0-9]*")) throw new Exception("Please provide valid phone number!");
+        if (newPhoneNumber.length() < 8)
+            throw new Exception("Please provide valid phone number! Phone number must consist of at least 8 digits!");
+        if (password.isEmpty()) throw new Exception("Please provide your password!");
+        if (!user.getPassword().equals(password)) throw new Exception("Password is not correct!");
 
     }
 
     private void validateEmailChangeInfo(User user, String newEmail, String password) throws Exception {
 
-        if(newEmail.isEmpty()) throw new Exception("Please provide updated e-mail address!");
-        if(!newEmail.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")) throw new Exception("Please provide valid e-mail address!");
-        if(password.isEmpty()) throw new Exception("Please provide your password!");
-        if(!user.getPassword().equals(password)) throw new Exception("Password is not correct!");
+        if (newEmail.isEmpty()) throw new Exception("Please provide updated e-mail address!");
+        if (!newEmail.matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"))
+            throw new Exception("Please provide valid e-mail address!");
+        if (password.isEmpty()) throw new Exception("Please provide your password!");
+        if (!user.getPassword().equals(password)) throw new Exception("Password is not correct!");
 
     }
 
-    private void validateDeletingOwnerInfo(User user, String firstName, String lastName, String apartmentNo, String password) throws Exception{
+    private void validateDeletingOwnerInfo(User user, String firstName, String lastName, String apartmentNo, String password) throws Exception {
 
-        if(firstName.isEmpty()) throw new Exception("Please provide owner's first name!");
-        if(lastName.isEmpty()) throw new Exception("Please provide owner's last name!");
-        if(apartmentNo.isEmpty()) throw new Exception("Please provide owner's apartment number!");
-        if(Integer.parseInt(apartmentNo) < 1 || Integer.parseInt(apartmentNo) > 15) throw new Exception("Please choose valid apartment number (from 1 to 15)!");
-        if(password.isEmpty()) throw new Exception("Please enter your password!");
-        if(!user.getPassword().equals(password)) throw new Exception("Password is incorrect!");
+        if (firstName.isEmpty()) throw new Exception("Please provide owner's first name!");
+        if (lastName.isEmpty()) throw new Exception("Please provide owner's last name!");
+        if (apartmentNo.isEmpty()) throw new Exception("Please provide owner's apartment number!");
+        if (Integer.parseInt(apartmentNo) < 1 || Integer.parseInt(apartmentNo) > 15)
+            throw new Exception("Please choose valid apartment number (from 1 to 15)!");
+        if (password.isEmpty()) throw new Exception("Please enter your password!");
+        if (!user.getPassword().equals(password)) throw new Exception("Password is incorrect!");
 
     }
 
-    public void onChangePasswordClick(ActionEvent actionEvent){
+    public void onChangePasswordClick(ActionEvent actionEvent) {
 
         try {
             String password = passwordField.getText();
@@ -178,17 +234,17 @@ public class UserController  {
             this.validatePasswordInfo(user, password, newPassword, confirmNewPassword);
             this.userRepository.updatePassword(userID, newPassword);
 
-            UserType userType =  this.userRepository.checkUserType(userID);
+            UserType userType = this.userRepository.checkUserType(userID);
 
             SceneController.showAlert("Password change successful", "You have changed your password successfully!", Alert.AlertType.CONFIRMATION);
 
-            if(userType == UserType.MANAGER){
+            if (userType == UserType.MANAGER) {
                 SceneController.changeScene(actionEvent, "manager_profile");
-            }else if(userType == UserType.OWNER){
+            } else if (userType == UserType.OWNER) {
                 SceneController.changeScene(actionEvent, "owner_profile");
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             SceneController.showAlert("Password change failed!", e.getMessage(), Alert.AlertType.ERROR);
         }
 
@@ -196,7 +252,7 @@ public class UserController  {
 
 
     public void onUpdatePhoneNumberClick(ActionEvent actionEvent) {
-        try{
+        try {
             String newPhoneNumber = newPhoneNumberField.getText();
             String password = passwordField.getText();
 
@@ -207,18 +263,18 @@ public class UserController  {
             this.userRepository.verifyPassword(userID, password);
             this.userRepository.updatePhoneNumber(userID, newPhoneNumber);
 
-            UserType userType =  this.userRepository.checkUserType(userID);
+            UserType userType = this.userRepository.checkUserType(userID);
 
             SceneController.showAlert("Phone number change successful", "You have updated your phone number successfully!", Alert.AlertType.CONFIRMATION);
 
-            if(userType == UserType.MANAGER){
+            if (userType == UserType.MANAGER) {
                 SceneController.changeScene(actionEvent, "manager_profile");
-            }else if(userType == UserType.OWNER){
+            } else if (userType == UserType.OWNER) {
                 SceneController.changeScene(actionEvent, "owner_profile");
             }
 
 
-        }catch (Exception e){
+        } catch (Exception e) {
             SceneController.showAlert("Phone number change failed!", e.getMessage(), Alert.AlertType.ERROR);
         }
 
@@ -226,7 +282,7 @@ public class UserController  {
     }
 
     public void onUpdateEmailClick(ActionEvent actionEvent) {
-        try{
+        try {
             String newEmail = newEmailField.getText();
             String password = passwordField.getText();
 
@@ -237,17 +293,17 @@ public class UserController  {
             this.userRepository.verifyPassword(userID, password);
             this.userRepository.updateEmailAddress(userID, newEmail);
 
-            UserType userType =  this.userRepository.checkUserType(userID);
+            UserType userType = this.userRepository.checkUserType(userID);
 
             SceneController.showAlert("E-mail address change successful", "You have updated your e-mail address successfully!", Alert.AlertType.CONFIRMATION);
 
-            if(userType == UserType.MANAGER){
+            if (userType == UserType.MANAGER) {
                 SceneController.changeScene(actionEvent, "manager_profile");
-            }else if(userType == UserType.OWNER){
+            } else if (userType == UserType.OWNER) {
                 SceneController.changeScene(actionEvent, "owner_profile");
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             SceneController.showAlert("E-mail address change failed!", e.getMessage(), Alert.AlertType.ERROR);
         }
 
@@ -255,7 +311,7 @@ public class UserController  {
     }
 
     public void onDeleteOwnerClick(ActionEvent actionEvent) {
-        try{
+        try {
             String firstName = firstNameField.getText();
             String lastName = lastNameField.getText();
             String apartmentNo = apartmentField.getText();
@@ -268,35 +324,95 @@ public class UserController  {
             this.userRepository.verifyPassword(userID, password);
             this.userRepository.deleteOwner(firstName, lastName, apartmentNo);
 
-            UserType userType =  this.userRepository.checkUserType(userID);
+            UserType userType = this.userRepository.checkUserType(userID);
 
             SceneController.showAlert("Deleting owner successful", "You have deleted apartment owner successfully!", Alert.AlertType.CONFIRMATION);
 
-            if(userType == UserType.MANAGER){
+            if (userType == UserType.MANAGER) {
                 SceneController.changeScene(actionEvent, "manager_profile");
-            }else if(userType == UserType.OWNER){
+            } else if (userType == UserType.OWNER) {
                 SceneController.changeScene(actionEvent, "owner_profile");
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             SceneController.showAlert("Deleting apartment owner failed!", e.getMessage(), Alert.AlertType.ERROR);
         }
 
     }
 
-    public void onGoBackClick(ActionEvent actionEvent) throws Exception{
+    public void onGoBackClick(ActionEvent actionEvent) throws Exception {
 
         Integer userID = DataRepository.getInstance().getLoggedInUserID();
 
         UserType userType = this.userRepository.checkUserType(userID);
 
-        if(userType == UserType.MANAGER){
+        if (userType == UserType.MANAGER) {
             SceneController.changeScene(actionEvent, "manager_profile");
-        }else if(userType == UserType.OWNER){
+        } else if (userType == UserType.OWNER) {
             SceneController.changeScene(actionEvent, "owner_profile");
         }
 
     }
+
+    /*public void displayUserList() throws Exception {
+        TableColumn<User, String> firstNameColumn = new TableColumn<>("First name");
+        firstNameColumn.setMinWidth(200);
+        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        TableColumn<User, String> lastNameColumn = new TableColumn<>("Last name");
+        lastNameColumn.setMinWidth(200);
+        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        TableColumn<User, String> apartmentNoColumn = new TableColumn<>("Apartment no.");
+        apartmentNoColumn.setMinWidth(100);
+        apartmentNoColumn.setCellValueFactory(new PropertyValueFactory<>("apartmentNo"));
+        TableColumn<User, String> emailColumn = new TableColumn<>("E-mail address");
+        emailColumn.setMinWidth(200);
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        TableColumn<User, String> phoneNumberColumn = new TableColumn<>("Phone number");
+        phoneNumberColumn.setMinWidth(200);
+        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        ownersTable = new TableView<>();
+        ownersTable.setItems(getAllOwners());
+        ownersTable.getColumns().addAll(firstNameColumn, lastNameColumn, apartmentNoColumn, emailColumn, phoneNumberColumn);
+    }*/
+
+    @Override
+    public void initialize(URL location, ResourceBundle resourceBundle) {
+        try {
+            /*userIDColumn.setCellValueFactory(data -> data.getValue().userIDProperty());
+            firstNameColumn.setCellValueFactory(data -> data.getValue().firstNameProperty());*/
+
+            /*ObservableList<User> users = this.userRepository.getAllOwnersFromDB();
+            userIDColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("userID"));
+            apartmentNoColumn.setCellValueFactory(new PropertyValueFactory<User, String>("apartmentNo"));
+            firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
+            lastNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+            emailColumn.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
+            phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<User, String>("phoneNumber"));
+            usersTable.setItems(users);*/
+
+            //usersTable.getItems().setAll(parseOwnerList());
+
+            /*ownersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+            ownersTable.getColumns().get(0).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
+            ownersTable.getColumns().get(1).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
+            ownersTable.getColumns().get(2).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
+            ownersTable.getColumns().get(3).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
+            ownersTable.getColumns().get(4).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
+            ownersTable.getColumns().get(5).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
+            ownersTable.getItems().setAll(this.owners);*/
+
+
+        }catch (Exception e){
+            SceneController.showAlert("Owners' list load failed", e.getMessage(), Alert.AlertType.ERROR);
+        }
+
+    }
+
+    /*private ObservableList<User> parseOwnerList() throws Exception {
+        ObservableList<User> users = this.userRepository.getAllOwnersFromDB();
+        return users;
+    }*/
+
 
 
 }
