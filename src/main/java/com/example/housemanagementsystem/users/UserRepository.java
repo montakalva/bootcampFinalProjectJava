@@ -215,7 +215,7 @@ public class UserRepository {
             user.setUserType(UserType.valueOf(resultSet.getString("userType")));
             user.setFirstName(resultSet.getString("firstName"));
             user.setLastName(resultSet.getString("lastName"));
-       //     user.setPassword(resultSet.getString("password"));
+            user.setPassword(resultSet.getString("password"));
             user.setEmail(resultSet.getString("email"));
             user.setPhoneNumber(resultSet.getString("phoneNumber"));
             users.add(user);
