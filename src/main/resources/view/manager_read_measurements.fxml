@@ -10,7 +10,6 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.housemanagementsystem.waterMeasurements.MeasurementController"
             prefHeight="600.0" prefWidth="600.0">
-    <Label text="View Measurements" GridPane.rowIndex="1" GridPane.columnIndex="1"  />
     <Button onAction="#onGoBackClick" GridPane.rowIndex="2" GridPane.columnIndex="1" text="Back"/>
 
     <children>
