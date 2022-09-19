@@ -2,6 +2,7 @@ package com.example.housemanagementsystem.invoices;
 
 import com.example.housemanagementsystem.SceneController;
 import com.example.housemanagementsystem.database.DataRepository;
+import com.example.housemanagementsystem.users.User;
 import com.example.housemanagementsystem.users.UserRepository;
 import com.example.housemanagementsystem.users.UserType;
 import javafx.event.ActionEvent;
@@ -42,6 +43,8 @@ public class InvoiceController implements Initializable {
     private TextField invoiceStatusEditIDField;
     @FXML
     private TextField invoiceStatusEditField;
+    @FXML
+    private TextField invoicePaidEditField;
 
 
     @FXML
@@ -73,38 +76,38 @@ public class InvoiceController implements Initializable {
     UserRepository userRepository = new UserRepository();
 
     public void onManagerInvoiceCreateClick(ActionEvent actionEvent) {
-        try{
-            String invoiceNo = invoiceNoField.getText();
-            String invoiceTitle = invoiceTitleField.getText();
-            String invoiceCompany = invoiceCompanyField.getText();
+        try {
+            String invoiceNo = invoiceNoField.getText().toUpperCase();
+            String invoiceTitle = invoiceTitleField.getText().toUpperCase();
+            String invoiceCompany = invoiceCompanyField.getText().toUpperCase();
             Date invoiceIssueDate = Date.valueOf(invoiceIssueDateField.getText());
-            System.out.println(invoiceIssueDate);
             String invoiceDescription = invoiceDescriptionField.getText();
             Double invoiceSubTotal = Double.valueOf(invoiceSubTotalField.getText());
             Double invoiceTax = Double.valueOf(invoiceTaxField.getText());
             Double invoiceTotalAmount = Double.valueOf(invoiceTotalAmountField.getText());
-            String invoiceStatus = invoiceStatusField.getText();
+            String invoiceStatus = invoiceStatusField.getText().toUpperCase();
             Date invoicePaidOn = Date.valueOf(invoicePaidOnField.getText());
-
+            validateCreateNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceStatus);
             this.invoiceRepository.createNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceIssueDate, invoiceDescription, invoiceSubTotal,
-                                                    invoiceTax, invoiceTotalAmount, invoiceStatus, invoicePaidOn);
+                    invoiceTax, invoiceTotalAmount, invoiceStatus, invoicePaidOn);
 
             SceneController.showAlert("successfully created new invoice! ",
                     "Invoice has been created successfully!",
                     Alert.AlertType.CONFIRMATION);
-            SceneController.changeScene(actionEvent, "manager_view_invoices" );
-        } catch (Exception exception){
+            SceneController.changeScene(actionEvent, "manager_view_invoices");
+        } catch (Exception exception) {
             SceneController.showAlert("Creating new invoice failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
     @FXML
-    protected void onManagerInvoiceStatusEdit(ActionEvent actionEvent){
-        try{
+    protected void onManagerInvoiceStatusEdit(ActionEvent actionEvent) {
+        try {
             Integer invoiceID = Integer.parseInt(invoiceStatusEditIDField.getText());
-            String invoiceStatus = invoiceStatusEditField.getText();
+            String invoiceStatus = invoiceStatusEditField.getText().toUpperCase();
+            Date invoicePaidOn = Date.valueOf(invoicePaidEditField.getText());
 
-            this.invoiceRepository.editInvoiceStatus(invoiceStatus, invoiceID);
+            this.invoiceRepository.editInvoiceStatus(invoiceStatus, invoicePaidOn, invoiceID);
             SceneController.showAlert("Invoice status successfully edited! ",
                     "Invoice status has been edited successfully!",
                     Alert.AlertType.CONFIRMATION);
@@ -130,7 +133,7 @@ public class InvoiceController implements Initializable {
     }
 
     @FXML
-    private void initializeCol(){
+    private void initializeCol() {
         try {
             invoiceIDCol.setCellValueFactory(new PropertyValueFactory<>("invoiceID"));
             invoiceNoCol.setCellValueFactory(new PropertyValueFactory<>("invoiceNo"));
@@ -152,23 +155,23 @@ public class InvoiceController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{
+        try {
             initializeCol();
-        } catch (Exception exception){
+        } catch (Exception exception) {
             System.out.println("Problem with invoice data upload");
             exception.printStackTrace();
         }
     }
 
     @FXML
-    public void onGoBackClick(ActionEvent actionEvent) throws Exception{
+    public void onGoBackClick(ActionEvent actionEvent) throws Exception {
 
         Integer userID = DataRepository.getInstance().getLoggedInUserID();
         UserType userType = this.userRepository.checkUserType(userID);
 
-        if(userType == UserType.MANAGER){
+        if (userType == UserType.MANAGER) {
             SceneController.changeScene(actionEvent, "manager_view_invoices");
-        }else if(userType == UserType.OWNER){
+        } else if (userType == UserType.OWNER) {
             SceneController.changeScene(actionEvent, "owner_profile");
         }
     }
@@ -178,4 +181,24 @@ public class InvoiceController implements Initializable {
         SceneController.changeScene(actionEvent, source.getId());
     }
 
+    private void validateCreateNewInvoice(String invoiceNo, String invoiceTitle, String invoiceCompany,String invoiceStatus) throws Exception {
+
+        if (invoiceNo.isEmpty()) throw new Exception("Please provide invoice No!");
+        if (invoiceTitle.isEmpty()) throw new Exception("Please provide invoice Title!");
+        if (invoiceCompany.isEmpty()) throw new Exception("Please provide company!");
+        if (invoiceStatus.isEmpty()) throw new Exception("Please provide invoice status");
+    }
 }
+/*
+*     private Integer invoiceID;
+    private String invoiceNo;
+    private String invoiceTitle;
+    private String invoiceCompany;
+    private Date invoiceIssueDate;
+    private String invoiceDescription;
+    private double invoiceSubTotal;
+    private double invoiceTax;
+    private double invoiceTotalAmount;
+    private String invoiceStatus;
+    private Date invoicePaidOn;
+}*/

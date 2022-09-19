@@ -29,10 +29,6 @@ public class VotingController implements Initializable {
     private TextField votingTitleIDField;
     @FXML
     private TextField votingStatusEditField;
-    @FXML
-    private TextField votingAnswerField;
-    @FXML
-    private TextField votingAnswerTitleIDField;
 
     @FXML
     private TableColumn<Voting, Integer> votingIDCol;
@@ -59,8 +55,8 @@ public class VotingController implements Initializable {
     @FXML
     protected void onManagerVotingCreateClick(ActionEvent actionEvent) {
         try {
-            String votingTitle = votingTitleField.getText();
-            String votingStatus = votingStatusField.getText();
+            String votingTitle = votingTitleField.getText().toUpperCase();
+            String votingStatus = votingStatusField.getText().toUpperCase();
 
             this.votingRepository.createNewVoting(votingTitle, votingStatus);
             SceneController.showAlert("successfully created new voting topic! ",
@@ -75,8 +71,8 @@ public class VotingController implements Initializable {
     @FXML
     protected void onManagerVotingEditClick(ActionEvent actionEvent) {
         try {
-            String votingTitle = votingTitleEditField.getText();
-            String votingNewTitle = votingNewTitleField.getText();
+            String votingTitle = votingTitleEditField.getText().toUpperCase();
+            String votingNewTitle = votingNewTitleField.getText().toUpperCase();
 
             this.votingRepository.editVotingTitle(votingTitle, votingNewTitle);
             SceneController.showAlert("Voting topic successfully edited! ",
@@ -93,7 +89,7 @@ public class VotingController implements Initializable {
     protected void onManagerStatusEditClick(ActionEvent actionEvent){
         try{
             Integer votingID = Integer.parseInt(votingTitleIDField.getText());
-            String votingStatus = votingStatusEditField.getText();
+            String votingStatus = votingStatusEditField.getText().toUpperCase();
 
             this.votingRepository.editVotingStatus(votingStatus, votingID);
             SceneController.showAlert("Voting status successfully edited! ",
@@ -117,31 +113,6 @@ public class VotingController implements Initializable {
             SceneController.changeScene(actionEvent, "manager_view_voting");
         } catch (Exception exception) {
             SceneController.showAlert("Delete voting topic failed", exception.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
-
-    @FXML
-    protected void onOwnerAnswerClick(ActionEvent actionEvent) {
-        try{
-
-            Integer answerOnTopicID =  Integer.parseInt(votingAnswerTitleIDField.getText());
-            String votingAnswer = votingAnswerField.getText();
-            Integer apartmentNo =  Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
-            Integer userID = Integer.valueOf(DataRepository.getInstance().getLoggedInUserID());
-            System.out.println(this.votingRepository.doesOwnerVotedOnVotingTitle(userID, apartmentNo, answerOnTopicID));
-            if (this.votingRepository.doesOwnerVotedOnVotingTitle(userID, apartmentNo, answerOnTopicID) == false){
-                this.votingRepository.createVotingAnswer(answerOnTopicID, votingAnswer, apartmentNo, userID);
-                SceneController.showAlert("successfully submitted voting answer! ",
-                        "Voting has been submitted successfully!",
-                        Alert.AlertType.CONFIRMATION);
-                SceneController.changeScene(actionEvent, "owner_view_voting");
-            } else {
-                SceneController.showAlert("Submit voting failed", "You already voted on this topic", Alert.AlertType.ERROR);
-                SceneController.changeScene(actionEvent, "owner_view_voting");
-            }
-        } catch (Exception exception) {
-            SceneController.showAlert("Submit voting failed", exception.getMessage() /*"Your voting submitting failed, try again "*/, Alert.AlertType.ERROR);
         }
     }
 

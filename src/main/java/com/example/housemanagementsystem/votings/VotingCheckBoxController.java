@@ -1,37 +1,85 @@
 package com.example.housemanagementsystem.votings;
 
 
+import com.example.housemanagementsystem.SceneController;
+import com.example.housemanagementsystem.database.DataRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class VotingCheckBoxController implements Initializable {
-    @FXML
-    private ChoiceBox<String> choiceBoxVoting;
+
     @FXML
     private ChoiceBox votingTitleBox;
     @FXML
     private ChoiceBox votingAnswerBox;
 
-    ObservableList<String> list = FXCollections.observableArrayList();
+    VotingRepository votingRepository = new VotingRepository();
+
+    ObservableList<String> answerList;
+    ObservableList<String> titleList;
+
+private ObservableList<String> setChoiceBoxVotingAnswers(){
+        votingAnswerBox.getItems().addAll(
+                answerList =  FXCollections.observableArrayList(
+                        "YES",
+                        "NO"
+                ));
+    return answerList;
+}
+
+private ObservableList<String> setChoiceBoxVotingTitle(){
+    try{
+        votingTitleBox.getItems().addAll(
+        this.votingRepository.InsertVotingTopics());
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return titleList;
+}
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        list.addAll("votingTitleBox", "votingAnswerBox");
-        //populate the Choicebox;
-        choiceBoxVoting.setValue("One");
-        choiceBoxVoting.setValue("Two");
-        choiceBoxVoting.setValue("Three");
-        choiceBoxVoting.setItems(list);
+        setChoiceBoxVotingTitle();
+        setChoiceBoxVotingAnswers();
     }
 
+    public String insertVotingTitle() {
+       String votingTitle = String.valueOf(votingTitleBox.getSelectionModel().getSelectedItem());
+        System.out.println(votingTitle);
+       return votingTitle;
+    }
 
+    public String insetUserAnswer(){
+        String votingAnswer = String.valueOf(votingAnswerBox.getSelectionModel().getSelectedItem());
+        System.out.println(votingAnswer);
+        return votingAnswer;
+    }
+
+    public void onOwnerAnswerClick(ActionEvent actionEvent){
+    try{
+        String votingTitle = insertVotingTitle();
+        String votingAnswer = insetUserAnswer();
+        Integer apartmentNo =  Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
+        Integer userID = Integer.valueOf(DataRepository.getInstance().getLoggedInUserID());
+        this.votingRepository.createNewVotingFromCheckBox(votingTitle, votingAnswer, apartmentNo, userID);
+        SceneController.showAlert("successfully submitted voting answer! ",
+                "Voting has been submitted successfully!",
+                Alert.AlertType.CONFIRMATION);
+        SceneController.changeScene(actionEvent, "owner_view_voting");
+    } catch (Exception exception){
+        SceneController.showAlert("Delete voting topic failed", exception.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
 
 }
+

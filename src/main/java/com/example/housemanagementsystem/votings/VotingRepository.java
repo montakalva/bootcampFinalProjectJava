@@ -13,7 +13,6 @@ public class VotingRepository {
 
     private Connection connection = DBConnectionManager.getConnection();
     private ObservableList<Voting> observableList;
-    private ObservableList<String> checkBoxList;
 
     public void createNewVoting(String votingTitle, String votingStatus) throws SQLException {
 
@@ -92,59 +91,67 @@ public class VotingRepository {
         preparedStatement.executeUpdate();
     }
 
-    public void createVotingAnswer(Integer answerOnTopicID, String votingAnswer, Integer apartmentNo, Integer userID) throws SQLException {
+        public String doesOwnerVotedOnVotingTitle(Integer userID, Integer apartmentNo, Integer answerOnTopicID) throws SQLException {
 
             connection = DBConnectionManager.getConnection();
 
-            String query = "INSERT INTO voting (answerOnTopicID, votingAnswer, apartmentNo, userID) VALUES (?, ?, ?, ?)";
+            String query = "SELECT votingAnswer FROM voting WHERE answerOnTopicID = ? AND userID = ? AND apartmentNo = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-
             preparedStatement.setInt(1, answerOnTopicID);
-            preparedStatement.setString(2, votingAnswer);
-            preparedStatement.setInt(3, apartmentNo);
-            preparedStatement.setInt(4, userID);
+            preparedStatement.setInt(2, apartmentNo);
+            preparedStatement.setInt(3, userID);
 
-        preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String answer = null;
+            if (resultSet.next()) {
+                return answer = resultSet.getString("votingAnswer");
+            }
+            return answer;
         }
+    /*
+        String sql = "SELECT * FROM new_table WHERE usnm = ? AND pass = ?";
+PreparedStatement st = conn.prepareStatement(sql);
+st.setString(1, username);
+st.setString(2, password);
+ResultSet rs = st.executeQuery();
+if (rs.next()) {
+    String username = re.getString("usnm");
+}
+    }*/
 
-        public Boolean doesOwnerVotedOnVotingTitle(Integer userID, Integer apartmentNo, Integer answerOnTopicID) throws SQLException {
-
+    public void createNewVotingFromCheckBox(String votingTitle, String votingAnswer, Integer apartmentNo, Integer userID) throws SQLException {
         connection = DBConnectionManager.getConnection();
 
-        String query = "SELECT votingAnswer FROM voting WHERE answerOnTopicID = ? AND userID = ? AND apartmentNo = ?";
+        String query = "INSERT INTO voting (votingTitle, votingAnswer, apartmentNo, userID) VALUES (?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setInt(1, answerOnTopicID);
-        preparedStatement.setInt(2, apartmentNo);
-        preparedStatement.setInt(3, userID);
 
-        ResultSet resultSet = preparedStatement.executeQuery();
+        preparedStatement.setString(1, votingTitle);
+        preparedStatement.setString(2, votingAnswer);
+        preparedStatement.setInt(3, apartmentNo);
+        preparedStatement.setInt(4, userID);
 
-            String votingAnswer = null;
-           if(resultSet.next()) votingAnswer = resultSet.getString("votingAnswer");
-            System.out.println("After if: " + votingAnswer);
-            if (votingAnswer != null) {
-                return false;
-            } else {
-                return true;
-            }
+        preparedStatement.executeUpdate();
+
     }
 
-    public ObservableList<String> addVotingTitleToList() throws SQLException {
-        connection = DBConnectionManager.getConnection();
-        String votingTitle;
+    public ObservableList<String> InsertVotingTopics() throws SQLException {
+        ObservableList<String> titleList = FXCollections.observableArrayList();
+                connection = DBConnectionManager.getConnection();
 
-        checkBoxList = FXCollections.observableArrayList();
-        String query ="SELECT votingTitle FROM voting WHERE votingStatus = Active";
+        String query = "SELECT votingTitle FROM voting WHERE votingStatus = 'ACTIVE'" ;
+
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-            votingTitle = resultSet.getString("votingTitle");
-            checkBoxList.add(votingTitle);
+            String votingTitle = resultSet.getString("votingTitle");
+            titleList.add(votingTitle);
         }
-        return checkBoxList;
+        return titleList;
     }
+
+
 }

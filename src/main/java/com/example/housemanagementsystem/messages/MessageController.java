@@ -55,8 +55,8 @@ public class MessageController implements Initializable
     @FXML
     public void onManagerDiscussionCreateClick(ActionEvent actionEvent) {
         try {
-            String messageTitle = messageTitleField.getText();
-            String messageStatus = messageStatusField.getText();
+            String messageTitle = messageTitleField.getText().toUpperCase();
+            String messageStatus = messageStatusField.getText().toUpperCase();
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
 
             this.messageRepository.createNewMessage(messageTitle, messageStatus, userID);
@@ -109,7 +109,7 @@ public class MessageController implements Initializable
     public void onManagerDiscussionStatusEditClick(ActionEvent actionEvent){
         try{
             Integer messageID = Integer.valueOf(messageIDEditField.getText());
-            String messageStatus = messagesStatusEditField.getText();
+            String messageStatus = messagesStatusEditField.getText().toUpperCase();
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
 
             this.messageRepository.editMessageStatus(messageID, messageStatus, userID);

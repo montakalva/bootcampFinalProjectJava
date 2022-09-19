@@ -48,14 +48,15 @@ public class InvoiceRepository {
         }
     }
 
-    public void editInvoiceStatus(String invoiceStatus, Integer invoiceID) throws SQLException {
+    public void editInvoiceStatus(String invoiceStatus, Date invoicePaidOn, Integer invoiceID) throws SQLException {
         connection = DBConnectionManager.getConnection();
 
-        String query = "UPDATE invoices SET invoiceStatus = ? WHERE invoiceID = ? ";
+        String query = "UPDATE invoices SET invoiceStatus = ?, invoicePaidOn = ? WHERE invoiceID = ? ";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         preparedStatement.setString(1, invoiceStatus);
-        preparedStatement.setInt(2, invoiceID);
+        preparedStatement.setDate(2, invoicePaidOn);
+        preparedStatement.setInt(3, invoiceID);
 
         preparedStatement.executeUpdate();
     }
