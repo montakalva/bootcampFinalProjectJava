@@ -1,18 +1,21 @@
+DROP  DATABASE IF EXISTS JAVA_house_management_system;
+
 CREATE DATABASE IF NOT EXISTS JAVA_house_management_system;
 
 USE JAVA_house_management_system;
 
 CREATE TABLE IF NOT EXISTS apartments(
 apartmentID int not null auto_increment,
+apartmentNo int not null,
 sqm double not null,
-floorNO int not null,
+floorNo int not null,
 roomCount int not null,
 PRIMARY KEY(apartmentID)
 );
 
 CREATE TABLE IF NOT EXISTS users(
 userID int not null auto_increment,
-apartmentID int,
+apartmentNo int,
 userType varchar(10) not null,
 firstName varchar(50) not null,
 lastName varchar(50) not null,
@@ -20,7 +23,7 @@ password varchar(50) not null,
 email varchar(50) not null,
 phoneNumber int not null,
 PRIMARY KEY(userID),
-FOREIGN KEY(apartmentID) REFERENCES apartments(apartmentID)
+FOREIGN KEY(apartmentNo) REFERENCES apartments(apartmentID)
 );
 
 CREATE TABLE IF NOT EXISTS waterMeasurements(
@@ -39,8 +42,9 @@ FOREIGN KEY(apartmentNo) REFERENCES apartments(apartmentID)
 
 CREATE TABLE IF NOT EXISTS voting(
 votingID int not null AUTO_INCREMENT,
-votingTitle VARCHAR (255) not null,
+votingTitle VARCHAR (255),
 votingAnswer VARCHAR (100),
+answerOnTopicID int,
 votingStatus VARCHAR (100),
 votingAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 userID int,
@@ -69,17 +73,15 @@ invoiceID int not null AUTO_INCREMENT,
 invoiceNo VARCHAR (100),
 invoiceTitle VARCHAR (255),
 invoiceCompany VARCHAR (255),
-invoiceIssueDate VARCHAR (100),
+invoiceIssueDate DATE,
 invoiceDescription VARCHAR (500),
 invoiceSubTotal DOUBLE,
 invoiceTax DOUBLE,
 invoiceTotalAmount DOUBLE,
 invoiceStatus VARCHAR (100),
-invoicePaidOn VARCHAR (100),
+invoicePaidOn DATE,
 PRIMARY KEY(invoiceID)
 );
-
-INSERT INTO users (userType, firstName, lastName, password, email, phoneNumber) VALUES ("MANAGER","John", "Smith", "john", "john@gmail.com", 555);
 
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (1, 29.00, 1, 2);
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (1, 29.00, 1, 2);
@@ -97,12 +99,7 @@ INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (12, 29.00,
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (13, 29.00, 5, 2);
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (14, 29.00, 5, 2);
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (15, 29.00, 5, 2);
+INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (16, 00.00, 1, 2);
 
-INSERT INTO users (apartmentNo, userType, firstName, lastName, password, email, phoneNumber) VALUES (1, "OWNER","Peter", "White", "peter", "peter@gmail.com", 444);
 
-SELECT * FROM users;
-SELECT * FROM apartments;
-SELECT * FROM waterMeasurements;
-SELECT * FROM voting;
-SELECT * FROM messages;
-SELECT * FROM invoices;
+INSERT INTO users (apartmentNo, userType, firstName, lastName, password, email, phoneNumber) VALUES (16,"MANAGER","John", "Smith", "john", "john@gmail.com", 555);

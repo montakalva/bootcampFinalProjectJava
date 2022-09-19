@@ -18,7 +18,7 @@
     <TextField fx:id="messageIDCommentField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
     <Label text="Enter your comment" GridPane.rowIndex="7" />
     <TextField fx:id="messageCommentField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-    <Button onAction="#onUserDiscussionCommentClick" GridPane.rowIndex="9" GridPane.columnIndex="1" text="Submit"/>
+    <Button onAction="#onOwnerDiscussionCommentClick" GridPane.rowIndex="9" GridPane.columnIndex="1" text="Submit"/>
 
     <Button onAction="#navigateToScene" id="user_read_messages" GridPane.rowIndex="15" GridPane.columnIndex="1" text="View Discussions"/>
     <Button onAction="#navigateToScene" id="owner_profile" GridPane.rowIndex="16" GridPane.columnIndex="1" text="Back to profile"/>

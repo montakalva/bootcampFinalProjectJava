@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ResourceBundle;
 
 public class VotingController implements Initializable {
@@ -30,6 +31,8 @@ public class VotingController implements Initializable {
     private TextField votingStatusEditField;
     @FXML
     private TextField votingAnswerField;
+    @FXML
+    private TextField votingAnswerTitleIDField;
 
     @FXML
     private TableColumn<Voting, Integer> votingIDCol;
@@ -38,11 +41,13 @@ public class VotingController implements Initializable {
     @FXML
     private TableColumn<Voting, String> votingAnswerCol;
     @FXML
-    private TableColumn<Voting, String> votingSubmitATCol;
+    private TableColumn<Voting, Timestamp> votingSubmitATCol;
     @FXML
     private TableColumn<Voting, String> votingStatusCol;
     @FXML
     private TableColumn<Voting, Integer> votingUserIDCol;
+    @FXML
+    private TableColumn<Voting, Integer> votingAnswerTitleIDFieldCol;
     @FXML
     private TableColumn<Voting, Integer> votingApartmentIDCol;
     @FXML
@@ -63,7 +68,7 @@ public class VotingController implements Initializable {
                     Alert.AlertType.CONFIRMATION);
             SceneController.changeScene(actionEvent, "manager_view_voting");
         } catch (Exception exception) {
-            SceneController.showAlert("Creating new voting topic creation failed", exception.getMessage(), null);
+            SceneController.showAlert("Creating new voting topic creation failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -80,7 +85,7 @@ public class VotingController implements Initializable {
             SceneController.changeScene(actionEvent, "manager_view_voting");
 
         } catch (Exception exception) {
-            SceneController.showAlert("Editing voting topic failed", exception.getMessage(), null);
+            SceneController.showAlert("Editing voting topic failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -97,7 +102,7 @@ public class VotingController implements Initializable {
             SceneController.changeScene(actionEvent, "manager_view_voting");
 
         } catch (Exception exception) {
-            SceneController.showAlert("Editing voting status failed", exception.getMessage(), null);
+            SceneController.showAlert("Editing voting status failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -111,14 +116,50 @@ public class VotingController implements Initializable {
                     Alert.AlertType.CONFIRMATION);
             SceneController.changeScene(actionEvent, "manager_view_voting");
         } catch (Exception exception) {
-            SceneController.showAlert("Delete voting topic failed", exception.getMessage(), null);
+            SceneController.showAlert("Delete voting topic failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
 
-    public void navigateToScene(ActionEvent actionEvent) {
-        Button source = (Button) actionEvent.getSource();
-        SceneController.changeScene(actionEvent, source.getId());
+    @FXML
+    protected void onOwnerAnswerClick(ActionEvent actionEvent) {
+        try{
+
+            Integer answerOnTopicID =  Integer.parseInt(votingAnswerTitleIDField.getText());
+            String votingAnswer = votingAnswerField.getText();
+            Integer apartmentNo =  Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
+            Integer userID = Integer.valueOf(DataRepository.getInstance().getLoggedInUserID());
+            System.out.println(this.votingRepository.doesOwnerVotedOnVotingTitle(userID, apartmentNo, answerOnTopicID));
+            if (this.votingRepository.doesOwnerVotedOnVotingTitle(userID, apartmentNo, answerOnTopicID) == false){
+                this.votingRepository.createVotingAnswer(answerOnTopicID, votingAnswer, apartmentNo, userID);
+                SceneController.showAlert("successfully submitted voting answer! ",
+                        "Voting has been submitted successfully!",
+                        Alert.AlertType.CONFIRMATION);
+                SceneController.changeScene(actionEvent, "owner_view_voting");
+            } else {
+                SceneController.showAlert("Submit voting failed", "You already voted on this topic", Alert.AlertType.ERROR);
+                SceneController.changeScene(actionEvent, "owner_view_voting");
+            }
+        } catch (Exception exception) {
+            SceneController.showAlert("Submit voting failed", exception.getMessage() /*"Your voting submitting failed, try again "*/, Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void initializeCol(){
+        try {
+        votingIDCol.setCellValueFactory(new PropertyValueFactory<>("votingID"));
+        votingStatusCol.setCellValueFactory(new PropertyValueFactory<>("votingStatus"));
+        votingTitleCol.setCellValueFactory(new PropertyValueFactory<>("votingTitle"));
+        votingAnswerTitleIDFieldCol.setCellValueFactory(new PropertyValueFactory<>("answerOnTopicID"));
+        votingAnswerCol.setCellValueFactory(new PropertyValueFactory<>("votingAnswer"));
+        votingSubmitATCol.setCellValueFactory(new PropertyValueFactory<>("votingAt"));
+        votingUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        votingApartmentIDCol.setCellValueFactory(new PropertyValueFactory<>("apartmentNo"));
+        userReadVotingTable.setItems(this.votingRepository.addVotingToList());
+        } catch (Exception e) {
+            System.out.println("Problem at initialize columns");
+        }
     }
 
     @Override
@@ -132,53 +173,22 @@ public class VotingController implements Initializable {
     }
 
     @FXML
-    private void initializeCol(){
-        try {
-        votingIDCol.setCellValueFactory(new PropertyValueFactory<>("votingID"));
-        votingStatusCol.setCellValueFactory(new PropertyValueFactory<>("votingStatus"));
-        votingTitleCol.setCellValueFactory(new PropertyValueFactory<>("votingTitle"));
-        votingAnswerCol.setCellValueFactory(new PropertyValueFactory<>("votingAnswer"));
-        votingSubmitATCol.setCellValueFactory(new PropertyValueFactory<>("votingAt"));
-        votingUserIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
-        votingApartmentIDCol.setCellValueFactory(new PropertyValueFactory<>("apartmentNo"));
-        userReadVotingTable.setItems(this.votingRepository.addVotingToList());
-        } catch (Exception e) {
-            System.out.println("Problem at initialize columns");
-        }
-    }
-
-
-    public void onOwnerAnswerClick(ActionEvent actionEvent) {
-        try{
-
-            String votingTitle = votingTitleField.getText();
-            String votingAnswer = votingAnswerField.getText();
-            Integer apartmentNo =  Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
-            Integer userID = Integer.valueOf(DataRepository.getInstance().getLoggedInUserID());
-
-            this.votingRepository.createVotingAnswer(votingTitle, votingAnswer, apartmentNo, userID);
-
-            SceneController.showAlert("successfully submitted voting answer! ",
-                "Voting has been submitted successfully!",
-                Alert.AlertType.CONFIRMATION);
-        SceneController.changeScene(actionEvent, "owner_view_voting");
-    } catch (Exception exception) {
-        SceneController.showAlert("Submit voting failed", exception.getMessage(), null);
-             }
-    }
-
-    public void onGoBackClick(ActionEvent actionEvent) throws Exception{
+    protected void onGoBackClick(ActionEvent actionEvent) throws Exception{
 
         Integer userID = DataRepository.getInstance().getLoggedInUserID();
 
         UserType userType = this.userRepository.checkUserType(userID);
 
         if(userType == UserType.MANAGER){
-            SceneController.changeScene(actionEvent, "manager_profile");
+            SceneController.changeScene(actionEvent, "manager_view_voting");
         }else if(userType == UserType.OWNER){
-            SceneController.changeScene(actionEvent, "owner_profile");
+            SceneController.changeScene(actionEvent, "owner_view_voting");
         }
+    }
 
+    public void navigateToScene(ActionEvent actionEvent) {
+        Button source = (Button) actionEvent.getSource();
+        SceneController.changeScene(actionEvent, source.getId());
     }
 
 }

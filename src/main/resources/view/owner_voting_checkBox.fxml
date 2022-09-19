@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.housemanagementsystem.votings.VotingCheckBoxController"
+          prefHeight="400.0" prefWidth="600.0">
+
+    <padding>
+        <Insets top="10" bottom="10" left="10" right="10" />
+    </padding>
+
+    <children>
+
+        <ChoiceBox fx:id="votingTitleBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="1"/>
+        <Label layoutX="44.0" layoutY="54.0" text="Choose voting title" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <ChoiceBox fx:id="votingAnswerBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="4" />
+        <Label layoutX="44.0" layoutY="54.0" text="Choose voting answer" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+        <Button layoutX="126.1875" layoutY="171.5" mnemonicParsing="false" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+    </children>
+
+</GridPane>

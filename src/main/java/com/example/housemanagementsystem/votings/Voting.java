@@ -14,6 +14,7 @@ public class Voting {
     private Integer votingID;
     private String votingStatus;
     private String votingTitle;
+    private Integer answerOnTopicID;
     private String votingAnswer;
     private Timestamp votingAt;
     private Integer userID;

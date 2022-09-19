@@ -16,7 +16,10 @@
     <Text text="Welcome to House Management Application!" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="164.2744140625" GridPane.columnIndex="1">
         <font>
             <Font name="Berlin Sans FB Demi Bold" size="18.0" />
-        </font></Text>
+        </font>
+        <GridPane.margin>
+            <Insets bottom="20.0" />
+        </GridPane.margin></Text>
     <Label prefHeight="17.0" prefWidth="147.0" text="Enter your first name" GridPane.rowIndex="1">
         <GridPane.margin>
             <Insets left="70.0" />

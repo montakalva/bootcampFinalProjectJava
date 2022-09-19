@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import lombok.Getter;
@@ -64,29 +65,6 @@ public class UserController implements Initializable {
     private TableColumn<User, String> emailColumn;
     @FXML
     private TableColumn<User, String> phoneNumberColumn;
-    @FXML
-    @Getter
-    @Setter
-    private ObservableList<User> users;
-
-    @Setter
-    @Getter
-    private IntegerProperty userID;
-    @Getter
-    @Setter
-    private StringProperty apartmentNo;
-    @Getter
-    @Setter
-    private StringProperty firstName;
-    @Getter
-    @Setter
-    private StringProperty lastName;
-    @Getter
-    @Setter
-    private StringProperty email;
-    @Getter
-    @Setter
-    private StringProperty phoneNumber;
 
     UserRepository userRepository = new UserRepository();
 
@@ -354,64 +332,34 @@ public class UserController implements Initializable {
 
     }
 
-    /*public void displayUserList() throws Exception {
-        TableColumn<User, String> firstNameColumn = new TableColumn<>("First name");
-        firstNameColumn.setMinWidth(200);
-        firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        TableColumn<User, String> lastNameColumn = new TableColumn<>("Last name");
-        lastNameColumn.setMinWidth(200);
-        lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        TableColumn<User, String> apartmentNoColumn = new TableColumn<>("Apartment no.");
-        apartmentNoColumn.setMinWidth(100);
-        apartmentNoColumn.setCellValueFactory(new PropertyValueFactory<>("apartmentNo"));
-        TableColumn<User, String> emailColumn = new TableColumn<>("E-mail address");
-        emailColumn.setMinWidth(200);
-        emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        TableColumn<User, String> phoneNumberColumn = new TableColumn<>("Phone number");
-        phoneNumberColumn.setMinWidth(200);
-        phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-        ownersTable = new TableView<>();
-        ownersTable.setItems(getAllOwners());
-        ownersTable.getColumns().addAll(firstNameColumn, lastNameColumn, apartmentNoColumn, emailColumn, phoneNumberColumn);
-    }*/
-
     @Override
-    public void initialize(URL location, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try{
+            initializeUserTable();
+        } catch (Exception exception){
+            System.out.println("Problem with initialize method");
+            exception.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void initializeUserTable() {
         try {
-            /*userIDColumn.setCellValueFactory(data -> data.getValue().userIDProperty());
-            firstNameColumn.setCellValueFactory(data -> data.getValue().firstNameProperty());*/
+            userIDColumn.setCellValueFactory(new PropertyValueFactory<>("userID"));
+            apartmentNoColumn.setCellValueFactory(new PropertyValueFactory<>("apartmentNo"));
+            firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+            emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+            phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
-            /*ObservableList<User> users = this.userRepository.getAllOwnersFromDB();
-            userIDColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("userID"));
-            apartmentNoColumn.setCellValueFactory(new PropertyValueFactory<User, String>("apartmentNo"));
-            firstNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
-            lastNameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
-            emailColumn.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
-            phoneNumberColumn.setCellValueFactory(new PropertyValueFactory<User, String>("phoneNumber"));
-            usersTable.setItems(users);*/
-
-            //usersTable.getItems().setAll(parseOwnerList());
-
-            /*ownersTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            ownersTable.getColumns().get(0).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
-            ownersTable.getColumns().get(1).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
-            ownersTable.getColumns().get(2).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
-            ownersTable.getColumns().get(3).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
-            ownersTable.getColumns().get(4).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
-            ownersTable.getColumns().get(5).prefWidthProperty().bind(ownersTable.widthProperty().multiply(0.33));
-            ownersTable.getItems().setAll(this.owners);*/
-
+            usersTable.setItems(this.userRepository.getAllOwnersFromDB());
 
         }catch (Exception e){
-            SceneController.showAlert("Owners' list load failed", e.getMessage(), Alert.AlertType.ERROR);
+            //SceneController.showAlert("Owners' list load failed", e.getMessage(), Alert.AlertType.ERROR);
+            //System.out.println("Some problems with owner's table to fix!");
         }
 
     }
-
-    /*private ObservableList<User> parseOwnerList() throws Exception {
-        ObservableList<User> users = this.userRepository.getAllOwnersFromDB();
-        return users;
-    }*/
 
 
 

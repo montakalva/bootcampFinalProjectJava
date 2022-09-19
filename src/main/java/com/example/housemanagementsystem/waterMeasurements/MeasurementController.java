@@ -52,6 +52,29 @@ public class MeasurementController implements Initializable{
     @FXML
     private TableColumn<Measurement, Integer> apartmentNoCol;
 
+    @FXML
+    protected void onOwnerMeasurementsSubmitClick(ActionEvent actionEvent) {
+        try {
+            Double coldWaterMeasurementCurrent = Double.valueOf(coldWaterMeasurementCurrentField.getText());
+            Double coldWaterConsumption = Double.valueOf(coldWaterConsumptionField.getText());
+            Double hotWaterMeasurementCurrent = Double.valueOf(hotWaterMeasurementCurrentField.getText());
+            Double hotWaterConsumption = Double.valueOf(hotWaterConsumptionField.getText());
+
+            Measurement newMeasurementSubmit = new Measurement(coldWaterMeasurementCurrent, coldWaterConsumption,
+                    hotWaterMeasurementCurrent, hotWaterConsumption);
+            Integer userID = DataRepository.getInstance().getLoggedInUserID();
+            Integer apartmentNo = Integer.parseInt(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
+            System.out.println("Apartment No " + apartmentNo );
+            this.measurementRepository.createNewWaterMeasurementSubmission(newMeasurementSubmit,userID, apartmentNo);
+            SceneController.showAlert("Measurements successfully submitted! ",
+                    "Your measurement has been submitted successfully!",
+                    Alert.AlertType.CONFIRMATION);
+            SceneController.changeScene(actionEvent, "owner_view_measurements");
+        } catch (Exception exception) {
+            SceneController.showAlert("Some problem occurred!", "Don't worry", Alert.AlertType.ERROR);
+        }
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,34 +120,6 @@ public class MeasurementController implements Initializable{
         }
     }
 
-    @FXML
-    protected void onOwnerMeasurementsSubmitClick(ActionEvent actionEvent) {
-        try {
-            Double coldWaterMeasurementCurrent = Double.valueOf(coldWaterMeasurementCurrentField.getText());
-            Double coldWaterConsumption = Double.valueOf(coldWaterConsumptionField.getText());
-            Double hotWaterMeasurementCurrent = Double.valueOf(hotWaterMeasurementCurrentField.getText());
-            Double hotWaterConsumption = Double.valueOf(hotWaterConsumptionField.getText());
-
-            Measurement newMeasurementSubmit = new Measurement(coldWaterMeasurementCurrent, coldWaterConsumption,
-                    hotWaterMeasurementCurrent, hotWaterConsumption);
-            Integer userID = DataRepository.getInstance().getLoggedInUserID();
-            Integer apartmentNo = Integer.parseInt(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
-            System.out.println("Apartment No " + apartmentNo );
-            this.measurementRepository.createNewWaterMeasurementSubmission(newMeasurementSubmit,userID, apartmentNo);
-            SceneController.showAlert("Measurements successfully submitted! ",
-                    "Your measurement has been submitted successfully!",
-                    Alert.AlertType.CONFIRMATION);
-            SceneController.changeScene(actionEvent, "owner_view_measurements");
-        } catch (Exception exception) {
-            System.out.println("Some problems");
-        }
-    }
-
-
-    public void navigateToScene(ActionEvent actionEvent) {
-        Button source = (Button) actionEvent.getSource();
-        SceneController.changeScene(actionEvent, source.getId());
-    }
 
     public void onGoBackClick(ActionEvent actionEvent) throws Exception{
 
@@ -135,9 +130,14 @@ public class MeasurementController implements Initializable{
         if(userType == UserType.MANAGER){
             SceneController.changeScene(actionEvent, "manager_profile");
         }else if(userType == UserType.OWNER){
-            SceneController.changeScene(actionEvent, "owner_profile");
+            SceneController.changeScene(actionEvent, "owner_view_measurements");
         }
 
+    }
+
+    public void navigateToScene(ActionEvent actionEvent) {
+        Button source = (Button) actionEvent.getSource();
+        SceneController.changeScene(actionEvent, source.getId());
     }
 
 }

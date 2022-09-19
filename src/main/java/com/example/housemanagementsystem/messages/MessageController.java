@@ -65,12 +65,12 @@ public class MessageController implements Initializable
                     Alert.AlertType.CONFIRMATION);
             SceneController.changeScene(actionEvent, "manager_view_messages" );
         } catch (Exception exception){
-            SceneController.showAlert("Creating new message topic creation failed", exception.getMessage(), null);
+            SceneController.showAlert("Creating new message topic creation failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
     @FXML
-    public void onUserDiscussionCommentClick(ActionEvent actionEvent) {
+    public void onOwnerDiscussionCommentClick(ActionEvent actionEvent) {
         try {
             Integer commentOnMessageID = Integer.valueOf(messageIDCommentField.getText());
             String messageComment = messageCommentField.getText();
@@ -81,15 +81,27 @@ public class MessageController implements Initializable
             SceneController.showAlert("successfully created new comment! ",
                     messageCommentField.getText() + " has been created successfully!",
                     Alert.AlertType.CONFIRMATION);
-            UserType userType = this.userRepository.checkUserType(userID);
-
-            if (userType == UserType.MANAGER) {
-                SceneController.changeScene(actionEvent, "manager_view_messages");
-            } else if (userType == UserType.OWNER) {
                 SceneController.changeScene(actionEvent, "owner_view_messages");
-            }
         } catch (Exception exception){
-            SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), null);
+            SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    public void onManagerDiscussionCommentClick(ActionEvent actionEvent) {
+        try {
+            Integer commentOnMessageID = Integer.valueOf(messageIDCommentField.getText());
+            String messageComment = messageCommentField.getText();
+            Integer userID = DataRepository.getInstance().getLoggedInUserID();
+            Integer apartmentNo = Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
+
+            this.messageRepository.createNewComment(commentOnMessageID, messageComment, userID, apartmentNo);
+            SceneController.showAlert("successfully created new comment! ",
+                    messageCommentField.getText() + " has been created successfully!",
+                    Alert.AlertType.CONFIRMATION);
+                SceneController.changeScene(actionEvent, "manager_view_messages");
+        } catch (Exception exception){
+            SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -106,25 +118,7 @@ public class MessageController implements Initializable
                     Alert.AlertType.CONFIRMATION);
             SceneController.changeScene(actionEvent, "manager_view_messages" );
         } catch (Exception exception){
-            SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), null);
-        }
-    }
-
-    public void navigateToScene(ActionEvent actionEvent) {
-        Button source = (Button) actionEvent.getSource();
-        SceneController.changeScene(actionEvent, source.getId());
-    }
-
-    public void onGoBackClick(ActionEvent actionEvent) throws Exception {
-
-        Integer userID = DataRepository.getInstance().getLoggedInUserID();
-
-        UserType userType = this.userRepository.checkUserType(userID);
-
-        if (userType == UserType.MANAGER) {
-            SceneController.changeScene(actionEvent, "manager_profile");
-        } else if (userType == UserType.OWNER) {
-            SceneController.changeScene(actionEvent, "owner_profile");
+            SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -153,5 +147,23 @@ public class MessageController implements Initializable
         } catch (Exception e) {
             System.out.println("Problem at initialize columns");
         }
+    }
+
+    public void onGoBackClick(ActionEvent actionEvent) throws Exception {
+
+        Integer userID = DataRepository.getInstance().getLoggedInUserID();
+
+        UserType userType = this.userRepository.checkUserType(userID);
+
+        if (userType == UserType.MANAGER) {
+            SceneController.changeScene(actionEvent, "manager_view_messages");
+        } else if (userType == UserType.OWNER) {
+            SceneController.changeScene(actionEvent, "owner_view_messages");
+        }
+    }
+
+    public void navigateToScene(ActionEvent actionEvent) {
+        Button source = (Button) actionEvent.getSource();
+        SceneController.changeScene(actionEvent, source.getId());
     }
 }

@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
 public class InvoiceController implements Initializable {
@@ -42,6 +43,7 @@ public class InvoiceController implements Initializable {
     @FXML
     private TextField invoiceStatusEditField;
 
+
     @FXML
     private TableView<Invoice> userReadInvoicesTable;
     @FXML
@@ -53,7 +55,7 @@ public class InvoiceController implements Initializable {
     @FXML
     private TableColumn<Invoice, String> invoiceCompanyCol;
     @FXML
-    private TableColumn<Invoice, String> invoiceIssueDateCol;
+    private TableColumn<Invoice, Date> invoiceIssueDateCol;
     @FXML
     private TableColumn<Invoice, String> invoiceDescriptionCol;
     @FXML
@@ -65,38 +67,24 @@ public class InvoiceController implements Initializable {
     @FXML
     private TableColumn<Invoice, String> invoiceStatusCol;
     @FXML
-    private TableColumn<Invoice, String> invoicePaidOnCol;
+    private TableColumn<Invoice, Date> invoicePaidOnCol;
 
     InvoiceRepository invoiceRepository = new InvoiceRepository();
     UserRepository userRepository = new UserRepository();
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{
-            initializeCol();
-        } catch (Exception exception){
-            System.out.println("Problem with invoice data upload");
-            exception.printStackTrace();
-        }
-    }
-
-    public void navigateToScene(ActionEvent actionEvent) {
-        Button source = (Button) actionEvent.getSource();
-        SceneController.changeScene(actionEvent, source.getId());
-    }
 
     public void onManagerInvoiceCreateClick(ActionEvent actionEvent) {
         try{
             String invoiceNo = invoiceNoField.getText();
             String invoiceTitle = invoiceTitleField.getText();
             String invoiceCompany = invoiceCompanyField.getText();
-            String invoiceIssueDate = invoiceIssueDateField.getText();
+            Date invoiceIssueDate = Date.valueOf(invoiceIssueDateField.getText());
+            System.out.println(invoiceIssueDate);
             String invoiceDescription = invoiceDescriptionField.getText();
             Double invoiceSubTotal = Double.valueOf(invoiceSubTotalField.getText());
             Double invoiceTax = Double.valueOf(invoiceTaxField.getText());
             Double invoiceTotalAmount = Double.valueOf(invoiceTotalAmountField.getText());
             String invoiceStatus = invoiceStatusField.getText();
-            String invoicePaidOn = invoicePaidOnField.getText();
+            Date invoicePaidOn = Date.valueOf(invoicePaidOnField.getText());
 
             this.invoiceRepository.createNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceIssueDate, invoiceDescription, invoiceSubTotal,
                                                     invoiceTax, invoiceTotalAmount, invoiceStatus, invoicePaidOn);
@@ -104,7 +92,7 @@ public class InvoiceController implements Initializable {
             SceneController.showAlert("successfully created new invoice! ",
                     "Invoice has been created successfully!",
                     Alert.AlertType.CONFIRMATION);
-            SceneController.changeScene(actionEvent, "manager_profile" );
+            SceneController.changeScene(actionEvent, "manager_view_invoices" );
         } catch (Exception exception){
             SceneController.showAlert("Creating new invoice failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
@@ -137,20 +125,7 @@ public class InvoiceController implements Initializable {
                     Alert.AlertType.CONFIRMATION);
             SceneController.changeScene(actionEvent, "manager_view_invoices");
         } catch (Exception exception) {
-            SceneController.showAlert("Delete invoice failed", exception.getMessage(), null);
-        }
-    }
-
-    public void onGoBackClick(ActionEvent actionEvent) throws Exception{
-
-        Integer userID = DataRepository.getInstance().getLoggedInUserID();
-
-        UserType userType = this.userRepository.checkUserType(userID);
-
-        if(userType == UserType.MANAGER){
-            SceneController.changeScene(actionEvent, "manager_profile");
-        }else if(userType == UserType.OWNER){
-            SceneController.changeScene(actionEvent, "owner_profile");
+            SceneController.showAlert("Delete invoice failed", exception.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -173,6 +148,34 @@ public class InvoiceController implements Initializable {
         } catch (Exception e) {
             System.out.println("Problem at initialize columns");
         }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        try{
+            initializeCol();
+        } catch (Exception exception){
+            System.out.println("Problem with invoice data upload");
+            exception.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void onGoBackClick(ActionEvent actionEvent) throws Exception{
+
+        Integer userID = DataRepository.getInstance().getLoggedInUserID();
+        UserType userType = this.userRepository.checkUserType(userID);
+
+        if(userType == UserType.MANAGER){
+            SceneController.changeScene(actionEvent, "manager_view_invoices");
+        }else if(userType == UserType.OWNER){
+            SceneController.changeScene(actionEvent, "owner_profile");
+        }
+    }
+
+    public void navigateToScene(ActionEvent actionEvent) {
+        Button source = (Button) actionEvent.getSource();
+        SceneController.changeScene(actionEvent, source.getId());
     }
 
 }

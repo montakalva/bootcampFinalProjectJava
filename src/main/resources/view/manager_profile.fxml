@@ -60,20 +60,28 @@
     <effect>
         <InnerShadow />
     </effect></Button>
-<Button id="manager_read_measurements" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Measurements" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+<Button id="manager_read_measurements" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Measurements" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
     <font>
         <Font size="14.0" />
     </font>
     <effect>
         <InnerShadow />
     </effect></Button>
-<Button id="manager_view_invoices" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Invoices" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+<Button id="manager_view_invoices" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Invoices" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
     <font>
         <Font size="14.0" />
     </font>
     <effect>
         <InnerShadow />
     </effect></Button>
+    <Button id="owner_table" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="View owners' list" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER">
+        <font>
+            <Font size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+    </Button>
 <Button id="login" alignment="CENTER" contentDisplay="CENTER" onAction="#navigateToScene" style="-fx-background-color: TOMATO;" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER">
     <font>
         <Font name="System Bold" size="14.0" />

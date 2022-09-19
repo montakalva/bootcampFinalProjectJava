@@ -20,7 +20,7 @@
                 <TableColumn prefWidth="90.0" text="ID" fx:id="messageIDCol" />
                 <TableColumn prefWidth="90.0" text="Title" fx:id="messageTitleCol" />
                 <TableColumn prefWidth="90.0" text="Status" fx:id="messageStatusCol"/>
-                <TableColumn prefWidth="90.0" text="Discussion ID" fx:id="commentOnMessageIDCol" />
+                <TableColumn prefWidth="90.0" text="Comment on Topic:" fx:id="commentOnMessageIDCol" />
                 <TableColumn prefWidth="90.0" text="Comment" fx:id="messageCommentCol" />
                 <TableColumn prefWidth="90.0" text="Submit At" fx:id="createdAtCol" />
                 <TableColumn prefWidth="90.0" text="User ID" fx:id="userIDCol" />

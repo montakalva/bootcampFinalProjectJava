@@ -22,7 +22,7 @@ public class SceneController {
 
         try {
             Parent parent = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(scenePath)));
-            stage.setScene(new Scene(parent, 600, 600));
+            stage.setScene(new Scene(parent, 750, 600));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

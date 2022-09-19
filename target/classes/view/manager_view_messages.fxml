@@ -24,7 +24,7 @@
     <TextField fx:id="messageIDCommentField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
     <Label text="Enter your comment" GridPane.rowIndex="7" />
     <TextField fx:id="messageCommentField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
-    <Button onAction="#onUserDiscussionCommentClick" GridPane.rowIndex="9" GridPane.columnIndex="1" text="Submit"/>
+    <Button onAction="#onManagerDiscussionCommentClick" GridPane.rowIndex="9" GridPane.columnIndex="1" text="Submit"/>
 
     <Label text="Enter ID of discussion status to edit" GridPane.rowIndex="10" />
     <TextField fx:id="messageIDEditField" GridPane.columnIndex="1" GridPane.rowIndex="10"/>

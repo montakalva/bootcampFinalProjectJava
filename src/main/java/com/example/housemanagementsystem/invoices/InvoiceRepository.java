@@ -4,18 +4,15 @@ import com.example.housemanagementsystem.database.DBConnectionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class InvoiceRepository {
     private Connection connection = DBConnectionManager.getConnection();
     private ObservableList<Invoice> observableList;
 
-    public void createNewInvoice(String invoiceNo, String invoiceTitle, String invoiceCompany, String invoiceIssueDate,
+    public void createNewInvoice(String invoiceNo, String invoiceTitle, String invoiceCompany, Date invoiceIssueDate,
                                  String invoiceDescription, Double invoiceSubTotal, Double invoiceTax, Double invoiceTotalAmount,
-                                 String invoiceStatus, String invoicePaidOn) throws SQLException {
+                                 String invoiceStatus, Date invoicePaidOn) throws SQLException {
         connection = DBConnectionManager.getConnection();
 
         String query = "INSERT INTO invoices (invoiceNo, invoiceTitle, invoiceCompany, invoiceIssueDate, invoiceDescription, " +
@@ -26,13 +23,13 @@ public class InvoiceRepository {
         preparedStatement.setString(1, invoiceNo);
         preparedStatement.setString(2, invoiceTitle);
         preparedStatement.setString(3, invoiceCompany);
-        preparedStatement.setString(4, invoiceIssueDate);
+        preparedStatement.setDate(4, invoiceIssueDate);
         preparedStatement.setString(5, invoiceDescription);
         preparedStatement.setDouble(6, invoiceSubTotal);
         preparedStatement.setDouble(7, invoiceTax);
         preparedStatement.setDouble(8, invoiceTotalAmount);
         preparedStatement.setString(9, invoiceStatus);
-        preparedStatement.setString(10, invoicePaidOn);
+        preparedStatement.setDate(10, invoicePaidOn);
 
         preparedStatement.executeUpdate();
     }
@@ -79,13 +76,13 @@ public class InvoiceRepository {
             invoice.setInvoiceNo(resultSet.getString("invoiceNo"));
             invoice.setInvoiceTitle(resultSet.getString("invoiceTitle"));
             invoice.setInvoiceCompany(resultSet.getString("invoiceCompany"));
-            invoice.setInvoiceIssueDate(resultSet.getString("invoiceIssueDate"));
+            invoice.setInvoiceIssueDate(resultSet.getDate("invoiceIssueDate"));
             invoice.setInvoiceDescription(resultSet.getString("invoiceDescription"));
             invoice.setInvoiceSubTotal(resultSet.getDouble("invoiceSubTotal"));
             invoice.setInvoiceTax(resultSet.getDouble("invoiceTax"));
             invoice.setInvoiceTotalAmount(resultSet.getDouble("invoiceTotalAmount"));
             invoice.setInvoiceStatus(resultSet.getString("invoiceStatus"));
-            invoice.setInvoicePaidOn(resultSet.getString("invoicePaidOn"));
+            invoice.setInvoicePaidOn(resultSet.getDate("invoicePaidOn"));
             observableList.add(invoice);
         }
         return observableList;
