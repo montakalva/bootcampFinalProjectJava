@@ -20,5 +20,5 @@ public class Invoice {
     private double invoiceTax;
     private double invoiceTotalAmount;
     private String invoiceStatus;
-    private Date invoicePaidOn;
+    private Date invoiceDueDate;
 }

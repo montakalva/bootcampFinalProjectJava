@@ -16,17 +16,17 @@
     <children>
         <TableView fx:id="userReadInvoicesTable" layoutX="35.0" layoutY="28.0" prefHeight="800.0" prefWidth="800.0">
             <columns>
-                <TableColumn prefWidth="90.0" text="ID" fx:id="invoiceIDCol" />
-                <TableColumn prefWidth="90.0" text="Invoice No" fx:id="invoiceNoCol" />
-                <TableColumn prefWidth="90.0" text="Title" fx:id="invoiceTitleCol" />
-                <TableColumn prefWidth="90.0" text="Company" fx:id="invoiceCompanyCol" />
-                <TableColumn prefWidth="90.0" text="Issue Date" fx:id="invoiceIssueDateCol" />
-                <TableColumn prefWidth="90.0" text="Description" fx:id="invoiceDescriptionCol" />
-                <TableColumn prefWidth="90.0" text="SubTotal" fx:id="invoiceSubTotalCol" />
-                <TableColumn prefWidth="90.0" text="Taxes" fx:id="invoiceTaxCol" />
-                <TableColumn prefWidth="90.0" text="Total Amount" fx:id="invoiceTotalAmountCol" />
-                <TableColumn prefWidth="90.0" text="Status" fx:id="invoiceStatusCol" />
-                <TableColumn prefWidth="90.0" text="Paid on" fx:id="invoicePaidOnCol" />
+                <TableColumn prefWidth="30.0" text="ID" fx:id="invoiceIDCol" />
+                <TableColumn prefWidth="80.0" text="Invoice No" fx:id="invoiceNoCol" />
+                <TableColumn prefWidth="80.0" text="Title" fx:id="invoiceTitleCol" />
+                <TableColumn prefWidth="80.0" text="Company" fx:id="invoiceCompanyCol" />
+                <TableColumn prefWidth="80.0" text="Issue Date" fx:id="invoiceIssueDateCol" />
+                <TableColumn prefWidth="80.0" text="Description" fx:id="invoiceDescriptionCol" />
+                <TableColumn prefWidth="80.0" text="SubTotal" fx:id="invoiceSubTotalCol" />
+                <TableColumn prefWidth="80.0" text="Taxes" fx:id="invoiceTaxCol" />
+                <TableColumn prefWidth="80.0" text="Total Amount" fx:id="invoiceTotalAmountCol" />
+                <TableColumn prefWidth="80.0" text="Status" fx:id="invoiceStatusCol" />
+                <TableColumn prefWidth="80.0" text="Invoice due date" fx:id="invoiceDueDateCol" />
 
             </columns>
         </TableView>

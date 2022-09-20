@@ -12,12 +12,11 @@ public class InvoiceRepository {
 
     public void createNewInvoice(String invoiceNo, String invoiceTitle, String invoiceCompany, Date invoiceIssueDate,
                                  String invoiceDescription, Double invoiceSubTotal, Double invoiceTax, Double invoiceTotalAmount,
-                                 String invoiceStatus, Date invoicePaidOn) throws SQLException {
+                                 String invoiceStatus, Date invoiceDueDate) throws SQLException {
         connection = DBConnectionManager.getConnection();
 
         String query = "INSERT INTO invoices (invoiceNo, invoiceTitle, invoiceCompany, invoiceIssueDate, invoiceDescription, " +
-                        "invoiceSubTotal, invoiceTax, invoiceTotalAmount, invoiceStatus, invoicePaidOn) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
-
+                        "invoiceSubTotal, invoiceTax, invoiceTotalAmount, invoiceStatus, invoiceDueDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         preparedStatement.setString(1, invoiceNo);
@@ -29,18 +28,17 @@ public class InvoiceRepository {
         preparedStatement.setDouble(7, invoiceTax);
         preparedStatement.setDouble(8, invoiceTotalAmount);
         preparedStatement.setString(9, invoiceStatus);
-        preparedStatement.setDate(10, invoicePaidOn);
+        preparedStatement.setDate(10, invoiceDueDate);
 
         preparedStatement.executeUpdate();
     }
 
     public void deleteInvoice(Integer invoiceID) throws SQLException {
-
         connection = DBConnectionManager.getConnection();
 
         String query = "DELETE FROM invoices WHERE invoiceID = ?";
-
         PreparedStatement preparedStatement = connection.prepareStatement(query);
+
         preparedStatement.setInt(1, invoiceID);
 
         if (preparedStatement.executeUpdate() == 0) {
@@ -48,29 +46,27 @@ public class InvoiceRepository {
         }
     }
 
-    public void editInvoiceStatus(String invoiceStatus, Date invoicePaidOn, Integer invoiceID) throws SQLException {
+    public void editInvoiceStatus(String invoiceStatus, Integer invoiceID) throws SQLException {
         connection = DBConnectionManager.getConnection();
 
-        String query = "UPDATE invoices SET invoiceStatus = ?, invoicePaidOn = ? WHERE invoiceID = ? ";
-
+        String query = "UPDATE invoices SET invoiceStatus = ? WHERE invoiceID = ? ";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
+
         preparedStatement.setString(1, invoiceStatus);
-        preparedStatement.setDate(2, invoicePaidOn);
-        preparedStatement.setInt(3, invoiceID);
+        preparedStatement.setInt(2, invoiceID);
 
         preparedStatement.executeUpdate();
     }
 
     public ObservableList<Invoice> addInvoiceToList() throws SQLException {
         connection = DBConnectionManager.getConnection();
-
         observableList = FXCollections.observableArrayList();
+
         String query ="SELECT invoiceID, invoiceNo, invoiceTitle, invoiceCompany, invoiceIssueDate, invoiceDescription, invoiceSubTotal, " +
-                    " invoiceTax, invoiceTotalAmount, invoiceStatus, invoicePaidOn FROM invoices";
+                    " invoiceTax, invoiceTotalAmount, invoiceStatus, invoiceDueDate FROM invoices";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         ResultSet resultSet = preparedStatement.executeQuery();
-
         while (resultSet.next()) {
             Invoice invoice = new Invoice();
             invoice.setInvoiceID(resultSet.getInt("invoiceID"));
@@ -83,7 +79,7 @@ public class InvoiceRepository {
             invoice.setInvoiceTax(resultSet.getDouble("invoiceTax"));
             invoice.setInvoiceTotalAmount(resultSet.getDouble("invoiceTotalAmount"));
             invoice.setInvoiceStatus(resultSet.getString("invoiceStatus"));
-            invoice.setInvoicePaidOn(resultSet.getDate("invoicePaidOn"));
+            invoice.setInvoiceDueDate(resultSet.getDate("invoiceDueDate"));
             observableList.add(invoice);
         }
         return observableList;

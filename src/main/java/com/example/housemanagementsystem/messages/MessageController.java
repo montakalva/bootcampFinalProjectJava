@@ -4,30 +4,30 @@ import com.example.housemanagementsystem.SceneController;
 import com.example.housemanagementsystem.database.DataRepository;
 import com.example.housemanagementsystem.users.UserRepository;
 import com.example.housemanagementsystem.users.UserType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.net.URL;
 import java.security.Timestamp;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class MessageController implements Initializable
-{
+public class MessageController implements Initializable {
     @FXML
     private TextField messageTitleField;
     @FXML
-    private TextField messageStatusField;
-    @FXML
-    private TextField messageIDCommentField;
-    @FXML
     private TextField messageCommentField;
     @FXML
-    private TextField messageIDEditField;
+    private ChoiceBox discussionsTitleBox;
     @FXML
-    private TextField messagesStatusEditField;
+    private ChoiceBox messageStatusBox;
 
     @FXML
     private TableView<Message> userReadMessagesTable;
@@ -37,8 +37,6 @@ public class MessageController implements Initializable
     private TableColumn<Message, String> messageTitleCol;
     @FXML
     private TableColumn<Message, String> messageStatusCol;
-    @FXML
-    private TableColumn<Message, Integer> commentOnMessageIDCol;
     @FXML
     private TableColumn<Message, String> messageCommentCol;
     @FXML
@@ -51,51 +49,48 @@ public class MessageController implements Initializable
 
     MessageRepository messageRepository = new MessageRepository();
     UserRepository userRepository = new UserRepository();
+    ObservableList<String> discussionsList;
 
     @FXML
     public void onManagerDiscussionCreateClick(ActionEvent actionEvent) {
         try {
             String messageTitle = messageTitleField.getText().toUpperCase();
-            String messageStatus = messageStatusField.getText().toUpperCase();
+            String messageStatus = insertMessageStatus();
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
 
             this.messageRepository.createNewMessage(messageTitle, messageStatus, userID);
             SceneController.showAlert("successfully created new discussion topic! ",
                     messageTitleField.getText() + " has been created successfully!",
-                    Alert.AlertType.CONFIRMATION);
+                    Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "manager_view_messages" );
         } catch (Exception exception){
-            SceneController.showAlert("Creating new message topic creation failed", exception.getMessage(), Alert.AlertType.ERROR);
+            SceneController.showAlert("Creating new message topic creation failed", "Creating new message topic creation failed", Alert.AlertType.INFORMATION);
         }
     }
 
-    @FXML
-    public void onOwnerDiscussionCommentClick(ActionEvent actionEvent) {
-        try {
-            Integer commentOnMessageID = Integer.valueOf(messageIDCommentField.getText());
-            String messageComment = messageCommentField.getText();
-            Integer userID = DataRepository.getInstance().getLoggedInUserID();
-            Integer apartmentNo = Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
+    ObservableList<String> messageStatusList;
+    private ObservableList<String> setChoiceBoxMessageStatus(){
+        messageStatusBox.getItems().addAll(
+                messageStatusList = FXCollections.observableArrayList(
+                        "ACTIVE",
+                        "PASSIVE")
+        );
+        return messageStatusList;
+    }
 
-            this.messageRepository.createNewComment(commentOnMessageID, messageComment, userID, apartmentNo);
-            SceneController.showAlert("successfully created new comment! ",
-                    messageCommentField.getText() + " has been created successfully!",
-                    Alert.AlertType.CONFIRMATION);
-                SceneController.changeScene(actionEvent, "owner_view_messages");
-        } catch (Exception exception){
-            SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), Alert.AlertType.ERROR);
-        }
+    public String insertMessageStatus(){
+        String messageStatus = String.valueOf(messageStatusBox.getSelectionModel().getSelectedItem());
+        return messageStatus;
     }
 
     @FXML
     public void onManagerDiscussionCommentClick(ActionEvent actionEvent) {
         try {
-            Integer commentOnMessageID = Integer.valueOf(messageIDCommentField.getText());
+            String messageTitle = insertMessageTitle();
             String messageComment = messageCommentField.getText();
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
-            Integer apartmentNo = Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
 
-            this.messageRepository.createNewComment(commentOnMessageID, messageComment, userID, apartmentNo);
+            this.messageRepository.managerCreateNewComment(messageTitle, messageComment, userID);
             SceneController.showAlert("successfully created new comment! ",
                     messageCommentField.getText() + " has been created successfully!",
                     Alert.AlertType.CONFIRMATION);
@@ -105,40 +100,37 @@ public class MessageController implements Initializable
         }
     }
 
-    @FXML
-    public void onManagerDiscussionStatusEditClick(ActionEvent actionEvent){
-        try{
-            Integer messageID = Integer.valueOf(messageIDEditField.getText());
-            String messageStatus = messagesStatusEditField.getText().toUpperCase();
-            Integer userID = DataRepository.getInstance().getLoggedInUserID();
-
-            this.messageRepository.editMessageStatus(messageID, messageStatus, userID);
-            SceneController.showAlert("successfully edited status! ",
-                    "Message status has been created successfully!",
-                    Alert.AlertType.CONFIRMATION);
-            SceneController.changeScene(actionEvent, "manager_view_messages" );
-        } catch (Exception exception){
-            SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
             initializeCol();
+            setChoiceBoxDiscussionTitle();
+            setChoiceBoxMessageStatus();
         } catch (Exception exception){
             System.out.println("Problem with discussion data upload");
-            exception.printStackTrace();
         }
     }
 
     @FXML
     private void initializeCol() {
         try {
+            userReadMessagesTable.setEditable(true);
             messageIDCol.setCellValueFactory(new PropertyValueFactory<>("messageID"));
             messageTitleCol.setCellValueFactory(new PropertyValueFactory<>("messageTitle"));
             messageStatusCol.setCellValueFactory(new PropertyValueFactory<>("messageStatus"));
-            commentOnMessageIDCol.setCellValueFactory(new PropertyValueFactory<>("commentOnMessageID"));
+            messageStatusCol.setCellFactory(TextFieldTableCell.forTableColumn());
+            if(this.userRepository.checkUserType(DataRepository.getInstance().getLoggedInUserID()) == UserType.MANAGER){
+                messageStatusCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Message, String>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Message, String> messageStringCellEditEvent) {
+                        Message message = messageStringCellEditEvent.getRowValue();
+                        message.setMessageStatus(messageStringCellEditEvent.getNewValue());
+                        String messageStatus = message.getMessageStatus();
+                        Integer messageID = message.getMessageID();
+                        messageRepository.updateMessageStatus(messageStatus, messageID);
+                    }
+                });
+            }
             messageCommentCol.setCellValueFactory(new PropertyValueFactory<>("messageComment"));
             createdAtCol.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
             userIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
@@ -152,7 +144,6 @@ public class MessageController implements Initializable
     public void onGoBackClick(ActionEvent actionEvent) throws Exception {
 
         Integer userID = DataRepository.getInstance().getLoggedInUserID();
-
         UserType userType = this.userRepository.checkUserType(userID);
 
         if (userType == UserType.MANAGER) {
@@ -165,5 +156,37 @@ public class MessageController implements Initializable
     public void navigateToScene(ActionEvent actionEvent) {
         Button source = (Button) actionEvent.getSource();
         SceneController.changeScene(actionEvent, source.getId());
+    }
+
+private ObservableList<String> setChoiceBoxDiscussionTitle(){
+    try{
+        discussionsTitleBox.getItems().addAll(
+                this.messageRepository.InsertDiscussionsTopics());
+    } catch (SQLException e) {
+        System.out.println("Problem with initialize");;
+    }
+    return discussionsList;
+}
+
+    public String insertMessageTitle() {
+    String messageTitle = String.valueOf(discussionsTitleBox.getSelectionModel().getSelectedItem());
+        return messageTitle;
+    }
+
+    @FXML
+    public void onCheckBoxOwnerDiscussionCommentClick(ActionEvent actionEvent) {
+        try {
+            String messageTitle = insertMessageTitle();
+            String messageComment = messageCommentField.getText();
+            Integer userID = DataRepository.getInstance().getLoggedInUserID();
+            Integer apartmentNo = Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
+            this.messageRepository.createCheckBoxNewComment(messageTitle, messageComment, userID, apartmentNo);
+            SceneController.showAlert("successfully created new comment! ",
+                     "Comment has been created successfully!",
+                    Alert.AlertType.INFORMATION);
+                SceneController.changeScene(actionEvent, "owner_view_messages");
+        } catch (Exception exception){
+            SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), Alert.AlertType.INFORMATION);
+        }
     }
 }

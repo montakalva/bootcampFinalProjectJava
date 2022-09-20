@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -16,24 +13,17 @@
 
     <Label text="Enter New Discussion topic" GridPane.rowIndex="1" />
     <TextField fx:id="messageTitleField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label text="Enter Discussion status (Active / Passive)" GridPane.rowIndex="2" />
-    <TextField fx:id="messageStatusField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <Label text="Enter Discussion status" GridPane.rowIndex="2" />
+    <ChoiceBox fx:id="messageStatusBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="2" GridPane.columnIndex="1" />
     <Button onAction="#onManagerDiscussionCreateClick" GridPane.rowIndex="3" GridPane.columnIndex="1" text="Create"/>
 
-    <Label text="Enter Discussion to comment ID" GridPane.rowIndex="5" />
-    <TextField fx:id="messageIDCommentField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-    <Label text="Enter your comment" GridPane.rowIndex="7" />
-    <TextField fx:id="messageCommentField" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+    <Label text="Actual discussion topics" GridPane.rowIndex="7" />
+    <ChoiceBox fx:id="discussionsTitleBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+    <Label text="Enter your comment" GridPane.rowIndex="8" />
+    <TextField fx:id="messageCommentField" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
     <Button onAction="#onManagerDiscussionCommentClick" GridPane.rowIndex="9" GridPane.columnIndex="1" text="Submit"/>
-
-    <Label text="Enter ID of discussion status to edit" GridPane.rowIndex="10" />
-    <TextField fx:id="messageIDEditField" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
-    <Label text="Enter new status (Active / Passive)" GridPane.rowIndex="11" />
-    <TextField fx:id="messagesStatusEditField" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
-    <Button onAction="#onManagerDiscussionStatusEditClick" GridPane.rowIndex="12" GridPane.columnIndex="1" text="Edit"/>
 
     <Button onAction="#navigateToScene" id="user_read_messages" GridPane.rowIndex="15" GridPane.columnIndex="1" text="View Discussions"/>
     <Button onAction="#navigateToScene" id="manager_profile" GridPane.rowIndex="16" GridPane.columnIndex="1" text="Back to profile"/>
-
 
 </GridPane>

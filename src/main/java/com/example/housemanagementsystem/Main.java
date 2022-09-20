@@ -11,7 +11,7 @@ public class Main extends Application {
 
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 600, 600);
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
         stage.setTitle("House management system application!");
         stage.setScene(scene);
         stage.show();

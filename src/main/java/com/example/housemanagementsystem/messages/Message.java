@@ -13,7 +13,6 @@ public class Message {
     private String messageTitle;
     private String messageStatus;
     private Timestamp createdAt;
-    private Integer commentOnMessageID;
     private String messageComment;
     private Integer userID;
     private Integer apartmentNo;

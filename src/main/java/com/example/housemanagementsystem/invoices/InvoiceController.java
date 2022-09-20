@@ -2,9 +2,10 @@ package com.example.housemanagementsystem.invoices;
 
 import com.example.housemanagementsystem.SceneController;
 import com.example.housemanagementsystem.database.DataRepository;
-import com.example.housemanagementsystem.users.User;
 import com.example.housemanagementsystem.users.UserRepository;
 import com.example.housemanagementsystem.users.UserType;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,11 +21,7 @@ public class InvoiceController implements Initializable {
     @FXML
     private TextField invoiceNoField;
     @FXML
-    private TextField invoiceTitleField;
-    @FXML
     private TextField invoiceCompanyField;
-    @FXML
-    private TextField invoiceIssueDateField;
     @FXML
     private TextField invoiceDescriptionField;
     @FXML
@@ -34,17 +31,19 @@ public class InvoiceController implements Initializable {
     @FXML
     private TextField invoiceTotalAmountField;
     @FXML
-    private TextField invoiceStatusField;
-    @FXML
-    private TextField invoicePaidOnField;
-    @FXML
     private TextField invoiceIDField;
     @FXML
     private TextField invoiceStatusEditIDField;
     @FXML
     private TextField invoiceStatusEditField;
     @FXML
-    private TextField invoicePaidEditField;
+    private ChoiceBox invoiceTitleBox;
+    @FXML
+    private ChoiceBox invoiceStatusBox;
+    @FXML
+    DatePicker datePickerIssueDate;
+    @FXML
+    DatePicker datePickerInvoiceDueDate;
 
 
     @FXML
@@ -70,7 +69,7 @@ public class InvoiceController implements Initializable {
     @FXML
     private TableColumn<Invoice, String> invoiceStatusCol;
     @FXML
-    private TableColumn<Invoice, Date> invoicePaidOnCol;
+    private TableColumn<Invoice, Date> invoiceDueDateCol;
 
     InvoiceRepository invoiceRepository = new InvoiceRepository();
     UserRepository userRepository = new UserRepository();
@@ -78,26 +77,57 @@ public class InvoiceController implements Initializable {
     public void onManagerInvoiceCreateClick(ActionEvent actionEvent) {
         try {
             String invoiceNo = invoiceNoField.getText().toUpperCase();
-            String invoiceTitle = invoiceTitleField.getText().toUpperCase();
+            String invoiceTitle = insertInvoiceTitle();
             String invoiceCompany = invoiceCompanyField.getText().toUpperCase();
-            Date invoiceIssueDate = Date.valueOf(invoiceIssueDateField.getText());
+            Date invoiceIssueDate = Date.valueOf(datePickerIssueDate.getValue());
             String invoiceDescription = invoiceDescriptionField.getText();
             Double invoiceSubTotal = Double.valueOf(invoiceSubTotalField.getText());
             Double invoiceTax = Double.valueOf(invoiceTaxField.getText());
             Double invoiceTotalAmount = Double.valueOf(invoiceTotalAmountField.getText());
-            String invoiceStatus = invoiceStatusField.getText().toUpperCase();
-            Date invoicePaidOn = Date.valueOf(invoicePaidOnField.getText());
+            String invoiceStatus = insertInvoiceStatus();
+            Date invoiceDueDate = Date.valueOf(datePickerInvoiceDueDate.getValue());
             validateCreateNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceStatus);
             this.invoiceRepository.createNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceIssueDate, invoiceDescription, invoiceSubTotal,
-                    invoiceTax, invoiceTotalAmount, invoiceStatus, invoicePaidOn);
+                    invoiceTax, invoiceTotalAmount, invoiceStatus, invoiceDueDate);
 
             SceneController.showAlert("successfully created new invoice! ",
                     "Invoice has been created successfully!",
-                    Alert.AlertType.CONFIRMATION);
+                    Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "manager_view_invoices");
         } catch (Exception exception) {
-            SceneController.showAlert("Creating new invoice failed", exception.getMessage(), Alert.AlertType.ERROR);
+            SceneController.showAlert("Creating new invoice failed", exception.getMessage(), Alert.AlertType.INFORMATION);
         }
+    }
+
+    ObservableList<String> invoiceTitleList;
+    private ObservableList<String> setChoiceBoxInvoiceType(){
+        invoiceTitleBox.getItems().addAll(
+                invoiceTitleList = FXCollections.observableArrayList(
+                        "INCOMES",
+                        "EXPENSES")
+                );
+        return invoiceTitleList;
+    }
+
+    public String insertInvoiceTitle() {
+
+        String invoiceTitle = String.valueOf(invoiceTitleBox.getSelectionModel().getSelectedItem());
+        return invoiceTitle;
+    }
+
+    ObservableList<String> invoiceStatusList;
+    private ObservableList<String> setChoiceBoxInvoiceStatus(){
+        invoiceStatusBox.getItems().addAll(
+                invoiceTitleList = FXCollections.observableArrayList(
+                        "PAID",
+                        "UNPAID")
+        );
+        return invoiceStatusList;
+    }
+
+    public String insertInvoiceStatus(){
+        String invoiceStatus = String.valueOf(invoiceStatusBox.getSelectionModel().getSelectedItem());
+        return invoiceStatus;
     }
 
     @FXML
@@ -105,16 +135,15 @@ public class InvoiceController implements Initializable {
         try {
             Integer invoiceID = Integer.parseInt(invoiceStatusEditIDField.getText());
             String invoiceStatus = invoiceStatusEditField.getText().toUpperCase();
-            Date invoicePaidOn = Date.valueOf(invoicePaidEditField.getText());
+            this.invoiceRepository.editInvoiceStatus(invoiceStatus, invoiceID);
 
-            this.invoiceRepository.editInvoiceStatus(invoiceStatus, invoicePaidOn, invoiceID);
             SceneController.showAlert("Invoice status successfully edited! ",
                     "Invoice status has been edited successfully!",
-                    Alert.AlertType.CONFIRMATION);
+                    Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "manager_view_invoices");
 
         } catch (Exception exception) {
-            SceneController.showAlert("Editing invoice status failed", exception.getMessage(), Alert.AlertType.ERROR);
+            SceneController.showAlert("Editing invoice status failed", "Editing invoice status failed", Alert.AlertType.INFORMATION);
         }
     }
 
@@ -123,12 +152,13 @@ public class InvoiceController implements Initializable {
         try {
             Integer invoiceID = Integer.valueOf(invoiceIDField.getText());
             this.invoiceRepository.deleteInvoice(invoiceID);
+
             SceneController.showAlert("successfully deleted invoice! ",
                     "Invoices has been Deleted successfully!",
-                    Alert.AlertType.CONFIRMATION);
+                    Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "manager_view_invoices");
         } catch (Exception exception) {
-            SceneController.showAlert("Delete invoice failed", exception.getMessage(), Alert.AlertType.ERROR);
+            SceneController.showAlert("Delete invoice failed", "Delete invoice failed", Alert.AlertType.INFORMATION);
         }
     }
 
@@ -145,10 +175,10 @@ public class InvoiceController implements Initializable {
             invoiceTaxCol.setCellValueFactory(new PropertyValueFactory<>("invoiceTax"));
             invoiceTotalAmountCol.setCellValueFactory(new PropertyValueFactory<>("invoiceTotalAmount"));
             invoiceStatusCol.setCellValueFactory(new PropertyValueFactory<>("invoiceStatus"));
-            invoicePaidOnCol.setCellValueFactory(new PropertyValueFactory<>("invoicePaidOn"));
+            invoiceDueDateCol.setCellValueFactory(new PropertyValueFactory<>("invoiceDueDate"));
 
             userReadInvoicesTable.setItems(this.invoiceRepository.addInvoiceToList());
-        } catch (Exception e) {
+        } catch (Exception exception) {
             System.out.println("Problem at initialize columns");
         }
     }
@@ -157,9 +187,10 @@ public class InvoiceController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             initializeCol();
+            setChoiceBoxInvoiceType();
+            setChoiceBoxInvoiceStatus();
         } catch (Exception exception) {
             System.out.println("Problem with invoice data upload");
-            exception.printStackTrace();
         }
     }
 
@@ -181,7 +212,7 @@ public class InvoiceController implements Initializable {
         SceneController.changeScene(actionEvent, source.getId());
     }
 
-    private void validateCreateNewInvoice(String invoiceNo, String invoiceTitle, String invoiceCompany,String invoiceStatus) throws Exception {
+    private void validateCreateNewInvoice(String invoiceNo, String invoiceTitle, String invoiceCompany, String invoiceStatus) throws Exception {
 
         if (invoiceNo.isEmpty()) throw new Exception("Please provide invoice No!");
         if (invoiceTitle.isEmpty()) throw new Exception("Please provide invoice Title!");
@@ -189,16 +220,3 @@ public class InvoiceController implements Initializable {
         if (invoiceStatus.isEmpty()) throw new Exception("Please provide invoice status");
     }
 }
-/*
-*     private Integer invoiceID;
-    private String invoiceNo;
-    private String invoiceTitle;
-    private String invoiceCompany;
-    private Date invoiceIssueDate;
-    private String invoiceDescription;
-    private double invoiceSubTotal;
-    private double invoiceTax;
-    private double invoiceTotalAmount;
-    private String invoiceStatus;
-    private Date invoicePaidOn;
-}*/

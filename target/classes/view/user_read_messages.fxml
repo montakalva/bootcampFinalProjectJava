@@ -16,14 +16,13 @@
     <children>
         <TableView fx:id="userReadMessagesTable" layoutX="35.0" layoutY="28.0" prefHeight="800.0" prefWidth="800.0">
             <columns>
-                <TableColumn prefWidth="90.0" text="ID" fx:id="messageIDCol" />
-                <TableColumn prefWidth="90.0" text="Title" fx:id="messageTitleCol" />
-                <TableColumn prefWidth="90.0" text="Status" fx:id="messageStatusCol"/>
-                <TableColumn prefWidth="90.0" text="Comment on Topic:" fx:id="commentOnMessageIDCol" />
-                <TableColumn prefWidth="90.0" text="Comment" fx:id="messageCommentCol" />
-                <TableColumn prefWidth="90.0" text="Submit At" fx:id="createdAtCol" />
-                <TableColumn prefWidth="90.0" text="User ID" fx:id="userIDCol" />
-                <TableColumn prefWidth="90.0" text="Apartment No" fx:id="apartmentNoCol" />
+                <TableColumn prefWidth="30.0" text="ID" fx:id="messageIDCol" />
+                <TableColumn prefWidth="80.0" text="Title" fx:id="messageTitleCol" />
+                <TableColumn prefWidth="80.0" text="Status" fx:id="messageStatusCol"/>
+                <TableColumn prefWidth="80.0" text="Comment" fx:id="messageCommentCol" />
+                <TableColumn prefWidth="80.0" text="Submit At" fx:id="createdAtCol" />
+                <TableColumn prefWidth="80.0" text="User ID" fx:id="userIDCol" />
+                <TableColumn prefWidth="80.0" text="Apartment No" fx:id="apartmentNoCol" />
 
             </columns>
         </TableView>

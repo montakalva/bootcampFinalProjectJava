@@ -14,14 +14,8 @@
 
     <Text text="Voting"/>
 
-    <Label text="Enter voting topic ID" GridPane.rowIndex="1" />
-    <TextField fx:id="votingAnswerTitleIDField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label text="Enter voting answer (Yes / No)" GridPane.rowIndex="2" />
-    <TextField fx:id="votingAnswerField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-    <Button onAction="#onOwnerAnswerClick" GridPane.rowIndex="3" GridPane.columnIndex="1" text="Submit"/>
-
-    <Button onAction="#navigateToScene" id="owner_voting_checkBox" text="Voting Check Box" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="user_read_voting" text="Voting topics" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+    <Button onAction="#navigateToScene" id="owner_voting_checkBox" text="Active Voting" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    <Button onAction="#navigateToScene" id="user_read_voting" text="Voting information" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
     <Button onAction="#navigateToScene" id="owner_profile" GridPane.rowIndex="16" GridPane.columnIndex="1" text="Back to profile"/>
 
 </GridPane>

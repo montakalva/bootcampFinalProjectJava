@@ -18,13 +18,13 @@
     <TextField fx:id="invoiceNoField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
     <Label text="Enter invoice type (Incomes / Expenses)" GridPane.rowIndex="2" />
-    <TextField fx:id="invoiceTitleField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <ChoiceBox fx:id="invoiceTitleBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="2" GridPane.columnIndex="1" />
 
     <Label text="Enter Company Title" GridPane.rowIndex="3" />
     <TextField fx:id="invoiceCompanyField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
     <Label text="Enter invoice issue date: Example (YYYY-MM-DD)" GridPane.rowIndex="4" />
-    <TextField fx:id="invoiceIssueDateField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <DatePicker fx:id="datePickerIssueDate" layoutX="13.0" layoutY="79.0" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
     <Label text="Enter description" GridPane.rowIndex="5" />
     <TextField fx:id="invoiceDescriptionField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
@@ -38,11 +38,11 @@
     <Label text="Enter invoice Total amount" GridPane.rowIndex="8" />
     <TextField fx:id="invoiceTotalAmountField" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
 
-    <Label text="Enter invoice status (Unpaid / Paid)" GridPane.rowIndex="9" />
-    <TextField fx:id="invoiceStatusField" GridPane.columnIndex="1" GridPane.rowIndex="9"/>
+    <Label text="Enter invoice status" GridPane.rowIndex="9" />
+    <ChoiceBox fx:id="invoiceStatusBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="9" GridPane.columnIndex="1" />
 
-    <Label text="Enter invoice payment date: Example (YYYY-MM-DD)" GridPane.rowIndex="10" />
-    <TextField fx:id="invoicePaidOnField" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+    <Label text="Enter invoice due date" GridPane.rowIndex="10" />
+    <DatePicker fx:id="datePickerInvoiceDueDate" layoutX="13.0" layoutY="79.0" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
 
     <Button onAction="#onManagerInvoiceCreateClick" GridPane.rowIndex="11" GridPane.columnIndex="1" text="Create"/>
 
@@ -50,8 +50,6 @@
     <TextField fx:id="invoiceStatusEditIDField" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
     <Label text="Enter invoice current status" GridPane.rowIndex="13" />
     <TextField fx:id="invoiceStatusEditField" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
-    <Label text="Enter invoice payment date: Example (YYYY-MM-DD)" GridPane.rowIndex="14" />
-    <TextField fx:id="invoicePaidEditField" GridPane.columnIndex="1" GridPane.rowIndex="14"/>
     <Button onAction="#onManagerInvoiceStatusEdit" GridPane.rowIndex="15" GridPane.columnIndex="1" text="Edit"/>
 
     <Label text="Enter ID of invoice to delete" GridPane.rowIndex="16" />

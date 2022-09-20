@@ -20,6 +20,7 @@
         <ChoiceBox fx:id="votingAnswerBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="4" />
         <Label layoutX="44.0" layoutY="54.0" text="Choose voting answer" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
         <Button onAction="#onOwnerAnswerClick" layoutX="126.1875" layoutY="171.5" mnemonicParsing="false" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+        <Button onAction="#navigateToScene" id="owner_profile" GridPane.rowIndex="8" GridPane.columnIndex="3" text="Back to profile"/>
     </children>
 
 </GridPane>

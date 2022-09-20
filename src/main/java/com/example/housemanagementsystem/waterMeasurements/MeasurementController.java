@@ -27,11 +27,7 @@ public class MeasurementController implements Initializable{
     private TextField hotWaterMeasurementCurrentField;
     @FXML
     private TextField hotWaterConsumptionField;
-    @FXML
-    private TextField measurementIDField;
 
-    MeasurementRepository measurementRepository = new MeasurementRepository();
-    UserRepository userRepository = new UserRepository();
 
     @FXML
     private TableView<Measurement> managerReadMeasurementTable;
@@ -52,6 +48,9 @@ public class MeasurementController implements Initializable{
     @FXML
     private TableColumn<Measurement, Integer> apartmentNoCol;
 
+    MeasurementRepository measurementRepository = new MeasurementRepository();
+    UserRepository userRepository = new UserRepository();
+
     @FXML
     protected void onOwnerMeasurementsSubmitClick(ActionEvent actionEvent) {
         try {
@@ -60,84 +59,113 @@ public class MeasurementController implements Initializable{
             Double hotWaterMeasurementCurrent = Double.valueOf(hotWaterMeasurementCurrentField.getText());
             Double hotWaterConsumption = Double.valueOf(hotWaterConsumptionField.getText());
 
-            Measurement newMeasurementSubmit = new Measurement(coldWaterMeasurementCurrent, coldWaterConsumption,
-                    hotWaterMeasurementCurrent, hotWaterConsumption);
+            Measurement newMeasurementSubmit = new Measurement(coldWaterMeasurementCurrent, coldWaterConsumption, hotWaterMeasurementCurrent, hotWaterConsumption);
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
             Integer apartmentNo = Integer.parseInt(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
-            System.out.println("Apartment No " + apartmentNo );
             this.measurementRepository.createNewWaterMeasurementSubmission(newMeasurementSubmit,userID, apartmentNo);
             SceneController.showAlert("Measurements successfully submitted! ",
                     "Your measurement has been submitted successfully!",
-                    Alert.AlertType.CONFIRMATION);
+                    Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "owner_view_measurements");
         } catch (Exception exception) {
-            SceneController.showAlert("Some problem occurred!", "Don't worry", Alert.AlertType.ERROR);
+            SceneController.showAlert("Initialize ", "Some problem occurred, please try again!", Alert.AlertType.INFORMATION);
         }
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
             initializeManagerCol();
         } catch (Exception exception){
-            System.out.println("Problem with measurements data upload");
-            exception.printStackTrace();
+            System.out.println("Initialize issue");
         }
     }
 
     @FXML
-    private void initializeManagerCol(){
+    private void initializeManagerCol() {
         try {
+            managerReadMeasurementTable.setEditable(true);
             measurementIDCol.setCellValueFactory(new PropertyValueFactory<>("measurementID"));
-
             coldWaterMeasurementCurrentCol.setCellValueFactory(new PropertyValueFactory<>("coldWaterMeasurementCurrent"));
             coldWaterMeasurementCurrentCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
-            coldWaterMeasurementCurrentCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Measurement, Double>>() {
-                                                               @FXML
-                                                               @Override
-                                                               public void handle(TableColumn.CellEditEvent<Measurement, Double> measurementDoubleCellEditEvent) {
-                                                                   Measurement measurement = measurementDoubleCellEditEvent.getRowValue();
-                                                                   measurement.setColdWaterMeasurementCurrent(measurement.getColdWaterMeasurementCurrent());
-                                                               }
-                                                           }
-            );
+            if(this.userRepository.checkUserType(DataRepository.getInstance().getLoggedInUserID()) == UserType.MANAGER) {
+                coldWaterMeasurementCurrentCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Measurement, Double>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Measurement, Double> measurementDoubleCellEditEvent) {
+                        Measurement measurement = measurementDoubleCellEditEvent.getRowValue();
+                        measurement.setColdWaterMeasurementCurrent(measurementDoubleCellEditEvent.getNewValue());
+                        Double coldWaterMeasurementCurrent = measurement.getColdWaterMeasurementCurrent();
+                        Integer measurementID = measurement.getMeasurementID();
+                        measurementRepository.updateColdWaterMeasurementCurrent(coldWaterMeasurementCurrent, measurementID);
+                    }
+                });
+            }
             coldWaterConsumptionCol.setCellValueFactory(new PropertyValueFactory<>("coldWaterConsumption"));
             coldWaterConsumptionCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+            if(this.userRepository.checkUserType(DataRepository.getInstance().getLoggedInUserID()) == UserType.MANAGER) {
+                coldWaterConsumptionCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Measurement, Double>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Measurement, Double> measurementDoubleCellEditEvent) {
+                        Measurement measurement = measurementDoubleCellEditEvent.getRowValue();
+                        measurement.setColdWaterConsumption(measurementDoubleCellEditEvent.getNewValue());
+                        Double coldWaterConsumption = measurement.getColdWaterConsumption();
+                        Integer measurementID = measurement.getMeasurementID();
+                        measurementRepository.updateColdWaterConsumption(coldWaterConsumption, measurementID);
+                    }
+                });
+            }
             hotWaterMeasurementCurrentCol.setCellValueFactory(new PropertyValueFactory<>("hotWaterMeasurementCurrent"));
             hotWaterMeasurementCurrentCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+            if(this.userRepository.checkUserType(DataRepository.getInstance().getLoggedInUserID()) == UserType.MANAGER) {
+                hotWaterMeasurementCurrentCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Measurement, Double>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Measurement, Double> measurementDoubleCellEditEvent) {
+                        Measurement measurement = measurementDoubleCellEditEvent.getRowValue();
+                        measurement.setHotWaterMeasurementCurrent(measurementDoubleCellEditEvent.getNewValue());
+                        Double hotWaterMeasurementCurrent = measurement.getHotWaterMeasurementCurrent();
+                        Integer measurementID = measurement.getMeasurementID();
+                        measurementRepository.updateHotWaterMeasurementCurrent(hotWaterMeasurementCurrent, measurementID);
+                    }
+                });
+            }
             hotWaterConsumptionCol.setCellValueFactory(new PropertyValueFactory<>("hotWaterConsumption"));
             hotWaterConsumptionCol.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+            if(this.userRepository.checkUserType(DataRepository.getInstance().getLoggedInUserID()) == UserType.MANAGER){
+            hotWaterConsumptionCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Measurement, Double>>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent<Measurement, Double> measurementDoubleCellEditEvent) {
+                    Measurement measurement = measurementDoubleCellEditEvent.getRowValue();
+                    measurement.setHotWaterConsumption(measurementDoubleCellEditEvent.getNewValue());
+                    Double hotWaterConsumption = measurement.getHotWaterConsumption();
+                    Integer measurementID = measurement.getMeasurementID();
+                    measurementRepository.updateHotWaterConsumption(hotWaterConsumption, measurementID);
+                }
+            });
+            }
             submitAtCol.setCellValueFactory(new PropertyValueFactory<>("submitAt"));
             userIDCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
             apartmentNoCol.setCellValueFactory(new PropertyValueFactory<>("apartmentNo"));
-            managerReadMeasurementTable.setEditable(true);
-          //  managerReadMeasurementTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             managerReadMeasurementTable.setItems(this.measurementRepository.addMeasurementToList());
+            } catch (Exception exception) {
+            System.out.println("Initialize issue");
+            }
+    }
 
-        } catch (Exception e) {
-            System.out.println("Problem at initialize columns");
+        public void onGoBackClick (ActionEvent actionEvent) throws Exception {
+
+            Integer userID = DataRepository.getInstance().getLoggedInUserID();
+            UserType userType = this.userRepository.checkUserType(userID);
+
+            if (userType == UserType.MANAGER) {
+                SceneController.changeScene(actionEvent, "manager_profile");
+            } else if (userType == UserType.OWNER) {
+                SceneController.changeScene(actionEvent, "owner_view_measurements");
+            }
+        }
+
+        public void navigateToScene (ActionEvent actionEvent){
+            Button source = (Button) actionEvent.getSource();
+            SceneController.changeScene(actionEvent, source.getId());
         }
     }
 
-
-    public void onGoBackClick(ActionEvent actionEvent) throws Exception{
-
-        Integer userID = DataRepository.getInstance().getLoggedInUserID();
-
-        UserType userType = this.userRepository.checkUserType(userID);
-
-        if(userType == UserType.MANAGER){
-            SceneController.changeScene(actionEvent, "manager_profile");
-        }else if(userType == UserType.OWNER){
-            SceneController.changeScene(actionEvent, "owner_view_measurements");
-        }
-
-    }
-
-    public void navigateToScene(ActionEvent actionEvent) {
-        Button source = (Button) actionEvent.getSource();
-        SceneController.changeScene(actionEvent, source.getId());
-    }
-
-}
