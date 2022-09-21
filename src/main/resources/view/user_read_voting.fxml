@@ -19,7 +19,6 @@
                 <TableColumn prefWidth="30.0" text="ID" fx:id="votingIDCol" />
                 <TableColumn prefWidth="80.0" text="Status" fx:id="votingStatusCol" />
                 <TableColumn prefWidth="80.0" text="Title" fx:id="votingTitleCol" />
-                <TableColumn prefWidth="80.0" text="Answer on topic" fx:id="votingAnswerTitleIDFieldCol" />
                 <TableColumn prefWidth="80.0" text="Answers" fx:id="votingAnswerCol" />
                 <TableColumn prefWidth="80.0" text="Submit At" fx:id="votingSubmitATCol" />
                 <TableColumn prefWidth="80.0" text="User ID" fx:id="votingUserIDCol" />

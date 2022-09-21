@@ -48,16 +48,5 @@ public class DBConnectionManager {
         }
         return connection;
     }
-
-    /*public static void closeConnection(ResultSet resultSet, PreparedStatement preparedStatement, Connection connection) {
-        try {
-            if (resultSet != null) resultSet.close();
-            if (preparedStatement != null) preparedStatement.close();
-            if (connection != null) connection.close();
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-    }*/
-
 }
 

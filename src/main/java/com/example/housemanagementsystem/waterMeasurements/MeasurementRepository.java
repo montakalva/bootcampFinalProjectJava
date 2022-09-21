@@ -16,10 +16,10 @@ public class MeasurementRepository {
 
     public void createNewWaterMeasurementSubmission(Measurement newMeasurementSubmit, Integer userID, Integer apartmentNo) throws SQLException {
         connection = DBConnectionManager.getConnection();
+
             String query = "INSERT INTO waterMeasurements (coldWaterMeasurementCurrent, coldWaterConsumption, " +
                     "hotWaterMeasurementCurrent, hotWaterConsumption, userID, apartmentNo) " +
                     "VALUES (?,?,?,?,?,?)";
-
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             preparedStatement.setDouble(1, newMeasurementSubmit.getColdWaterMeasurementCurrent());
@@ -34,15 +34,14 @@ public class MeasurementRepository {
 
     public ObservableList<Measurement> addMeasurementToList() {
         connection = DBConnectionManager.getConnection();
+        observableList = FXCollections.observableArrayList();
         try {
-            observableList = FXCollections.observableArrayList();
             String query = "SELECT measurementID, coldWaterMeasurementCurrent, coldWaterConsumption, hotWaterMeasurementCurrent, " +
                     "hotWaterConsumption, submitAt, userID, apartmentNo " +
                     "FROM waterMeasurements";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
                 Measurement measurement = new Measurement();
                 measurement.setMeasurementID(resultSet.getInt("measurementID"));
@@ -71,6 +70,7 @@ public class MeasurementRepository {
             preparedStatement.setInt(2, measurementID);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -86,6 +86,7 @@ public class MeasurementRepository {
             preparedStatement.setInt(2, measurementID);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -101,6 +102,7 @@ public class MeasurementRepository {
             preparedStatement.setInt(2, measurementID);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -116,6 +118,7 @@ public class MeasurementRepository {
             preparedStatement.setInt(2, measurementID);
 
             preparedStatement.executeUpdate();
+
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

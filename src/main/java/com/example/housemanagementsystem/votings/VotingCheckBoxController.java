@@ -28,21 +28,23 @@ public class VotingCheckBoxController implements Initializable {
 
     public void onOwnerAnswerClick(ActionEvent actionEvent){
         try{
-            String votingTitle = insertVotingTitle();
-            String votingAnswer = insetUserAnswer();
+            String votingTitle = String.valueOf(votingTitleBox.getSelectionModel().getSelectedItem());
+            String votingAnswer = String.valueOf(votingAnswerBox.getSelectionModel().getSelectedItem());
             Integer apartmentNo =  Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
             Integer userID = Integer.valueOf(DataRepository.getInstance().getLoggedInUserID());
-                this.votingRepository.createNewVotingFromCheckBox(votingTitle, votingAnswer, apartmentNo, userID);
-                SceneController.showAlert("successfully submitted voting answer! ",
-                        "Voting has been submitted successfully!",
-                        Alert.AlertType.INFORMATION);
-                SceneController.changeScene(actionEvent, "owner_view_voting");
+
+            validateVotingAnswer(votingTitle, votingAnswer, userID);
+            this.votingRepository.createNewVotingFromCheckBox(votingTitle, votingAnswer, apartmentNo, userID);
+            SceneController.showAlert("successfully submitted voting answer! ",
+                    "Voting has been submitted successfully!",
+                    Alert.AlertType.INFORMATION);
+            SceneController.changeScene(actionEvent, "owner_view_voting");
         } catch (Exception exception){
-            SceneController.showAlert("Delete voting topic failed", exception.getMessage(), Alert.AlertType.INFORMATION);
+            SceneController.showAlert("Voting answer submit failed", exception.getMessage(), Alert.AlertType.INFORMATION);
         }
     }
 
-private ObservableList<String> setChoiceBoxVotingAnswers(){
+    private ObservableList<String> setChoiceBoxVotingAnswers(){
         votingAnswerBox.getItems().addAll(
                 answerList =  FXCollections.observableArrayList(
                         "YES",
@@ -67,19 +69,14 @@ private ObservableList<String> setChoiceBoxVotingTitle(){
         setChoiceBoxVotingAnswers();
     }
 
-    public String insertVotingTitle() {
-       String votingTitle = String.valueOf(votingTitleBox.getSelectionModel().getSelectedItem());
-       return votingTitle;
-    }
-
-    public String insetUserAnswer(){
-        String votingAnswer = String.valueOf(votingAnswerBox.getSelectionModel().getSelectedItem());
-        return votingAnswer;
-    }
-
     public void navigateToScene(ActionEvent actionEvent) {
         Button source = (Button) actionEvent.getSource();
         SceneController.changeScene(actionEvent, source.getId());
+    }
+
+    private void validateVotingAnswer(String votingTitle,String votingAnswer, Integer userID) throws Exception {
+        if (votingTitle.isEmpty()) throw new Exception("Please provide voting Title!");
+        if (votingAnswer.isEmpty()) throw new Exception("Please provide voting Answer!");
     }
 }
 

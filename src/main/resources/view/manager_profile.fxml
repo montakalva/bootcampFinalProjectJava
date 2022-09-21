@@ -15,7 +15,7 @@
 <?import javafx.scene.image.Image?>
 
 
-<GridPane alignment="CENTER" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: WHITE;" vgap="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
+<GridPane alignment="CENTER" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: WHITE;" vgap="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
 <Text fx:id="profileTitleText" text="Welcome to your profile!" textAlignment="CENTER" wrappingWidth="101.2744140625" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
     <font>

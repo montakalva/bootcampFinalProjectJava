@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class VotingRepository {
 
@@ -65,7 +66,6 @@ public class VotingRepository {
             voting.setVotingID(resultSet.getInt("votingID"));
             voting.setVotingStatus(resultSet.getString("votingStatus"));
             voting.setVotingTitle(resultSet.getString("votingTitle"));
-            voting.setAnswerOnTopicID(resultSet.getInt("answerOnTopicID"));
             voting.setVotingAnswer(resultSet.getString("votingAnswer"));
             voting.setVotingAt(resultSet.getTimestamp("votingAt"));
             voting.setApartmentNo(resultSet.getInt("apartmentNo"));

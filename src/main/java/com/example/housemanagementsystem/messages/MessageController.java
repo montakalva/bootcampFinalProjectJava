@@ -55,20 +55,22 @@ public class MessageController implements Initializable {
     public void onManagerDiscussionCreateClick(ActionEvent actionEvent) {
         try {
             String messageTitle = messageTitleField.getText().toUpperCase();
-            String messageStatus = insertMessageStatus();
+            String messageStatus = String.valueOf(messageStatusBox.getSelectionModel().getSelectedItem());
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
 
+            validateDiscussionCreate(messageTitle, messageStatus);
             this.messageRepository.createNewMessage(messageTitle, messageStatus, userID);
             SceneController.showAlert("successfully created new discussion topic! ",
                     messageTitleField.getText() + " has been created successfully!",
                     Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "manager_view_messages" );
         } catch (Exception exception){
-            SceneController.showAlert("Creating new message topic creation failed", "Creating new message topic creation failed", Alert.AlertType.INFORMATION);
+            SceneController.showAlert("Creating new message topic creation failed", "Creating new message topic creation failed! " + exception.getMessage(), Alert.AlertType.INFORMATION);
         }
     }
 
     ObservableList<String> messageStatusList;
+
     private ObservableList<String> setChoiceBoxMessageStatus(){
         messageStatusBox.getItems().addAll(
                 messageStatusList = FXCollections.observableArrayList(
@@ -77,19 +79,14 @@ public class MessageController implements Initializable {
         );
         return messageStatusList;
     }
-
-    public String insertMessageStatus(){
-        String messageStatus = String.valueOf(messageStatusBox.getSelectionModel().getSelectedItem());
-        return messageStatus;
-    }
-
     @FXML
     public void onManagerDiscussionCommentClick(ActionEvent actionEvent) {
         try {
-            String messageTitle = insertMessageTitle();
+            String messageTitle = String.valueOf(discussionsTitleBox.getSelectionModel().getSelectedItem());
             String messageComment = messageCommentField.getText();
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
 
+            validateDiscussionComment(messageTitle, messageComment);
             this.messageRepository.managerCreateNewComment(messageTitle, messageComment, userID);
             SceneController.showAlert("successfully created new comment! ",
                     messageCommentField.getText() + " has been created successfully!",
@@ -168,18 +165,15 @@ private ObservableList<String> setChoiceBoxDiscussionTitle(){
     return discussionsList;
 }
 
-    public String insertMessageTitle() {
-    String messageTitle = String.valueOf(discussionsTitleBox.getSelectionModel().getSelectedItem());
-        return messageTitle;
-    }
-
     @FXML
     public void onCheckBoxOwnerDiscussionCommentClick(ActionEvent actionEvent) {
         try {
-            String messageTitle = insertMessageTitle();
+            String messageTitle = String.valueOf(discussionsTitleBox.getSelectionModel().getSelectedItem());
             String messageComment = messageCommentField.getText();
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
             Integer apartmentNo = Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
+
+            validateDiscussionComment(messageTitle, messageComment);
             this.messageRepository.createCheckBoxNewComment(messageTitle, messageComment, userID, apartmentNo);
             SceneController.showAlert("successfully created new comment! ",
                      "Comment has been created successfully!",
@@ -188,5 +182,15 @@ private ObservableList<String> setChoiceBoxDiscussionTitle(){
         } catch (Exception exception){
             SceneController.showAlert("Creating new comment creation failed", exception.getMessage(), Alert.AlertType.INFORMATION);
         }
+    }
+
+    private void validateDiscussionCreate(String messageTitle, String messageStatus) throws Exception {
+        if (messageTitle.isEmpty()) throw new Exception("Please provide Discussion Title!");
+        if (messageStatus.isEmpty()) throw new Exception("Please provide Discussion Status!");
+    }
+
+    private void validateDiscussionComment(String messageTitle, String messageComment) throws Exception {
+        if (messageTitle.isEmpty()) throw new Exception("Please provide Discussion Title!");
+        if (messageComment.isEmpty()) throw new Exception("Please provide comment!");
     }
 }

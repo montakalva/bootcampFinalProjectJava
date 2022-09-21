@@ -59,7 +59,6 @@ messageID int not null AUTO_INCREMENT,
 messageTitle VARCHAR (500),
 messageStatus VARCHAR (100),
 messageComment VARCHAR (700),
-commentOnMessageID int,
 createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 userID int,
 apartmentNo int,
@@ -79,10 +78,9 @@ invoiceSubTotal DOUBLE,
 invoiceTax DOUBLE,
 invoiceTotalAmount DOUBLE,
 invoiceStatus VARCHAR (100),
-invoicePaidOn DATE,
+invoiceDueDate DATE not null,
 PRIMARY KEY(invoiceID)
 );
-
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (1, 29.00, 1, 2);
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (1, 29.00, 1, 2);
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (2, 29.00, 1, 2);
@@ -102,4 +100,5 @@ INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (15, 29.00,
 INSERT INTO apartments (apartmentNo, sqm, floorNo, roomCount) VALUES (16, 00.00, 1, 2);
 
 
-INSERT INTO users (apartmentNo, userType, firstName, lastName, password, email, phoneNumber) VALUES (16,"MANAGER","John", "Smith", "john", "john@gmail.com", 555);
+INSERT INTO users (userType, firstName, lastName, password, email, phoneNumber) VALUES ("MANAGER","John", "Smith", "johnsmith", "john@gmail.com", 55555555);
+INSERT INTO users (apartmentNo, userType, firstName, lastName, password, email, phoneNumber) VALUES (1, "OWNER","Peter", "White", "peterwhite", "peter@gmail.com", 44444444);

@@ -49,7 +49,7 @@
     <Label text="Enter ID of invoice to edit status" GridPane.rowIndex="12" />
     <TextField fx:id="invoiceStatusEditIDField" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
     <Label text="Enter invoice current status" GridPane.rowIndex="13" />
-    <TextField fx:id="invoiceStatusEditField" GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+    <ChoiceBox fx:id="invoiceStatusEditBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
     <Button onAction="#onManagerInvoiceStatusEdit" GridPane.rowIndex="15" GridPane.columnIndex="1" text="Edit"/>
 
     <Label text="Enter ID of invoice to delete" GridPane.rowIndex="16" />
@@ -58,5 +58,5 @@
 
     <Button onAction="#navigateToScene" id="user_read_invoices" GridPane.rowIndex="18" GridPane.columnIndex="1" text="View Invoices"/>
 
-    <Button onAction="#navigateToScene" id="manager_profile" GridPane.rowIndex="19" GridPane.columnIndex="1" text="Back"/>
+    <Button onAction="#navigateToScene" id="manager_profile" GridPane.rowIndex="19" GridPane.columnIndex="1" text="Back to profile"/>
 </GridPane>

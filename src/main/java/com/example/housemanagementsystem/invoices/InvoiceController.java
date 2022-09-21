@@ -35,16 +35,15 @@ public class InvoiceController implements Initializable {
     @FXML
     private TextField invoiceStatusEditIDField;
     @FXML
-    private TextField invoiceStatusEditField;
-    @FXML
     private ChoiceBox invoiceTitleBox;
     @FXML
     private ChoiceBox invoiceStatusBox;
     @FXML
+    private ChoiceBox invoiceStatusEditBox;
+    @FXML
     DatePicker datePickerIssueDate;
     @FXML
     DatePicker datePickerInvoiceDueDate;
-
 
     @FXML
     private TableView<Invoice> userReadInvoicesTable;
@@ -73,20 +72,22 @@ public class InvoiceController implements Initializable {
 
     InvoiceRepository invoiceRepository = new InvoiceRepository();
     UserRepository userRepository = new UserRepository();
+    ObservableList<String> invoiceTitleList;
+    ObservableList<String> invoiceStatusList;
 
     public void onManagerInvoiceCreateClick(ActionEvent actionEvent) {
         try {
             String invoiceNo = invoiceNoField.getText().toUpperCase();
-            String invoiceTitle = insertInvoiceTitle();
+            String invoiceTitle = String.valueOf(invoiceTitleBox.getSelectionModel().getSelectedItem());
             String invoiceCompany = invoiceCompanyField.getText().toUpperCase();
             Date invoiceIssueDate = Date.valueOf(datePickerIssueDate.getValue());
             String invoiceDescription = invoiceDescriptionField.getText();
             Double invoiceSubTotal = Double.valueOf(invoiceSubTotalField.getText());
             Double invoiceTax = Double.valueOf(invoiceTaxField.getText());
             Double invoiceTotalAmount = Double.valueOf(invoiceTotalAmountField.getText());
-            String invoiceStatus = insertInvoiceStatus();
+            String invoiceStatus = String.valueOf(invoiceStatusBox.getSelectionModel().getSelectedItem());
             Date invoiceDueDate = Date.valueOf(datePickerInvoiceDueDate.getValue());
-            validateCreateNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceStatus);
+            validateCreateNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceDescription, invoiceSubTotal, invoiceTax, invoiceTotalAmount, invoiceStatus);
             this.invoiceRepository.createNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceIssueDate, invoiceDescription, invoiceSubTotal,
                     invoiceTax, invoiceTotalAmount, invoiceStatus, invoiceDueDate);
 
@@ -95,11 +96,10 @@ public class InvoiceController implements Initializable {
                     Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "manager_view_invoices");
         } catch (Exception exception) {
-            SceneController.showAlert("Creating new invoice failed", exception.getMessage(), Alert.AlertType.INFORMATION);
+            SceneController.showAlert("Creating new invoice failed", "Creating new invoice failed!" + exception.getMessage(), Alert.AlertType.INFORMATION);
         }
     }
 
-    ObservableList<String> invoiceTitleList;
     private ObservableList<String> setChoiceBoxInvoiceType(){
         invoiceTitleBox.getItems().addAll(
                 invoiceTitleList = FXCollections.observableArrayList(
@@ -108,33 +108,29 @@ public class InvoiceController implements Initializable {
                 );
         return invoiceTitleList;
     }
-
-    public String insertInvoiceTitle() {
-
-        String invoiceTitle = String.valueOf(invoiceTitleBox.getSelectionModel().getSelectedItem());
-        return invoiceTitle;
-    }
-
-    ObservableList<String> invoiceStatusList;
-    private ObservableList<String> setChoiceBoxInvoiceStatus(){
+    private ObservableList<String> setChoiceBoxInvoiceStatus() {
         invoiceStatusBox.getItems().addAll(
-                invoiceTitleList = FXCollections.observableArrayList(
+                invoiceStatusList = FXCollections.observableArrayList(
                         "PAID",
                         "UNPAID")
         );
         return invoiceStatusList;
     }
 
-    public String insertInvoiceStatus(){
-        String invoiceStatus = String.valueOf(invoiceStatusBox.getSelectionModel().getSelectedItem());
-        return invoiceStatus;
+    private ObservableList<String> setChoiceBoxInvoiceStatusEdit(){
+        invoiceStatusEditBox.getItems().addAll(
+                invoiceStatusList = FXCollections.observableArrayList(
+                        "PAID",
+                        "UNPAID")
+        );
+        return invoiceStatusList;
     }
 
     @FXML
     protected void onManagerInvoiceStatusEdit(ActionEvent actionEvent) {
         try {
             Integer invoiceID = Integer.parseInt(invoiceStatusEditIDField.getText());
-            String invoiceStatus = invoiceStatusEditField.getText().toUpperCase();
+            String invoiceStatus =  String.valueOf(invoiceStatusEditBox.getSelectionModel().getSelectedItem());
             this.invoiceRepository.editInvoiceStatus(invoiceStatus, invoiceID);
 
             SceneController.showAlert("Invoice status successfully edited! ",
@@ -189,6 +185,7 @@ public class InvoiceController implements Initializable {
             initializeCol();
             setChoiceBoxInvoiceType();
             setChoiceBoxInvoiceStatus();
+            setChoiceBoxInvoiceStatusEdit();
         } catch (Exception exception) {
             System.out.println("Problem with invoice data upload");
         }
@@ -212,11 +209,22 @@ public class InvoiceController implements Initializable {
         SceneController.changeScene(actionEvent, source.getId());
     }
 
-    private void validateCreateNewInvoice(String invoiceNo, String invoiceTitle, String invoiceCompany, String invoiceStatus) throws Exception {
+    private void validateCreateNewInvoice(String invoiceNo,String invoiceTitle,String invoiceCompany,
+                                          String invoiceDescription,Double invoiceSubTotal,Double invoiceTax,
+                                          Double invoiceTotalAmount,String invoiceStatus) throws Exception {
 
         if (invoiceNo.isEmpty()) throw new Exception("Please provide invoice No!");
         if (invoiceTitle.isEmpty()) throw new Exception("Please provide invoice Title!");
         if (invoiceCompany.isEmpty()) throw new Exception("Please provide company!");
         if (invoiceStatus.isEmpty()) throw new Exception("Please provide invoice status");
+        if (invoiceSubTotal >= invoiceTotalAmount)
+            throw new Exception("Please check invoice Sub Total an Total amount values");
+        if (invoiceTotalAmount != (invoiceSubTotal + invoiceTax))
+            throw new Exception("Please check values of: invoice tax, subtotal, total amount");
+        if (invoiceSubTotal.isNaN()) throw new Exception("Please provide valid value!");
+        if (invoiceTax.isNaN()) throw new Exception("Please provide valid value!");
+        if (invoiceTotalAmount.isNaN()) throw new Exception("Please provide valid value!");
+        if (invoiceDescription.isEmpty()) throw new Exception("Please provide invoice description!");
     }
+
 }
