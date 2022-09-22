@@ -186,11 +186,11 @@ private ObservableList<String> setChoiceBoxDiscussionTitle(){
 
     private void validateDiscussionCreate(String messageTitle, String messageStatus) throws Exception {
         if (messageTitle.isEmpty()) throw new Exception("Please provide Discussion Title!");
-        if (messageStatus.isEmpty()) throw new Exception("Please provide Discussion Status!");
+        if (messageStatusBox.getValue() == null) throw new Exception("Please provide Discussion Status!");
     }
 
     private void validateDiscussionComment(String messageTitle, String messageComment) throws Exception {
-        if (messageTitle.isEmpty()) throw new Exception("Please provide Discussion Title!");
+        if (discussionsTitleBox.getValue() == null) throw new Exception("Please provide Discussion Title!");
         if (messageComment.isEmpty()) throw new Exception("Please provide comment!");
     }
 }

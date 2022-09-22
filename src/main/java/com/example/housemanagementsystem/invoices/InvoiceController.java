@@ -87,7 +87,7 @@ public class InvoiceController implements Initializable {
             Double invoiceTotalAmount = Double.valueOf(invoiceTotalAmountField.getText());
             String invoiceStatus = String.valueOf(invoiceStatusBox.getSelectionModel().getSelectedItem());
             Date invoiceDueDate = Date.valueOf(datePickerInvoiceDueDate.getValue());
-            validateCreateNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceDescription, invoiceSubTotal, invoiceTax, invoiceTotalAmount, invoiceStatus);
+            validateCreateNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceDueDate, invoiceDescription, invoiceSubTotal, invoiceTax, invoiceTotalAmount, invoiceStatus);
             this.invoiceRepository.createNewInvoice(invoiceNo, invoiceTitle, invoiceCompany, invoiceIssueDate, invoiceDescription, invoiceSubTotal,
                     invoiceTax, invoiceTotalAmount, invoiceStatus, invoiceDueDate);
 
@@ -209,22 +209,27 @@ public class InvoiceController implements Initializable {
         SceneController.changeScene(actionEvent, source.getId());
     }
 
-    private void validateCreateNewInvoice(String invoiceNo,String invoiceTitle,String invoiceCompany,
+    private void validateCreateNewInvoice(String invoiceNo,String invoiceTitle,String invoiceCompany, Date invoiceIssueDate,
                                           String invoiceDescription,Double invoiceSubTotal,Double invoiceTax,
                                           Double invoiceTotalAmount,String invoiceStatus) throws Exception {
 
         if (invoiceNo.isEmpty()) throw new Exception("Please provide invoice No!");
-        if (invoiceTitle.isEmpty()) throw new Exception("Please provide invoice Title!");
+        if (invoiceTitleBox.getValue() == null) throw new Exception("Please provide invoice Title!");
         if (invoiceCompany.isEmpty()) throw new Exception("Please provide company!");
+        if (invoiceDescription.isEmpty()) throw new Exception("Please provide invoice description!");
         if (invoiceStatus.isEmpty()) throw new Exception("Please provide invoice status");
-        if (invoiceSubTotal >= invoiceTotalAmount)
+        if (invoiceSubTotal >= invoiceTotalAmount) {
             throw new Exception("Please check invoice Sub Total an Total amount values");
-        if (invoiceTotalAmount != (invoiceSubTotal + invoiceTax))
+        }
+        if (invoiceTotalAmount != (invoiceSubTotal + invoiceTax)) {
             throw new Exception("Please check values of: invoice tax, subtotal, total amount");
+        }
         if (invoiceSubTotal.isNaN()) throw new Exception("Please provide valid value!");
         if (invoiceTax.isNaN()) throw new Exception("Please provide valid value!");
         if (invoiceTotalAmount.isNaN()) throw new Exception("Please provide valid value!");
-        if (invoiceDescription.isEmpty()) throw new Exception("Please provide invoice description!");
+        if (datePickerIssueDate.getValue() == null) throw new Exception("Please provide invoice issue date!");
+        if (datePickerInvoiceDueDate.getValue() == null) throw new Exception("Please provide invoice Due Date");
+        if (invoiceStatusBox.getValue() == null) throw new Exception("Please provide invoice status");
     }
 
 }

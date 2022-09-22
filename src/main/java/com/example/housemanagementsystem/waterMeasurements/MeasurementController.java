@@ -58,7 +58,7 @@ public class MeasurementController implements Initializable{
             Double coldWaterConsumption = Double.valueOf(coldWaterConsumptionField.getText());
             Double hotWaterMeasurementCurrent = Double.valueOf(hotWaterMeasurementCurrentField.getText());
             Double hotWaterConsumption = Double.valueOf(hotWaterConsumptionField.getText());
-
+            validateMeasurements(coldWaterMeasurementCurrent, coldWaterConsumption, hotWaterMeasurementCurrent, hotWaterConsumption);
             Measurement newMeasurementSubmit = new Measurement(coldWaterMeasurementCurrent, coldWaterConsumption, hotWaterMeasurementCurrent, hotWaterConsumption);
             Integer userID = DataRepository.getInstance().getLoggedInUserID();
             Integer apartmentNo = Integer.parseInt(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
@@ -68,7 +68,7 @@ public class MeasurementController implements Initializable{
                     Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "owner_view_measurements");
         } catch (Exception exception) {
-            SceneController.showAlert("Initialize ", "Some problem occurred, please try again!", Alert.AlertType.INFORMATION);
+            SceneController.showAlert("Initialize ", "Water measurement submitting failed, please try again!" + exception.getMessage(), Alert.AlertType.INFORMATION);
         }
     }
 
@@ -167,5 +167,10 @@ public class MeasurementController implements Initializable{
             Button source = (Button) actionEvent.getSource();
             SceneController.changeScene(actionEvent, source.getId());
         }
+
+    private void validateMeasurements(Double coldWaterMeasurementCurrent, Double coldWaterConsumption, Double hotWaterMeasurementCurrent, Double hotWaterConsumption) throws Exception {
+        if (coldWaterMeasurementCurrent < coldWaterConsumption) throw new Exception("Please check cold water measurements!");
+        if (hotWaterMeasurementCurrent < hotWaterConsumption) throw new Exception("Please check hot water measurements!");
     }
+}
 

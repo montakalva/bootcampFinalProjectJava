@@ -46,8 +46,6 @@ public class VotingController implements Initializable {
     @FXML
     private TableColumn<Voting, Integer> votingUserIDCol;
     @FXML
-    private TableColumn<Voting, Integer> votingAnswerTitleIDFieldCol;
-    @FXML
     private TableColumn<Voting, Integer> votingApartmentIDCol;
     @FXML
     private TableView<Voting> userReadVotingTable;
@@ -115,13 +113,14 @@ public class VotingController implements Initializable {
         try {
             Integer votingID = Integer.valueOf(votingDeleteField.getText());
 
+            validateVotingDelete(votingID);
             this.votingRepository.deleteVotingTitle(votingID);
             SceneController.showAlert("successfully deleted voting topic! ",
                     "Voting has been Deleted successfully!",
                     Alert.AlertType.INFORMATION);
             SceneController.changeScene(actionEvent, "manager_view_voting");
         } catch (Exception exception) {
-            SceneController.showAlert("Delete voting topic failed", "Delete voting topic failed! " + exception.getMessage(), Alert.AlertType.INFORMATION);
+            SceneController.showAlert("Delete voting topic failed", "Delete voting topic failed! Please provide valid ID. " + exception.getMessage(), Alert.AlertType.INFORMATION);
         }
     }
 
@@ -201,17 +200,24 @@ public class VotingController implements Initializable {
 
     private void validateVotingCreate(String votingTitle, String votingStatus) throws Exception {
         if (votingTitle.isEmpty()) throw new Exception("Please provide voting title!");
-        if (votingStatus.isEmpty()) throw new Exception("Please provide voting status!");
-
+        if (votingStatusBox.getValue() == null) throw new Exception("Please provide voting status!");
     }
 
     private void validateVotingEdit(String votingTitle, String votingNewTitle) throws Exception{
-        if (votingTitle.isEmpty()) throw new Exception("Please provide voting title!");
+        if (votingTitleBox.getValue() == null) throw new Exception("Please provide voting title!");
         if (votingNewTitle.isEmpty()) throw new Exception("Please provide new voting title!");
     }
 
     private void validateVotingStatusEdit(Integer votingID, String votingStatus) throws Exception {
+        if (votingID == null) throw new Exception("Please provide voting ID");
+        if (votingStatusEditBox.getValue() == null) throw new Exception("Please provide voting status!");
         if (votingStatus.isEmpty()) throw new Exception("Please provide voting status!");
+
+    }
+
+    private void validateVotingDelete(Integer votingID) throws Exception {
+        if (votingDeleteField.getId().isEmpty()) throw new Exception("Please provide voting ID");
+        if (votingID == null) throw new Exception("Please provide voting ID");
     }
 }
 

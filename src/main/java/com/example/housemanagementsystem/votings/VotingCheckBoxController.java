@@ -32,7 +32,6 @@ public class VotingCheckBoxController implements Initializable {
             String votingAnswer = String.valueOf(votingAnswerBox.getSelectionModel().getSelectedItem());
             Integer apartmentNo =  Integer.valueOf(DataRepository.getInstance().getLoggedInUser().getApartmentNo());
             Integer userID = Integer.valueOf(DataRepository.getInstance().getLoggedInUserID());
-
             validateVotingAnswer(votingTitle, votingAnswer, userID);
             this.votingRepository.createNewVotingFromCheckBox(votingTitle, votingAnswer, apartmentNo, userID);
             SceneController.showAlert("successfully submitted voting answer! ",
@@ -75,8 +74,9 @@ private ObservableList<String> setChoiceBoxVotingTitle(){
     }
 
     private void validateVotingAnswer(String votingTitle,String votingAnswer, Integer userID) throws Exception {
-        if (votingTitle.isEmpty()) throw new Exception("Please provide voting Title!");
-        if (votingAnswer.isEmpty()) throw new Exception("Please provide voting Answer!");
+        if (votingTitleBox.getValue() == null) throw new Exception("Please provide voting title!");
+        if (votingAnswerBox.getValue() == null) throw new Exception("Please provide voting answer!");
+
     }
 }
 

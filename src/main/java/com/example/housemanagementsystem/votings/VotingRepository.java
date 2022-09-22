@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class VotingRepository {
 
@@ -16,27 +15,27 @@ public class VotingRepository {
     private ObservableList<Voting> observableList;
 
     public void createNewVoting(String votingTitle, String votingStatus) throws SQLException {
-            connection = DBConnectionManager.getConnection();
+        connection = DBConnectionManager.getConnection();
 
-            String query = "INSERT INTO voting (votingTitle, votingStatus) VALUES (?, ?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        String query = "INSERT INTO voting (votingTitle, votingStatus) VALUES (?, ?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, votingTitle);
-            preparedStatement.setString(2, votingStatus);
+        preparedStatement.setString(1, votingTitle);
+        preparedStatement.setString(2, votingStatus);
 
-            preparedStatement.executeUpdate();
-        }
+        preparedStatement.executeUpdate();
+    }
 
     public void editVotingTitle(String votingTitle, String votingNewTitle) throws SQLException {
-            connection = DBConnectionManager.getConnection();
+        connection = DBConnectionManager.getConnection();
 
-            String query = "UPDATE voting SET votingTitle = ? WHERE votingTitle = ? ";
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+        String query = "UPDATE voting SET votingTitle = ? WHERE votingTitle = ? ";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-            preparedStatement.setString(1, votingNewTitle);
-            preparedStatement.setString(2, votingTitle);
+        preparedStatement.setString(1, votingNewTitle);
+        preparedStatement.setString(2, votingTitle);
 
-            preparedStatement.executeUpdate();
+        preparedStatement.executeUpdate();
     }
 
     public void deleteVotingTitle(Integer votingID) throws SQLException {
@@ -56,7 +55,7 @@ public class VotingRepository {
         connection = DBConnectionManager.getConnection();
         observableList = FXCollections.observableArrayList();
 
-        String query ="SELECT * FROM voting";
+        String query = "SELECT * FROM voting";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -105,7 +104,7 @@ public class VotingRepository {
         connection = DBConnectionManager.getConnection();
         ObservableList<String> titleList = FXCollections.observableArrayList();
 
-        String query = "SELECT votingTitle FROM voting WHERE votingStatus = 'ACTIVE'" ;
+        String query = "SELECT votingTitle FROM voting WHERE votingStatus = 'ACTIVE'";
         PreparedStatement preparedStatement = connection.prepareStatement(query);
 
         ResultSet resultSet = preparedStatement.executeQuery();

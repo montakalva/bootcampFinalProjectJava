@@ -2,9 +2,6 @@ package com.example.housemanagementsystem.users;
 
 import com.example.housemanagementsystem.SceneController;
 import com.example.housemanagementsystem.database.DataRepository;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,8 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
