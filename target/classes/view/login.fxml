@@ -11,23 +11,27 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.paint.Color?>
-<GridPane alignment="CENTER" cache="true" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" vgap="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
-    <Text text="Welcome to House Management Application!" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="164.2744140625" GridPane.columnIndex="1">
+<GridPane alignment="CENTER" cache="true" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheets/background_1.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
+
+    <Text text="Welcome to House Management Application!" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="164.2744140625" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <font>
             <Font name="Berlin Sans FB Demi Bold" size="18.0" />
         </font>
         <GridPane.margin>
-            <Insets bottom="20.0" />
+            <Insets bottom="40.0" />
         </GridPane.margin></Text>
-    <Label prefHeight="17.0" prefWidth="147.0" text="Enter your first name" GridPane.rowIndex="1">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="147.0" text="Enter your first name" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
         <GridPane.margin>
-            <Insets left="70.0" />
+            <Insets />
         </GridPane.margin>
         <font>
-            <Font size="13.0" />
-        </font></Label>
-    <TextField fx:id="firstNameField" prefHeight="27.0" prefWidth="362.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Font name="System Bold Italic" size="13.0" />
+        </font>
+        <padding>
+            <Insets top="10.0" />
+        </padding></Label>
+    <TextField fx:id="firstNameField" alignment="CENTER" prefHeight="27.0" prefWidth="362.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
         <GridPane.margin>
             <Insets />
         </GridPane.margin>
@@ -42,14 +46,14 @@
             </InnerShadow>
         </effect></TextField>
 
-    <Label text="Enter your last name" GridPane.rowIndex="2">
+    <Label text="Enter your last name" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
         <GridPane.margin>
-            <Insets left="70.0" />
+            <Insets top="10.0" />
         </GridPane.margin>
         <font>
-            <Font size="13.0" />
+            <Font name="System Bold Italic" size="13.0" />
         </font></Label>
-    <TextField fx:id="lastNameField" prefHeight="31.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <TextField fx:id="lastNameField" alignment="CENTER" prefHeight="31.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
         <effect>
             <InnerShadow>
                 <color>
@@ -61,14 +65,14 @@
             <Font size="14.0" />
         </font></TextField>
 
-    <Label text="Enter your password" GridPane.rowIndex="3">
+    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="19.0" prefWidth="237.0" text="Enter your password" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
         <GridPane.margin>
-            <Insets left="70.0" />
+            <Insets top="10.0" />
         </GridPane.margin>
         <font>
-            <Font size="13.0" />
+            <Font name="System Bold Italic" size="13.0" />
         </font></Label>
-    <PasswordField fx:id="passwordField" prefHeight="31.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <PasswordField fx:id="passwordField" alignment="CENTER" prefHeight="31.0" prefWidth="133.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
         <effect>
             <InnerShadow>
                 <color>
@@ -80,13 +84,16 @@
             <Font size="14.0" />
         </font></PasswordField>
 
-    <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onUserLoginClick" prefHeight="30.0" prefWidth="164.0" style="-fx-background-color: SPRINGGREEN;" text="Log in" GridPane.columnIndex="1" GridPane.rowIndex="5">
+    <Button alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#onUserLoginClick" prefHeight="30.0" prefWidth="164.0" style="-fx-background-color: SPRINGGREEN;" text="Log in" GridPane.columnIndex="1" GridPane.rowIndex="8">
         <font>
             <Font name="System Bold" size="14.0" />
         </font>
         <effect>
             <InnerShadow />
-        </effect></Button>
+        </effect>
+        <GridPane.margin>
+            <Insets top="15.0" />
+        </GridPane.margin></Button>
     <columnConstraints>
         <ColumnConstraints maxWidth="223.0" minWidth="-Infinity" prefWidth="202.0" />
         <ColumnConstraints maxWidth="362.0" minWidth="-Infinity" prefWidth="163.0" />
@@ -95,6 +102,9 @@
     <rowConstraints>
         <RowConstraints maxHeight="69.0" minHeight="0.0" prefHeight="40.0" valignment="BOTTOM" />
         <RowConstraints maxHeight="69.0" minHeight="0.0" prefHeight="29.0" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
         <RowConstraints />
         <RowConstraints />
         <RowConstraints />

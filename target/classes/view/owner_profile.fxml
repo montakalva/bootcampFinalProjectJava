@@ -9,33 +9,119 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
-<Text fx:id="profileTitleText" text="Welcome to your profile!" textAlignment="CENTER" wrappingWidth="192.84765625" GridPane.columnIndex="2" GridPane.rowIndex="0">
-    <font>
-        <Font name="System Bold" size="14.0" />
-    </font></Text>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.InnerShadow?>
+<GridPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" stylesheets="@../stylesheets/background_1.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
-<Button id="user_info" onAction="#navigateToScene" text="Edit your user info" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-<Button id="owner_view_measurements" onAction="#navigateToScene" text="Water measurements" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-<Button id="user_read_invoices" onAction="#navigateToScene" text="Invoices" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-<Button id="owner_view_messages" onAction="#navigateToScene" text="Discussions" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-<Button id="owner_view_voting" onAction="#navigateToScene" text="Voting" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-<Button id="login" onAction="#navigateToScene" text="Logout" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-<columnConstraints>
-    <ColumnConstraints />
-    <ColumnConstraints />
-    <ColumnConstraints />
-</columnConstraints>
-<rowConstraints>
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-</rowConstraints>
+    <Text fx:id="profileTitleText" text="Welcome to your profile!" textAlignment="CENTER" wrappingWidth="143.2744140625" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+        <font>
+            <Font name="Berlin Sans FB Bold" size="18.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="20.0" />
+        </GridPane.margin></Text>
+
+    <Button id="user_info" onAction="#navigateToScene" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SPRINGGREEN;" text="Edit your info" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+        <GridPane.margin>
+            <Insets bottom="15.0" />
+        </GridPane.margin></Button>
+    <Button id="owner_view_measurements" onAction="#navigateToScene" prefHeight="30.0" prefWidth="151.0" style="-fx-background-color: SPRINGGREEN;" text="Water measurements" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+        <font>
+            <Font name="System Bold Italic" size="13.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></Button>
+    <Button id="user_read_invoices" onAction="#navigateToScene" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SPRINGGREEN;" text="Invoices" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="6">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></Button>
+    <Button id="owner_view_messages" onAction="#navigateToScene" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SPRINGGREEN;" text="Discussions" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="8">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></Button>
+    <Button id="owner_view_voting" onAction="#navigateToScene" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: SPRINGGREEN;" text="Voting" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="7">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></Button>
+    <Button id="login" onAction="#navigateToScene" prefHeight="30.0" prefWidth="88.0" style="-fx-background-color: TOMATO;" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets left="35.0" />
+        </GridPane.margin></Button>
+    <columnConstraints>
+        <ColumnConstraints maxWidth="500.0" prefWidth="310.0" />
+        <ColumnConstraints maxWidth="137.0" minWidth="55.0" prefWidth="110.0" />
+        <ColumnConstraints maxWidth="253.0" minWidth="50.0" prefWidth="207.0" />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints />
+        <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+        <ColumnConstraints maxWidth="77.0" minWidth="0.0" prefWidth="0.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints maxHeight="200.0" minHeight="0.0" prefHeight="190.0" />
+        <RowConstraints maxHeight="200.0" minHeight="20.0" prefHeight="70.0" />
+        <RowConstraints maxHeight="31.0" minHeight="0.0" prefHeight="31.0" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints maxHeight="50.0" minHeight="25.0" prefHeight="50.0" />
+        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+    </rowConstraints>
 
 </GridPane>

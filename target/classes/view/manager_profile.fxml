@@ -15,114 +15,141 @@
 <?import javafx.scene.image.Image?>
 
 
-<GridPane alignment="CENTER" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: WHITE;" vgap="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
+<GridPane alignment="CENTER" prefHeight="400.0" prefWidth="600.0" stylesheets="@../stylesheets/background_1.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
-<Text fx:id="profileTitleText" text="Welcome to your profile!" textAlignment="CENTER" wrappingWidth="101.2744140625" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-    <font>
-        <Font name="Berlin Sans FB Bold" size="18.0" />
-    </font></Text>
+    <Text fx:id="profileTitleText" text="Welcome to your profile!" textAlignment="CENTER" wrappingWidth="101.2744140625" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+        <font>
+            <Font name="Berlin Sans FB Bold" size="18.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin></Text>
 
-<Button id="register_new_owner" alignment="CENTER" contentDisplay="CENTER" onAction="#navigateToScene" prefHeight="30.0" prefWidth="214.0" style="-fx-background-color: SPRINGGREEN;" text="Register new apartment owner" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-    <font>
-        <Font size="14.0" />
-    </font>
+    <Button id="register_new_owner" alignment="CENTER" contentDisplay="CENTER" onAction="#navigateToScene" prefHeight="30.0" prefWidth="141.0" style="-fx-background-color: SPRINGGREEN;" text="Register new owner" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets left="80.0" />
+        </GridPane.margin>
+        <font>
+            <Font name="System Bold Italic" size="13.0" />
+        </font></Button>
+    <Button id="delete_owner" onAction="#navigateToScene" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: SPRINGGREEN;" text="Delete owner" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets left="80.0" />
+        </GridPane.margin></Button>
+    <Button id="user_info" onAction="#navigateToScene" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: SPRINGGREEN;" text="Edit your info" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets left="80.0" />
+        </GridPane.margin></Button>
+    <Button id="manager_view_messages" onAction="#navigateToScene" prefHeight="30.0" prefWidth="128.0" style="-fx-background-color: SPRINGGREEN;" text="Discussions" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="5.0" right="50.0" />
+        </GridPane.margin></Button>
+    <Button id="manager_view_voting" onAction="#navigateToScene" prefHeight="30.0" prefWidth="129.0" style="-fx-background-color: SPRINGGREEN;" text="Voting" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="5.0" right="50.0" />
+        </GridPane.margin></Button>
+    <Button id="manager_read_measurements" onAction="#navigateToScene" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: SPRINGGREEN;" text="Measurements" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="5.0" right="50.0" />
+        </GridPane.margin></Button>
+    <Button id="manager_view_invoices" onAction="#navigateToScene" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: SPRINGGREEN;" text="Invoices" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="5.0" right="50.0" />
+        </GridPane.margin></Button>
+    <Button id="login" alignment="CENTER" contentDisplay="CENTER" onAction="#navigateToScene" style="-fx-background-color: TOMATO;" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.09210526198148727" green="0.09210526198148727" blue="0.09210526198148727" />
+                </color></InnerShadow>
+        </effect>
+        <GridPane.margin>
+            <Insets top="10.0" />
+        </GridPane.margin></Button>
+    <ImageView fx:id="image1" fitHeight="56.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+        <image>
+            <Image url="@../images/user.jpg" />
+        </image></ImageView>
+    <ImageView fx:id="image2" fitHeight="58.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+        <image>
+            <Image url="@../images/clipboard.jpg" />
+        </image></ImageView>
+    <Button id="owners_table" onAction="#navigateToScene" prefHeight="30.0" prefWidth="140.0" style="-fx-background-color: SPRINGGREEN;" text="View users' list" textAlignment="CENTER" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets left="80.0" />
+        </GridPane.margin>
+    </Button>
+
+    <columnConstraints>
+        <ColumnConstraints maxWidth="229.0" minWidth="-Infinity" prefWidth="214.0" />
+        <ColumnConstraints maxWidth="200.0" minWidth="53.0" prefWidth="98.0" />
+        <ColumnConstraints maxWidth="253.0" minWidth="127.0" prefWidth="212.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
     <effect>
         <InnerShadow />
     </effect>
-    <GridPane.margin>
-        <Insets />
-    </GridPane.margin></Button>
-<Button id="delete_owner" onAction="#navigateToScene" prefHeight="30.0" prefWidth="185.0" style="-fx-background-color: SPRINGGREEN;" text="Delete apartment owner" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
-    <font>
-        <Font size="14.0" />
-    </font>
-    <effect>
-        <InnerShadow />
-    </effect></Button>
-<Button id="user_info" onAction="#navigateToScene" prefHeight="30.0" prefWidth="139.0" style="-fx-background-color: SPRINGGREEN;" text="Edit your user info" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-    <font>
-        <Font size="14.0" />
-    </font>
-    <effect>
-        <InnerShadow />
-    </effect></Button>
-<Button id="manager_view_messages" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Discussions" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
-    <font>
-        <Font size="14.0" />
-    </font>
-    <effect>
-        <InnerShadow />
-    </effect></Button>
-<Button id="manager_view_voting" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Voting" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER">
-    <font>
-        <Font size="14.0" />
-    </font>
-    <effect>
-        <InnerShadow />
-    </effect></Button>
-<Button id="manager_read_measurements" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Measurements" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-    <font>
-        <Font size="14.0" />
-    </font>
-    <effect>
-        <InnerShadow />
-    </effect></Button>
-<Button id="manager_view_invoices" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Invoices" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="8" GridPane.valignment="CENTER">
-    <font>
-        <Font size="14.0" />
-    </font>
-    <effect>
-        <InnerShadow />
-    </effect></Button>
-<Button id="login" alignment="CENTER" contentDisplay="CENTER" onAction="#navigateToScene" style="-fx-background-color: TOMATO;" text="Logout" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12" GridPane.valignment="CENTER">
-    <font>
-        <Font name="System Bold" size="14.0" />
-    </font>
-    <effect>
-        <InnerShadow>
-            <color>
-                <Color red="0.09210526198148727" green="0.09210526198148727" blue="0.09210526198148727" />
-            </color></InnerShadow>
-    </effect></Button>
-<ImageView fx:id="image1" fitHeight="56.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-    <image>
-        <Image url="@../images/user.jpg" />
-    </image></ImageView>
-<ImageView fx:id="image2" fitHeight="58.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
-    <image>
-        <Image url="@../images/clipboard.jpg" />
-    </image></ImageView>
-<Button id="owner_table" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="View users' list" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.valignment="CENTER">
-    <font>
-        <Font size="14.0" />
-    </font>
-    <effect>
-        <InnerShadow />
-    </effect>
-</Button>
-
-<columnConstraints>
-    <ColumnConstraints maxWidth="229.0" minWidth="-Infinity" prefWidth="214.0" />
-    <ColumnConstraints maxWidth="200.0" minWidth="53.0" prefWidth="98.0" />
-    <ColumnConstraints maxWidth="253.0" minWidth="127.0" prefWidth="212.0" />
-</columnConstraints>
-<rowConstraints>
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-    <RowConstraints />
-</rowConstraints>
-<effect>
-    <InnerShadow />
-</effect>
 
 </GridPane>

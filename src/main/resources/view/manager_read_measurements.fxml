@@ -3,24 +3,39 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.housemanagementsystem.waterMeasurements.MeasurementController"
-            prefHeight="600.0" prefWidth="600.0">
-    <Button onAction="#onGoBackClick" GridPane.rowIndex="2" GridPane.columnIndex="1" text="Back"/>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.InnerShadow?>
+<GridPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.waterMeasurements.MeasurementController">
+    <Button onAction="#onGoBackClick" style="-fx-background-color: ORANGE;" text="Back" GridPane.columnIndex="0" GridPane.rowIndex="10">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect></Button>
 
     <children>
-        <TableView fx:id="managerReadMeasurementTable" layoutX="35.0" layoutY="28.0" prefHeight="800.0" prefWidth="800.0">
+        <TableView fx:id="managerReadMeasurementTable" layoutX="35.0" layoutY="28.0" prefHeight="600.0" prefWidth="800.0">
             <columns>
-                <TableColumn prefWidth="30.0" text="ID" fx:id="measurementIDCol" />
-                <TableColumn prefWidth="80.0" text="Cold water measurement" fx:id="coldWaterMeasurementCurrentCol" />
-                <TableColumn prefWidth="80.0" text="Cold consumption" fx:id="coldWaterConsumptionCol"/>
-                <TableColumn prefWidth="80.0" text="Hot water measurement" fx:id="hotWaterMeasurementCurrentCol" />
-                <TableColumn prefWidth="80.0" text="Hot consumption" fx:id="hotWaterConsumptionCol" />
-                <TableColumn prefWidth="80.0" text="Submit At" fx:id="submitAtCol" />
-                <TableColumn prefWidth="80.0" text="User ID" fx:id="userIDCol" />
-                <TableColumn prefWidth="80.0" text="Apartment No" fx:id="apartmentNoCol" />
+                <TableColumn fx:id="measurementIDCol" prefWidth="90.0" text="ID" />
+                <TableColumn fx:id="coldWaterMeasurementCurrentCol" prefWidth="90.0" text="Current measurement" />
+                <TableColumn fx:id="coldWaterConsumptionCol" prefWidth="90.0" text="Consumption" />
+                <TableColumn fx:id="hotWaterMeasurementCurrentCol" prefWidth="90.0" text="Current measurement" />
+                <TableColumn fx:id="hotWaterConsumptionCol" prefWidth="90.0" text="Consumption" />
+                <TableColumn fx:id="submitAtCol" prefWidth="90.0" text="Submit At" />
+                <TableColumn fx:id="userIDCol" prefWidth="90.0" text="User ID" />
+                <TableColumn fx:id="apartmentNoCol" prefWidth="90.0" text="Apartment No" />
             </columns>
         </TableView>
     </children>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 </GridPane>

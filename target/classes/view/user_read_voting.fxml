@@ -6,26 +6,40 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.housemanagementsystem.votings.VotingController"
-            prefHeight="700.0" prefWidth="1000.0">
 
-    <Button onAction="#onGoBackClick" GridPane.rowIndex="2" GridPane.columnIndex="1" text="Back"/>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.InnerShadow?>
+<GridPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.votings.VotingController">
+
+    <Button onAction="#onGoBackClick" style="-fx-background-color: ORANGE;" text="Back" GridPane.columnIndex="0" GridPane.rowIndex="10">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect></Button>
 
     <children>
-        <TableView fx:id="userReadVotingTable" layoutX="35.0" layoutY="28.0" prefHeight="800.0" prefWidth="800.0">
+        <TableView fx:id="userReadVotingTable" layoutX="35.0" layoutY="28.0" prefHeight="600.0" prefWidth="800.0">
             <columns>
-                <TableColumn prefWidth="30.0" text="ID" fx:id="votingIDCol" />
-                <TableColumn prefWidth="80.0" text="Status" fx:id="votingStatusCol" />
-                <TableColumn prefWidth="80.0" text="Title" fx:id="votingTitleCol" />
-                <TableColumn prefWidth="80.0" text="Answer on topic" fx:id="votingAnswerTitleIDFieldCol" />
-                <TableColumn prefWidth="80.0" text="Answers" fx:id="votingAnswerCol" />
-                <TableColumn prefWidth="80.0" text="Submit At" fx:id="votingSubmitATCol" />
-                <TableColumn prefWidth="80.0" text="User ID" fx:id="votingUserIDCol" />
-                <TableColumn prefWidth="80.0" text="Apartment ID" fx:id="votingApartmentIDCol" />
+                <TableColumn fx:id="votingIDCol" prefWidth="90.0" text="ID" />
+                <TableColumn fx:id="votingStatusCol" prefWidth="90.0" text="Status" />
+                <TableColumn fx:id="votingTitleCol" prefWidth="90.0" text="Title" />
+                <TableColumn fx:id="votingAnswerCol" prefWidth="90.0" text="Answers" />
+                <TableColumn fx:id="votingSubmitATCol" prefWidth="90.0" text="Submit At" />
+                <TableColumn fx:id="votingUserIDCol" prefWidth="90.0" text="User ID" />
+                <TableColumn fx:id="votingApartmentIDCol" prefWidth="90.0" text="Apartment ID" />
             </columns>
         </TableView>
     </children>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
 </GridPane>

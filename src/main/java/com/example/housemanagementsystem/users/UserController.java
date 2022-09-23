@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
 public class UserController implements Initializable {
 
     public Text profileTitleText;
@@ -126,28 +127,24 @@ public class UserController implements Initializable {
 
     private void validateOwnerRegistrationInfo(User user) throws Exception {
 
-        if (!user.getPassword().equals(confirmPasswordField.getText())) throw new Exception("Password does not match!");
-        if (user.getPassword().length() < 6) throw new Exception("Password must contain at least 6 characters!");
         if (user.getFirstName().isEmpty()) throw new Exception("Please provide owner's first name!");
+        if (!user.getFirstName().matches("[a-zA-Z]*")) throw new Exception("Please provide valid first name!");
         if (user.getLastName().isEmpty()) throw new Exception("Please provide owner's last name!");
+        if (!user.getLastName().matches("[a-zA-Z]*")) throw new Exception("Please provide valid last name!");
         if (user.getPassword().isEmpty()) throw new Exception("Please choose owner's password!");
-        if (user.getEmail().isEmpty()) throw new Exception("Please provide owner's e-mail address!");
+        if (user.getPassword().length() < 6) throw new Exception("Password must contain at least 6 characters!");
+        if (!user.getPassword().equals(confirmPasswordField.getText())) throw new Exception("Password does not match!");
         if (user.getApartmentNo().isEmpty()) throw new Exception("Please choose the number of the apartment!");
+        if (!user.getApartmentNo().matches("[0-9]*")) throw new Exception("Please provide valid apartment number!");
         if (Integer.parseInt(user.getApartmentNo()) < 1 || Integer.parseInt(user.getApartmentNo()) > 15)
             throw new Exception("Please choose valid apartment number (from 1 to 15)!");
+        if (user.getEmail().isEmpty()) throw new Exception("Please provide owner's e-mail address!");
+        if (!user.getEmail().matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"))
+            throw new Exception("Please provide valid e-mail address!");
         if (user.getPhoneNumber().isEmpty()) throw new Exception("Please provide owner's phone number!");
         if (user.getPhoneNumber().length() < 8)
             throw new Exception("Please provide valid phone number! Phone number must consist of at least 8 digits!");
-        if (!user.getApartmentNo().matches("[0-9]*")) throw new Exception("Please provide valid apartment number!");
         if (!user.getPhoneNumber().matches("[0-9]*")) throw new Exception("Please provide valid phone number!");
-        if (!user.getFirstName().matches("[a-zA-Z]*")) throw new Exception("Please provide valid first name!");
-        if (!user.getLastName().matches("[a-zA-Z]*")) throw new Exception("Please provide valid last name!");
-        if (!user.getEmail().matches("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$"))
-            throw new Exception("Please provide valid e-mail address!");
-
-        //if(user.getApartmentNo().contains("\\s*")) throw new Exception("Please provide valid apartment number");
-        //if(user.getPhoneNumber().contains("\\s*")) throw new Exception("Please provide valid apartment number");
-
     }
 
     private void validatePasswordInfo(User user, String password, String newPassword, String confirmNewPassword) throws Exception {
@@ -157,7 +154,6 @@ public class UserController implements Initializable {
         if (newPassword.length() < 6) throw new Exception("Password must contain at least 6 characters!");
         if (confirmNewPassword.isEmpty()) throw new Exception("Please confirm your new password!");
         if (!newPassword.equals(confirmNewPassword)) throw new Exception("Password does not match!");
-
     }
 
     private void validatePhoneNumberChangeInfo(User user, String newPhoneNumber, String password) throws Exception {
@@ -168,7 +164,6 @@ public class UserController implements Initializable {
             throw new Exception("Please provide valid phone number! Phone number must consist of at least 8 digits!");
         if (password.isEmpty()) throw new Exception("Please provide your password!");
         if (!user.getPassword().equals(password)) throw new Exception("Password is not correct!");
-
     }
 
     private void validateEmailChangeInfo(User user, String newEmail, String password) throws Exception {
@@ -178,19 +173,20 @@ public class UserController implements Initializable {
             throw new Exception("Please provide valid e-mail address!");
         if (password.isEmpty()) throw new Exception("Please provide your password!");
         if (!user.getPassword().equals(password)) throw new Exception("Password is not correct!");
-
     }
 
     private void validateDeletingOwnerInfo(User user, String firstName, String lastName, String apartmentNo, String password) throws Exception {
 
         if (firstName.isEmpty()) throw new Exception("Please provide owner's first name!");
+        if (!firstName.matches("[a-zA-Z]*")) throw new Exception("Please provide valid first name!");
         if (lastName.isEmpty()) throw new Exception("Please provide owner's last name!");
+        if (!lastName.matches("[a-zA-Z]*")) throw new Exception("Please provide valid last name!");
         if (apartmentNo.isEmpty()) throw new Exception("Please provide owner's apartment number!");
+        if (!apartmentNo.matches("[0-9]*")) throw new Exception("Please provide valid apartment number!");
         if (Integer.parseInt(apartmentNo) < 1 || Integer.parseInt(apartmentNo) > 15)
             throw new Exception("Please choose valid apartment number (from 1 to 15)!");
         if (password.isEmpty()) throw new Exception("Please enter your password!");
         if (!user.getPassword().equals(password)) throw new Exception("Password is incorrect!");
-
     }
 
     public void onChangePasswordClick(ActionEvent actionEvent) {
@@ -206,6 +202,7 @@ public class UserController implements Initializable {
             this.userRepository.verifyPassword(userID, password);
             this.validatePasswordInfo(user, password, newPassword, confirmNewPassword);
             this.userRepository.updatePassword(userID, newPassword);
+            DataRepository.getInstance().setLoggedInUser(this.userRepository.getUserByID(userID));
 
             UserType userType = this.userRepository.checkUserType(userID);
 
@@ -220,7 +217,6 @@ public class UserController implements Initializable {
         } catch (Exception e) {
             SceneController.showAlert("Password change failed!", e.getMessage(), Alert.AlertType.ERROR);
         }
-
     }
 
 
@@ -235,7 +231,6 @@ public class UserController implements Initializable {
             validatePhoneNumberChangeInfo(user, newPhoneNumber, password);
             this.userRepository.verifyPassword(userID, password);
             this.userRepository.updatePhoneNumber(userID, newPhoneNumber);
-
             UserType userType = this.userRepository.checkUserType(userID);
 
             SceneController.showAlert("Phone number change successful", "You have updated your phone number successfully!", Alert.AlertType.CONFIRMATION);
@@ -245,13 +240,9 @@ public class UserController implements Initializable {
             } else if (userType == UserType.OWNER) {
                 SceneController.changeScene(actionEvent, "owner_profile");
             }
-
-
         } catch (Exception e) {
             SceneController.showAlert("Phone number change failed!", e.getMessage(), Alert.AlertType.ERROR);
         }
-
-
     }
 
     public void onUpdateEmailClick(ActionEvent actionEvent) {
@@ -279,8 +270,6 @@ public class UserController implements Initializable {
         } catch (Exception e) {
             SceneController.showAlert("E-mail address change failed!", e.getMessage(), Alert.AlertType.ERROR);
         }
-
-
     }
 
     public void onDeleteOwnerClick(ActionEvent actionEvent) {
@@ -310,13 +299,11 @@ public class UserController implements Initializable {
         } catch (Exception e) {
             SceneController.showAlert("Deleting apartment owner failed!", e.getMessage(), Alert.AlertType.ERROR);
         }
-
     }
 
     public void onGoBackClick(ActionEvent actionEvent) throws Exception {
 
         Integer userID = DataRepository.getInstance().getLoggedInUserID();
-
         UserType userType = this.userRepository.checkUserType(userID);
 
         if (userType == UserType.MANAGER) {
@@ -324,7 +311,6 @@ public class UserController implements Initializable {
         } else if (userType == UserType.OWNER) {
             SceneController.changeScene(actionEvent, "owner_profile");
         }
-
     }
 
     @Override
@@ -350,12 +336,6 @@ public class UserController implements Initializable {
             usersTable.setItems(this.userRepository.getAllOwnersFromDB());
 
         }catch (Exception e){
-            //SceneController.showAlert("Owners' list load failed", e.getMessage(), Alert.AlertType.ERROR);
-            //System.out.println("Some problems with owner's table to fix!");
         }
-
     }
-
-
-
 }

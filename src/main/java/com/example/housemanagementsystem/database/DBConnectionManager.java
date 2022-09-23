@@ -4,7 +4,6 @@ import org.apache.commons.configuration.PropertiesConfiguration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-
 public class DBConnectionManager {
 
     private static PropertiesConfiguration databaseProperties = new PropertiesConfiguration();
@@ -14,7 +13,7 @@ public class DBConnectionManager {
     private static String username;
     private static String connectionUrl;
 
-    private DBConnectionManager(){
+    private DBConnectionManager() {
         updateConnection();
     }
 

@@ -2,7 +2,6 @@ package com.example.housemanagementsystem.users;
 
 import lombok.*;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

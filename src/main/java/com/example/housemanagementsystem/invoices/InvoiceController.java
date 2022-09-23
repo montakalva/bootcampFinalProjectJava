@@ -231,5 +231,4 @@ public class InvoiceController implements Initializable {
         if (datePickerInvoiceDueDate.getValue() == null) throw new Exception("Please provide invoice Due Date");
         if (invoiceStatusBox.getValue() == null) throw new Exception("Please provide invoice status");
     }
-
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.InnerShadow?>
+
+<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
+    <children>
+        <TableView fx:id="usersTable" prefHeight="400.0" prefWidth="624.0">
+            <columns>
+                <TableColumn fx:id="userIDColumn" prefWidth="75.0" text="Owner's ID" />
+                <TableColumn fx:id="apartmentNoColumn" prefWidth="91.0" text="Apartment no." />
+                <TableColumn fx:id="firstNameColumn" prefWidth="71.0" text="First name" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="70.0" text="Last name" />
+                <TableColumn fx:id="emailColumn" prefWidth="95.0" text="E-mail address" />
+                <TableColumn fx:id="phoneNumberColumn" prefWidth="95.0" text="Phone number" />
+            </columns>
+        </TableView>
+    </children>
+
+    <Button id="manager_profile" onAction="#navigateToScene" style="-fx-background-color: ORANGE;" text="Back" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="8">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect></Button>
+
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

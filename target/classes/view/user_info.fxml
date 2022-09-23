@@ -7,18 +7,79 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.example.housemanagementsystem.users.UserController"
-          prefHeight="400.0" prefWidth="600.0">
 
-    <Text fx:id="userInfoTitleText" text="Update your user info" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.InnerShadow?>
+<GridPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" stylesheets="@../stylesheets/background_1.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
-    <Button onAction="#navigateToScene" id="change_password" text="Change your password" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="change_phone" text="Update your phone number" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-    <Button onAction="#navigateToScene" id="change_email" text="Update your e-mail address" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+    <Text fx:id="userInfoTitleText" text="What would you like to do?" textAlignment="CENTER" wrappingWidth="163.2890625" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+        <font>
+            <Font name="Berlin Sans FB Demi Bold" size="18.0" />
+        </font>
+        <GridPane.margin>
+            <Insets top="20.0" />
+        </GridPane.margin></Text>
 
-    <Button onAction="#onGoBackClick" GridPane.rowIndex="5" GridPane.columnIndex="1" text="Back"/>
+    <Button id="change_password" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Change your password" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="10.0" top="30.0" />
+        </GridPane.margin></Button>
+    <Button id="change_phone" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Update your phone number" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="10.0" />
+        </GridPane.margin></Button>
+    <Button id="change_email" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="Update your e-mail address" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="20.0" />
+        </GridPane.margin></Button>
+
+    <Button onAction="#onGoBackClick" style="-fx-background-color: ORANGE;" text="Back" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets top="10.0" />
+        </GridPane.margin></Button>
+
+
+    <columnConstraints>
+        <ColumnConstraints maxWidth="500.0" prefWidth="250.0" />
+        <ColumnConstraints maxWidth="500.0" prefWidth="300.0" />
+        <ColumnConstraints maxWidth="500.0" prefWidth="250.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="500.0" prefHeight="150.0" />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
 
 </GridPane>

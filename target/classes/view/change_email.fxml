@@ -7,23 +7,98 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.example.housemanagementsystem.users.UserController"
-          prefHeight="400.0" prefWidth="600.0">
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.paint.Color?>
+<GridPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" stylesheets="@../stylesheets/background_1.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.users.UserController">
 
+    <Text fx:id="changeEmailTitleText" text="Update your e-mail address" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <font>
+            <Font name="Berlin Sans FB Demi Bold" size="16.0" />
+        </font>
+        <GridPane.margin>
+            <Insets top="200.0" />
+        </GridPane.margin></Text>
 
-    <Text fx:id="changeEmailTitleText" text="Update your e-mail address" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <Label text="Enter new e-mail address" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets top="15.0" />
+        </GridPane.margin></Label>
+    <TextField fx:id="newEmailField" alignment="CENTER" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <GridPane.margin>
+            <Insets bottom="5.0" top="5.0" />
+        </GridPane.margin>
+        <font>
+            <Font size="13.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect></TextField>
 
-    <Label text="Enter updated e-mail address" GridPane.rowIndex="4"/>
-    <TextField fx:id="newEmailField" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+    <Label text="Enter password to confirm changes" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+        <font>
+            <Font name="System Bold Italic" size="13.0" />
+        </font>
+        <GridPane.margin>
+            <Insets top="5.0" />
+        </GridPane.margin></Label>
+    <PasswordField fx:id="passwordField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <GridPane.margin>
+            <Insets top="5.0" />
+        </GridPane.margin>
+        <font>
+            <Font size="13.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color>
+            </InnerShadow>
+        </effect></PasswordField>
 
-    <Label text="Enter your password to confirm the updates" GridPane.rowIndex="5"/>
-    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+    <Button onAction="#onUpdateEmailClick" style="-fx-background-color: SPRINGGREEN;" text="Update e-mail" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets right="5.0" top="20.0" />
+        </GridPane.margin></Button>
 
-    <Button onAction="#onUpdateEmailClick" GridPane.rowIndex="6" GridPane.columnIndex="1" text="Update your e-mail address"/>
-
-    <Button onAction="#onGoBackClick" GridPane.rowIndex="7" GridPane.columnIndex="1" text="Return back to profile"/>
+    <Button onAction="#onGoBackClick" style="-fx-background-color: ORANGE;" text="Back to profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets right="5.0" top="10.0" />
+        </GridPane.margin></Button>
+    <columnConstraints>
+        <ColumnConstraints maxWidth="700.0" prefWidth="280.0" />
+        <ColumnConstraints maxWidth="800.0" prefWidth="220.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
 </GridPane>
-

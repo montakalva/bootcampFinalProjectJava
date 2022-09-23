@@ -4,26 +4,144 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.scene.text.Text?>
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="com.example.housemanagementsystem.messages.MessageController"
-          prefHeight="400.0" prefWidth="600.0">
 
-    <Text text="Discussions"/>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.paint.Color?>
+<GridPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" stylesheets="@../stylesheets/backfround_2.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.messages.MessageController">
 
-    <Label text="Enter New Discussion topic" GridPane.rowIndex="1" />
-    <TextField fx:id="messageTitleField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label text="Enter Discussion status" GridPane.rowIndex="2" />
-    <ChoiceBox fx:id="messageStatusBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="2" GridPane.columnIndex="1" />
-    <Button onAction="#onManagerDiscussionCreateClick" GridPane.rowIndex="3" GridPane.columnIndex="1" text="Create"/>
+    <Text text="Discussions" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+        <font>
+            <Font name="Berlin Sans FB Demi Bold" size="18.0" />
+        </font>
+        <GridPane.margin>
+            <Insets bottom="15.0" top="170.0" />
+        </GridPane.margin></Text>
 
-    <Label text="Actual discussion topics" GridPane.rowIndex="7" />
-    <ChoiceBox fx:id="discussionsTitleBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.rowIndex="7" GridPane.columnIndex="1" />
-    <Label text="Enter your comment" GridPane.rowIndex="8" />
-    <TextField fx:id="messageCommentField" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-    <Button onAction="#onManagerDiscussionCommentClick" GridPane.rowIndex="9" GridPane.columnIndex="1" text="Submit"/>
+    <Label text="Enter New Discussion topic" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin></Label>
+    <TextField fx:id="messageTitleField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6">
+        <GridPane.margin>
+            <Insets bottom="5.0" top="5.0" />
+        </GridPane.margin>
+        <font>
+            <Font size="13.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color></InnerShadow>
+        </effect></TextField>
+    <Label text="Enter Discussion status" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin></Label>
+    <ChoiceBox fx:id="messageStatusBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+        <GridPane.margin>
+            <Insets bottom="5.0" />
+        </GridPane.margin></ChoiceBox>
+    <Button onAction="#onManagerDiscussionCreateClick" style="-fx-background-color: SPRINGGREEN;" text="Create" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="9">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="5.0" />
+        </GridPane.margin></Button>
 
-    <Button onAction="#navigateToScene" id="user_read_messages" GridPane.rowIndex="15" GridPane.columnIndex="1" text="View Discussions"/>
-    <Button onAction="#navigateToScene" id="manager_profile" GridPane.rowIndex="16" GridPane.columnIndex="1" text="Back to profile"/>
+    <Label text="Actual discussion topics" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="10">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin></Label>
+    <ChoiceBox fx:id="discussionsTitleBox" layoutX="44.0" layoutY="71.0" prefHeight="25.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+        <GridPane.margin>
+            <Insets bottom="5.0" />
+        </GridPane.margin></ChoiceBox>
+    <Label text="Enter your comment" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="12">
+        <font>
+            <Font name="System Bold Italic" size="14.0" />
+        </font>
+        <GridPane.margin>
+            <Insets />
+        </GridPane.margin></Label>
+    <TextField fx:id="messageCommentField" alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="13">
+        <GridPane.margin>
+            <Insets bottom="5.0" />
+        </GridPane.margin>
+        <font>
+            <Font size="13.0" />
+        </font>
+        <effect>
+            <InnerShadow>
+                <color>
+                    <Color red="0.019607843831181526" green="0.43529412150382996" blue="0.10196078568696976" />
+                </color></InnerShadow>
+        </effect></TextField>
+    <Button onAction="#onManagerDiscussionCommentClick" style="-fx-background-color: SPRINGGREEN;" text="Submit" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="14">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="5.0" />
+        </GridPane.margin></Button>
+
+    <Button id="user_read_messages" onAction="#navigateToScene" style="-fx-background-color: SPRINGGREEN;" text="View Discussions" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="15">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect>
+        <GridPane.margin>
+            <Insets bottom="5.0" />
+        </GridPane.margin></Button>
+    <Button id="manager_profile" onAction="#navigateToScene" style="-fx-background-color: ORANGE;" text="Back to profile" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="16">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect></Button>
+    <columnConstraints>
+        <ColumnConstraints maxWidth="800.0" prefWidth="290.0" />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
 </GridPane>

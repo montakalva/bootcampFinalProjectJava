@@ -28,13 +28,9 @@ public class UserRepository {
 
         Integer userID = null;
         if (resultSet.next()) userID = resultSet.getInt("userID");
-
-        //DBConnectionManager.closeConnection(resultSet, preparedStatement, connection);
-
         if (userID != null) return userID;
 
         throw new UserNotFoundException("User " + firstName + " " + lastName + " not found!");
-
     }
 
 
@@ -53,11 +49,7 @@ public class UserRepository {
 
         if (userType != null) return userType;
 
-        //throw new Exception("Error occurred! Not possible to find usertype!");
-
         throw new UserNotFoundException("Unable to find user with id " + userID);
-
-
     }
 
     public void registerOwner(User user) throws Exception{
@@ -78,7 +70,6 @@ public class UserRepository {
         int result = preparedStatement.executeUpdate();
 
         if (result != 1) throw new Exception("Registration failed for user with name " + user.getFirstName() + " " + user.getLastName());
-
     }
 
     public void updatePassword(Integer userID, String password) throws Exception {
@@ -93,8 +84,6 @@ public class UserRepository {
         int result = preparedStatement.executeUpdate();
 
         if (result != 1) throw new Exception("Error occurred! Your password has not been updated!");
-
-
     }
 
 
@@ -113,7 +102,6 @@ public class UserRepository {
         if (password != null) return password;
 
         throw new Exception("Error occurred! Password has not been verified!");
-
     }
 
     public User getUserByID(int userID) throws Exception {
@@ -140,12 +128,8 @@ public class UserRepository {
                     resultSet.getString("phoneNumber")
             );
         }
-
-        //if (user == null) throw new Exception("Unable to find user with id " + userID);
         if(user == null) throw new UserNotFoundException("Unable to find user with id " + userID);
         return user;
-
-
     }
 
     public void updatePhoneNumber(Integer userID, String phoneNumber) throws Exception {
@@ -160,9 +144,6 @@ public class UserRepository {
         int result = preparedStatement.executeUpdate();
 
         if (result != 1) throw new Exception("Error occurred! Your phone number has not been updated!");
-
-
-
     }
 
     public void updateEmailAddress(Integer userID, String email) throws Exception {
@@ -177,9 +158,6 @@ public class UserRepository {
         int result = preparedStatement.executeUpdate();
 
         if (result != 1) throw new Exception("Error occurred! Your e-mail address has not been updated!");
-
-
-
     }
 
     public void deleteOwner(String firstName, String lastName, String apartmentNo) throws Exception {
@@ -195,12 +173,10 @@ public class UserRepository {
         int result = preparedStatement.executeUpdate();
 
         if (result != 1) throw new Exception("Error! Provided information is not valid! Apartment owner has not been deleted!");
-
     }
 
     public ObservableList<User> getAllOwnersFromDB() throws Exception{
         connection = DBConnectionManager.getConnection();
-
         users = FXCollections.observableArrayList();
 
         String query = "SELECT * FROM users;";
@@ -220,10 +196,6 @@ public class UserRepository {
             user.setPhoneNumber(resultSet.getString("phoneNumber"));
             users.add(user);
         }
-
         return users;
-
-
     }
-
 }

@@ -6,30 +6,46 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.housemanagementsystem.invoices.InvoiceController"
-            prefHeight="400.0" prefWidth="600.0">
 
-    <Button onAction="#onGoBackClick" GridPane.rowIndex="2" GridPane.columnIndex="1" text="Back"/>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.InnerShadow?>
+
+<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.housemanagementsystem.invoices.InvoiceController">
+
+    <Button onAction="#onGoBackClick" style="-fx-background-color: ORANGE;" text="Back" GridPane.columnIndex="0" GridPane.rowIndex="10">
+        <font>
+            <Font name="System Bold" size="14.0" />
+        </font>
+        <effect>
+            <InnerShadow />
+        </effect></Button>
 
     <children>
-        <TableView fx:id="userReadInvoicesTable" layoutX="35.0" layoutY="28.0" prefHeight="800.0" prefWidth="800.0">
+        <TableView fx:id="userReadInvoicesTable" layoutX="35.0" layoutY="28.0" prefHeight="600.0" prefWidth="830.0">
             <columns>
-                <TableColumn prefWidth="30.0" text="ID" fx:id="invoiceIDCol" />
-                <TableColumn prefWidth="80.0" text="Invoice No" fx:id="invoiceNoCol" />
-                <TableColumn prefWidth="80.0" text="Title" fx:id="invoiceTitleCol" />
-                <TableColumn prefWidth="80.0" text="Company" fx:id="invoiceCompanyCol" />
-                <TableColumn prefWidth="80.0" text="Issue Date" fx:id="invoiceIssueDateCol" />
-                <TableColumn prefWidth="80.0" text="Description" fx:id="invoiceDescriptionCol" />
-                <TableColumn prefWidth="80.0" text="SubTotal" fx:id="invoiceSubTotalCol" />
-                <TableColumn prefWidth="80.0" text="Taxes" fx:id="invoiceTaxCol" />
-                <TableColumn prefWidth="80.0" text="Total Amount" fx:id="invoiceTotalAmountCol" />
-                <TableColumn prefWidth="80.0" text="Status" fx:id="invoiceStatusCol" />
-                <TableColumn prefWidth="80.0" text="Invoice due date" fx:id="invoiceDueDateCol" />
+                <TableColumn fx:id="invoiceIDCol" prefWidth="90.0" text="ID" />
+                <TableColumn fx:id="invoiceNoCol" prefWidth="90.0" text="Invoice No" />
+                <TableColumn fx:id="invoiceTitleCol" prefWidth="90.0" text="Title" />
+                <TableColumn fx:id="invoiceCompanyCol" prefWidth="90.0" text="Company" />
+                <TableColumn fx:id="invoiceIssueDateCol" prefWidth="90.0" text="Issue Date" />
+                <TableColumn fx:id="invoiceDescriptionCol" prefWidth="90.0" text="Description" />
+                <TableColumn fx:id="invoiceSubTotalCol" prefWidth="90.0" text="SubTotal" />
+                <TableColumn fx:id="invoiceTaxCol" prefWidth="90.0" text="Taxes" />
+                <TableColumn fx:id="invoiceTotalAmountCol" prefWidth="90.0" text="Total Amount" />
+                <TableColumn fx:id="invoiceStatusCol" prefWidth="90.0" text="Status" />
+                <TableColumn fx:id="invoiceDueDateCol" prefWidth="90.0" text="Invoice Due date" />
 
             </columns>
         </TableView>
     </children>
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
 </GridPane>

@@ -22,7 +22,7 @@ public class SceneController {
 
         try {
             Parent parent = FXMLLoader.load(Objects.requireNonNull(SceneController.class.getResource(scenePath)));
-            stage.setScene(new Scene(parent, 750, 600));
+            stage.setScene(new Scene(parent, 770, 650));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -33,8 +33,6 @@ public class SceneController {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setContentText(message);
-        //alert.setHeaderText(null);
-        //alert.showAndWait(); you can force user to confirm alert before moving to the next step
         alert.show();
     }
 
